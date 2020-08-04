@@ -151,6 +151,10 @@ public abstract class Controller {
 			case "doModifyReply":
 			case "chat":
 			case "doChat":
+			case "messagesWrite":
+			case "doMessagesWrite":
+			case "sendMessages":
+			case "receiveMessages":
 				needToLogin = true;
 				break;
 			}

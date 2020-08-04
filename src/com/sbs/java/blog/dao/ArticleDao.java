@@ -411,8 +411,8 @@ public class ArticleDao extends Dao {
 		return messages;
 	}
 
-	// 받은 쪽지 리스트 가져오기 dd
-	public List<Message> getreceiveMessage() {
+	// 받은 쪽지 리스트 가져오기
+	public List<Message> getreceiveMessage(String loginedMemberNickName) {
 		
 		SecSql secSql = new SecSql();
 		
@@ -420,6 +420,9 @@ public class ArticleDao extends Dao {
 		secSql.append("FROM message AS G ");
 		secSql.append("INNER JOIN `member` AS M ");
 		secSql.append("ON G.memberId = M.id ");
+		secSql.append("WHERE G.displayStatus = 1");
+		secSql.append("AND G.delStatus = 0");
+		secSql.append("AND G.nickName = ?", loginedMemberNickName);
 		secSql.append("ORDER BY G.id DESC");
 		
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, secSql);

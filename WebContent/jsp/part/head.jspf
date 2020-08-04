@@ -105,7 +105,7 @@
 				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
 			</c:if>
 			<c:if test="${isLogined}">
-				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">${loginedMember.name}</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">[${loginedMember.nickName} 님]</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/article/chat">채팅</a></li>
@@ -165,7 +165,7 @@
 				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
 			</c:if>
 			<c:if test="${isLogined}">
-				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">${loginedMember.name}</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">[${loginedMember.nickName} 님]</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/article/chat">채팅</a></li>

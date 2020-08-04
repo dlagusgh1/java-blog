@@ -104,7 +104,7 @@ public class ArticleController extends Controller {
 		
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 		
-		List<Message> receiveMessages = articleService.getreceiveMessage();
+		List<Message> receiveMessages = articleService.getreceiveMessage(loginedMember.getNickName());
 		req.setAttribute("receiveMessages", receiveMessages);	
 
 		return "article/receiveMessages.jsp";

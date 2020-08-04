@@ -256,8 +256,8 @@ public class ArticleService extends Service {
 	}
 
 	// 받은 쪽지 리스트
-	public List<Message> getreceiveMessage() {
-		return articleDao.getreceiveMessage();
+	public List<Message> getreceiveMessage(String loginedMemberNickName) {
+		return articleDao.getreceiveMessage(loginedMemberNickName);
 	}
 	
 }
