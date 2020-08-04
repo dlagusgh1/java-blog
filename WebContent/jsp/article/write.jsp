@@ -67,7 +67,7 @@
 			<div class="input">
 				<input name="body" type="hidden">			
 				<script type="text/x-template"></script>
-				<div class="toast-editor" style="width: 300px; height: 100px;"></div>
+				<div class="toast-editor" style="width: 100%; height: 100px;"></div>
 			</div>
 		</div>
 		<div class="form-row">
