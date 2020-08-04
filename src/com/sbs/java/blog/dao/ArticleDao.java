@@ -411,7 +411,7 @@ public class ArticleDao extends Dao {
 		return messages;
 	}
 
-	// 받은 쪽지 리스트 가져오기
+	// 받은 쪽지 리스트 가져오기 dd
 	public List<Message> getreceiveMessage() {
 		
 		SecSql secSql = new SecSql();
