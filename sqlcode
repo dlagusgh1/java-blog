@@ -1,0 +1,47 @@
+DROP DATABASE IF EXISTS blog;
+CREATE DATABASE blog;
+USE blog;
+
+CREATE TABLE `article` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    title CHAR(100) NOT NULL,
+    `body` LONGTEXT NOT NULL
+);
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = "aaa",
+`body` = "aaa"
+
+INSERT INTO article SET
+regDate = NOW(),
+updateDate = NOW(),
+cateItemId = 2,
+displayStatus = 1,
+title = 'aaa',
+`body` = 'aaa'
+
+SELECT *
+FROM article
+WHERE displayStatus = 1
+AND cateItemid = 1
+ORDER BY id DESC LIMIT 0, 5
+
+SELECT COUNT(*)
+FROM article
+WHERE cateItemId = 1
+
+
+CREATE TABLE `member` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    loginId CHAR(100) NOT NULL,
+    `name` CHAR(100) NOT NULL,
+    nickName CHAR(100) NOT NULL,
+    loginPw CHAR(100) NOT NULL,
+    loginPwConfirm CHAR(100) NOT NULL
+);
+

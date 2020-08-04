@@ -1,0 +1,229 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!-- JSTL -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- JSTL 데이터 포맷 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hyeon</title>
+
+<!-- 구글 폰트 불러오기 -->
+<!-- rotobo(400/900), notosanskr(400/900) -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+	
+<!-- 폰트어썸 불러오기 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+<!-- 제이쿼리 불러오기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/blog/resource/js/home/main.js"></script>
+
+<!-- sha256 암호화 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
+<!-- 파비콘 -->
+<link rel="shortcut icon" href="/blog/resource/img/logo5.ico">
+
+<!-- cs, js 불러오기 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/home/main.css">
+<script src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
+
+<script>		
+	<!-- 모바일 사이드 바 관련(클릭 이벤트) -->
+	function MobileSideBar__init() {
+	    var $btnToggleMobileSideBar = $('.btn-toggle-mobile-side-bar');
+	
+	    $btnToggleMobileSideBar.click(function() {
+	        if ( $(this).hasClass('active') ) {
+	            $(this).removeClass('active');
+	            $('.mobile-side-bar').removeClass('active');
+	        }
+	        else {
+	            $(this).addClass('active');
+	            $('.mobile-side-bar').addClass('active');
+	        }
+	    });
+	}
+	
+	$(function() {
+	    MobileSideBar__init();
+	});
+	
+	<!-- 나중에 자바스크립트에서 로그인 여부등 사용하기 위함 -->
+	var loginedMemberId = parseInt("${loginedMemberId}");
+	var isLogined = "${isLogined}" == "true";
+	var loginedMember = null;
+</script>
+
+<script>
+	if (!param.jsAction) {
+		param.jsAction = '';
+	}
+
+	var jsActions = param.jsAction.split(',');
+
+	for ( var key in jsActions) {
+		var jsActionFuncName = jsActions[key];
+
+		$(function() {
+			setTimeout(function() {
+				if (window[jsActionFuncName]) {
+					window[jsActionFuncName]();
+				} else {
+					console.error("jsAction으로 요청받은, " + jsActionFuncName
+							+ " 함수는 존재하지 않아서 실행하지 못했습니다.");
+				}
+			}, 100);
+		});
+	}
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics // 구글 애널리틱스(사이트 통계확인 코드)--> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-173020850-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-173020850-1');
+</script>
+
+<!-- PC -->
+<div class="header-top-box con flex-jc-end visible-on-md-up">
+	<div class="header-top flex">
+		<ul class="flex">
+			<c:if test="${isLogined == false}">
+				<li><a href="${pageContext.request.contextPath}/s/member/login">비회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/join">회원가입</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
+			</c:if>
+			<c:if test="${isLogined}">
+				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">${loginedMember.name}</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/article/chat">채팅</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/article/receiveMessages" onclick="window.open(this.href,'쪽지', 'width=600px, height=600px, scrollbars=no, resizeble=0, directories=0' ); return false;"> 쪽지</a></li>
+			</c:if>
+			<li><a href="${pageContext.request.contextPath}/s/member/siteStatistics">통계</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- PC -->
+<div class="top-bar visible-on-md-up">
+	<div class="con flex flex-jc-sb height-100p">
+		<a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c"><img src="/blog/resource/img/logo3.png" alt="logo"></a>
+		<nav class="menu-box-1 flex flex-1-0-0">
+			<ul class="flex flex-1-0-0">
+				<li class="flex-1-0-0 flex"><a
+					href="${pageContext.request.contextPath}/s/home/main"
+					class="top-btn flex flex-1-0-0 flex-ai-c flex-jc-c">Home</a></li>
+				<li class="flex-1-0-0 flex"><a
+					href="${pageContext.request.contextPath}/s/article/list"
+					class="top-btn flex flex-1-0-0 flex-ai-c flex-jc-c">Articles</a>
+					<ul>
+						<c:forEach items="${cateItems}" var="cateItem">
+							<li>
+							<a href="${pageContext.request.contextPath}/s/article/list?cateItemId=${cateItem.id}"
+								class="block">${cateItem.name}</a>
+							</li>
+						</c:forEach>
+					</ul></li>
+				<li class="flex-1-0-0 flex"><a
+					href="${pageContext.request.contextPath}/s/home/aboutMe"
+					class="top-btn flex flex-1-0-0 flex-ai-c flex-jc-c">About Me</a></li>
+				<li class="flex-1-0-0 flex"><a href="#"
+					class="top-btn flex flex-1-0-0 flex-ai-c flex-jc-c">SNS</a>
+					<ul>
+						<li><a class="block" target="_blank"
+							href="https://github.com/dlagusgh1/java-blog"><i
+								class="fab fa-github"></i>&nbsp;&nbsp;GITHUB&nbsp;&nbsp;</a></li>
+						<li><a class="block" target="_blank"
+							href="https://to2.kr/bft"><i class="fas fa-tenge"></i>&nbsp;&nbsp;TISTORY&nbsp;&nbsp;</a></li>
+						<li><a class="block" target="_blank" href="http://to2.kr/bhw"><i
+								class="fab fa-youtube-square"></i>&nbsp;&nbsp;YOUTUBE&nbsp;&nbsp;</a></li>
+					</ul></li>
+			</ul>
+		</nav>
+	</div>
+</div>
+
+<!-- 모바일 -->
+<div class="mobile-header-top-box con visible-on-sm-down flex-jc-c">
+	<div class="mobile-header-top">
+		<ul class="flex">
+			<c:if test="${isLogined == false}">
+				<li><a href="${pageContext.request.contextPath}/s/member/login">비회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/join">회원가입</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
+			</c:if>
+			<c:if test="${isLogined}">
+				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">${loginedMember.name}</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/article/chat">채팅</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/article/chat">쪽지</a></li>
+			</c:if>
+			<li><a href="${pageContext.request.contextPath}/s/member/siteStatistics">통계</a></li>
+		</ul>
+	</div>
+</div>
+<div class="mobile-top-bar visible-on-sm-down flex-ai-c">
+	<a href="#" class="btn-toggle-mobile-side-bar">
+		<div></div>
+		<div></div>
+		<div></div>
+	</a> <a href="${pageContext.request.contextPath}/s/home/main"
+		class="logo flex flex-ai-c absolute-center absolute-middle"> <img
+		src="/blog/resource/img/logo3.png" alt="logo">
+	</a>
+</div>
+
+<!-- 모바일 사이드 바 -->
+<div class="mobile-side-bar flex-ai-c visible-on-sm-down">
+	<nav class="menu-box-1 flex-grow-1">
+		<ul>
+			<li><a href="${pageContext.request.contextPath}/s/home/main"
+				class="block">Home</a></li>
+			<li>
+				<input type="checkbox" id="menuBtn" style="display: none">
+   				<label for="menuBtn" class="labelBtn flex-jc-c" onclick="">Articles</label>
+				<ul class="submenu">
+					<li><a
+						href="${pageContext.request.contextPath}/s/article/list"
+						class="block">전체</a></li>
+					<c:forEach items="${cateItems}" var="cateItem">
+						<li>
+							<a href="${pageContext.request.contextPath}/s/article/list?cateItemId=${cateItem.id}"
+							class="block">${cateItem.name}</a>
+						</li>
+					</c:forEach>
+				</ul></li>
+			<li><a href="${pageContext.request.contextPath}/s/home/aboutMe"
+				class="block">About Me</a></li>
+			<li><input type="checkbox" id="menuBtn2" style="display: none">
+   				<label for="menuBtn2" class="labelBtn2 flex-jc-c" onclick="">SNS</label>
+				<ul class="submenu2">
+					<li><a class="block" target="_blank"
+						href="https://github.com/dlagusgh1/java-blog"><i
+							class="fab fa-github"></i>&nbsp;GITHUB&nbsp;</a></li>
+					<li><a class="block" target="_blank" href="https://to2.kr/bft"><i
+							class="fas fa-tenge"></i>&nbsp;TISTORY&nbsp;</a></li>
+					<li><a class="block" target="_blank" href="http://to2.kr/bhw"><i
+							class="fab fa-youtube-square"></i>&nbsp;YOUTUBE&nbsp;</a></li>
+				</ul></li>
+		</ul>
+	</nav>
+</div>
+
+
+</head>
+
+<body>
