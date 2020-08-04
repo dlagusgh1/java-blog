@@ -26,4 +26,30 @@
 	</div>
 </div>
 
+<div class="total-box con flex-ai-c">
+	<div class="total">
+		받은 쪽지 수 : ${totalCount}
+	</div>
+</div>
+
+<div class="page-box">
+	<table class="page-navi flex-jc-c">
+		<tr>
+			<c:if test="${page != 1}">
+				<c:set var="k" value="${page}" />
+					<td><a href="?page=${k-1}"><</a></td>
+			</c:if>
+			<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+				<td class="${i == page ? 'current' : ''}">
+					<a href="?page=${i}" class="block">${i}</a>
+				</td>
+			</c:forEach>
+			<c:if test="${page != totalPage}">
+				<c:set var="k" value="${page}" />
+					<td><a href="?page=${k+1}">></a></td>
+			</c:if>
+		</tr>
+	</table>
+</div>
+
 <%@ include file="/jsp/part/foot.jspf"%>

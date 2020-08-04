@@ -79,7 +79,7 @@ public class ArticleController extends Controller {
 		return "article/messagesWrite.jsp";
 	}
 	
-	// 쪽지 보내기 기능
+	// 쪽지 보내기(작성) 기능
 	private String actionDoMessagesWrite() {
 		
 		String memberId = Util.getString(req, "memberId");
@@ -102,21 +102,87 @@ public class ArticleController extends Controller {
 	// 받은 쪽지함
 	private String actionReceiveMessages() {
 		
+		// 받은 쪽지 페이징 (한 페이지 당 5개의 쪽지가 출력되도록 되어있음.)
+		int page = 1;
+
+		if (!Util.empty(req, "page") && Util.isNum(req, "page")) {
+			page = Util.getInt(req, "page");
+		}
+		
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 		
-		List<Message> receiveMessages = articleService.getreceiveMessage(loginedMember.getNickName());
-		req.setAttribute("receiveMessages", receiveMessages);	
-
+		int itemsInAPage = 5;
+		int totalCount = articleService.getForPrintListRMessageCount(loginedMember.getNickName());
+		int totalPage = (int) Math.ceil(totalCount / (double) itemsInAPage);
+		
+		// 받은 쪽지 리스트 출력(페이징 포함)
+		List<Message> receiveMessages = articleService.getreceiveMessage(loginedMember.getNickName(), page, itemsInAPage);
+		
+		req.setAttribute("receiveMessages", receiveMessages);
+		
+		req.setAttribute("totalCount", totalCount);
+		req.setAttribute("totalPage", totalPage);
+		req.setAttribute("page", page);
+		
+		// 받은 쪽지 페이징 페이지 수 제한(5)
+		int pageCount = 5;
+		int startPage = ((page - 1) / pageCount) * pageCount + 1;
+		int endPage = startPage + pageCount - 1;
+		
+		if( totalPage < page) {
+			page = totalPage;
+		}
+		if ( endPage > totalPage) {
+			endPage = totalPage;
+		}
+		
+		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("startPage", startPage);
+		req.setAttribute("endPage", endPage);
+		
 		return "article/receiveMessages.jsp";
 	}
 
 	// 보낸 쪽지함
 	private String actionSendMessages() {
 		
+		// 받은 쪽지 페이징 (한 페이지 당 5개의 쪽지가 출력되도록 되어있음.)
+		int page = 1;
+
+		if (!Util.empty(req, "page") && Util.isNum(req, "page")) {
+			page = Util.getInt(req, "page");
+		}
+		
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		
-		List<Message> sendMessages = articleService.getSendMessage(loginedMemberId);
+		int itemsInAPage = 5;
+		int totalCount = articleService.getForPrintListSMessageCount(loginedMemberId);
+		int totalPage = (int) Math.ceil(totalCount / (double) itemsInAPage);
+		
+		// 보낸 쪽지 리스트 출력(페이징 포함)
+		List<Message> sendMessages = articleService.getSendMessage(loginedMemberId, page, itemsInAPage);
+		
 		req.setAttribute("sendMessages", sendMessages);		
+		
+		req.setAttribute("totalCount", totalCount);
+		req.setAttribute("totalPage", totalPage);
+		req.setAttribute("page", page);
+		
+		// 보낸 쪽지 페이징 페이지 수 제한(5)
+		int pageCount = 5;
+		int startPage = ((page - 1) / pageCount) * pageCount + 1;
+		int endPage = startPage + pageCount - 1;
+		
+		if( totalPage < page) {
+			page = totalPage;
+		}
+		if ( endPage > totalPage) {
+			endPage = totalPage;
+		}
+		
+		req.setAttribute("pageCount", pageCount);
+		req.setAttribute("startPage", startPage);
+		req.setAttribute("endPage", endPage);
 		
 		return "article/sendMessages.jsp";
 	}

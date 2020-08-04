@@ -250,14 +250,24 @@ public class ArticleService extends Service {
 		articleDao.writeMessage(memberId, nickName, title, body);
 	}
 
-	// 보낸 쪽지 리스트
-	public List<Message> getSendMessage(int loginedMemberId) {
-		return articleDao.getSendMessage(loginedMemberId);
+	// 보낸 쪽지 리스트(페이징 포함)
+	public List<Message> getSendMessage(int loginedMemberId, int page, int itemsInAPage) {
+		return articleDao.getSendMessage(loginedMemberId, page, itemsInAPage);
 	}
 
-	// 받은 쪽지 리스트
-	public List<Message> getreceiveMessage(String loginedMemberNickName) {
-		return articleDao.getreceiveMessage(loginedMemberNickName);
+	// 받은 쪽지 리스트(페이징 포함)
+	public List<Message> getreceiveMessage(String loginedMemberNickName, int page, int itemsInAPage) {
+		return articleDao.getreceiveMessage(loginedMemberNickName, page, itemsInAPage);
+	}
+	
+	// 받은 쪽지 수 확인
+	public int getForPrintListRMessageCount(String nickName) {
+		return articleDao.getForPrintListRMessageCount(nickName);
+	}
+
+	// 보낸 쪽지 수 확인
+	public int getForPrintListSMessageCount(int loginedMemberId) {
+		return articleDao.getForPrintListSMessageCount(loginedMemberId);
 	}
 	
 }

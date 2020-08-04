@@ -390,9 +390,11 @@ public class ArticleDao extends Dao {
 	}
 
 	// 보낸 쪽지 리스트 가져오기
-	public List<Message> getSendMessage(int loginedMemberId) {
+	public List<Message> getSendMessage(int loginedMemberId, int page, int itemsInAPage) {
 		
 		SecSql secSql = new SecSql();
+		
+		int limitFrom = (page - 1) * itemsInAPage;
 
 		secSql.append("SELECT * ");
 		secSql.append("FROM message ");
@@ -400,6 +402,7 @@ public class ArticleDao extends Dao {
 		secSql.append("AND delStatus = 0");
 		secSql.append("AND memberId = ?", loginedMemberId);
 		secSql.append("ORDER BY id DESC ");
+		secSql.append("LIMIT ?, ? ", limitFrom, itemsInAPage);
 		
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, secSql);
 		List<Message> messages = new ArrayList<>();
@@ -412,9 +415,11 @@ public class ArticleDao extends Dao {
 	}
 
 	// 받은 쪽지 리스트 가져오기
-	public List<Message> getreceiveMessage(String loginedMemberNickName) {
+	public List<Message> getreceiveMessage(String loginedMemberNickName, int page, int itemsInAPage) {
 		
 		SecSql secSql = new SecSql();
+		
+		int limitFrom = (page - 1) * itemsInAPage;
 		
 		secSql.append("SELECT G.*, M.nickname AS extra__writer ");
 		secSql.append("FROM message AS G ");
@@ -424,6 +429,7 @@ public class ArticleDao extends Dao {
 		secSql.append("AND G.delStatus = 0");
 		secSql.append("AND G.nickName = ?", loginedMemberNickName);
 		secSql.append("ORDER BY G.id DESC");
+		secSql.append("LIMIT ?, ? ", limitFrom, itemsInAPage);
 		
 		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, secSql);
 		List<Message> messages = new ArrayList<>();
@@ -433,6 +439,32 @@ public class ArticleDao extends Dao {
 		}
 		
 		return messages;
+	}
+
+	// 받은 쪽지 수 출력
+	public int getForPrintListRMessageCount(String nickName) {
+		
+		SecSql secSql = new SecSql();
+
+		secSql.append("SELECT COUNT(*) AS cnt ");
+		secSql.append("FROM `message` ");
+		secSql.append("WHERE nickname = ? ", nickName);
+
+		int count = DBUtil.selectRowIntValue(dbConn, secSql);
+		return count;
+	}
+
+	// 보낸 쪽지 수 출력
+	public int getForPrintListSMessageCount(int loginedMemberId) {
+		
+		SecSql secSql = new SecSql();
+
+		secSql.append("SELECT COUNT(*) AS cnt ");
+		secSql.append("FROM `message` ");
+		secSql.append("WHERE memberId = ? ", loginedMemberId);
+
+		int count = DBUtil.selectRowIntValue(dbConn, secSql);
+		return count;
 	}
 
 }
