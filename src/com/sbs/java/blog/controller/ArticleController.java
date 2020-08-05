@@ -406,7 +406,7 @@ public class ArticleController extends Controller {
 		System.out.println(memberLevel);
 		
 		if( cateItemId == 4 && memberLevel != 10 ) {
-			return String.format("html:<script> alert('공지사항에는 관리자만 게시물 작성이 가능합니다.'); history.back(); </script>");
+			return String.format("html:<script> alert('공지사항 게시판에는 게시물 작성이 불가능 합니다.'); history.back(); </script>");
 		}
 		
 		int id = articleService.doWrite(memberId, cateItemId, title, body);
