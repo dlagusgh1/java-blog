@@ -230,8 +230,11 @@ public class MemberController extends Controller {
 		
 		int replyCount = memberService.getReplyCount(memberId);
 		
+		String emailAuthed = attrService.getValue("member__" + memberId + "__extra__emailAuthed");
+		
 		req.setAttribute("articleCount", articleCount);
 		req.setAttribute("replyCount", replyCount);
+		req.setAttribute("emailAuthed", emailAuthed);
 
 		return "member/mypage.jsp";
 	}

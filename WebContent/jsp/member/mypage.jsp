@@ -39,7 +39,14 @@
 			<div class="label">이메일 인증</div>
 			<div class="input">
 				<input name="email" type="hidden" value="${loginedMember.email}" />:
-					인증완료/비인증
+					<c:choose>
+						<c:when test="${emailAuthed.equals(loginedMember.email)}">
+							인증완료
+						</c:when>
+						<c:otherwise>
+							비 인증
+						</c:otherwise>
+					</c:choose>
 			</div>
 		</div>
 		<div class="form-row">
