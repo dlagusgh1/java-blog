@@ -161,9 +161,10 @@
 				</c:if>
 				<c:if test="${totalPage != 0}">
 					<c:if test="${page != 1 && totalPage != 0}">
+						<td><a href="?id=${param.id}&page=${startPage}"><i class="fas fa-angle-double-left"></i></a></td>
 						<c:set var="k" value="${page}" />
 							<td>
-								<a href="?id=${param.id}&page=${k-1}"><</a>
+								<a href="?id=${param.id}&page=${k-1}"><i class="fas fa-angle-left"></i></a>
 							</td>
 					</c:if>
 					<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
@@ -174,8 +175,9 @@
 					<c:if test="${page != totalPage && totalPage != 0}">
 						<c:set var="k" value="${page}" />
 							<td>
-								<a href="?id=${param.id}&page=${k+1}">></a>
+								<a href="?id=${param.id}&page=${k+1}"><i class="fas fa-angle-right"></i></a>
 							</td>
+							<td><a href="?id=${param.id}&page=${endPage}"><i class="fas fa-angle-double-right"></i></a></td>
 					</c:if>
 				</c:if>
 			</tr>
