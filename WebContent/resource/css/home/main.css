@@ -759,7 +759,7 @@ label[for] {
 	transition: all .35s;
 }
 .gallerylist > ul > li > a .screen img {
-	width: 100%;d
+	width: 100%;
 }
 .gallerylist > ul > li > a h3 {
 	font-size: 14px;
@@ -1356,9 +1356,42 @@ input[id*="popup"]:checked + label + div {
 	white-space:nowrap;
 }
 
+.mypage-img {
+	width: 100%;
+}
+
+.mypage-img .mypage-img-wrap {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+}
+
+.mypage-img .mypage-img-wrap > img {
+	border-radius: 50%;
+	border: 3px solid #1b5ac1;
+	width: 150px;
+	height: 150px;
+}
+
+.mypage-img .mypage-img-wrap .form-row {
+	display: flex;
+	align-items: center;
+	margin: 10px 0px;
+}
+
+.mypage-img .mypage-img-wrap .form-row > .input > .pro_ch {
+	cursor: pointer;
+	padding: 5px 30px;
+	font-size: 18px;
+	background-color: white;
+	color: #1b5ac1;
+	border: 1px solid #1b5ac1;
+	border-radius: 10px;
+}
+
 .mypage-box {
 	text-align: center;
-	padding: 30px 0px;
+	padding: 15px 0px;
 }
 
 .mypage-box>form {

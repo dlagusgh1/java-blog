@@ -5,6 +5,25 @@
 
 <h1 class="mypage-h">마이 페이지</h1>
 
+<div class="mypage-img con flex-jc-c">
+	<form action="">
+		<div class="mypage-img-wrap">
+			<img src="/blog/resource/img/profile1.jpg" alt="profile">
+			<div class="form-row">
+				<div class="input">
+					<input type="file"/> 
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="input">
+					<input class="pro_ch" type="submit" value="프로필 변경">
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
 <div class="mypage-box con flex-jc-c">
 	<form class="mypage-form form7">
 		<div class="form-row">

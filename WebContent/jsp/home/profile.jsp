@@ -26,15 +26,14 @@
 		<label for="popup"> </label>
 	</div>
 	<ul>
-		<li><a href="">
+		<li><a href="${pageContext.request.contextPath}/s/home/main">
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img
-						src="/blog/resource/img/m7.jpg" />
+					<img src="/blog/resource/img/pro1.png" />
 				</div>
 				<div>
-					<h3>홈페이지에 오신걸 환영합니다.</h3>
+					<h3>현재 홈페이지 구현</h3>
 				</div>
 		</a></li>
 		<li><a href="">
@@ -42,10 +41,10 @@
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
 					<img
-						src="/blog/resource/img/m2.jpg" />
+						src="/blog/resource/img/pro2.png" />
 				</div>
 				<div>
-					<h3>홈페이지에 오신걸 환영합니다.</h3>
+					<h3>스프링 부트, AJAX를 이용한 사이트 구현</h3>
 				</div>
 		</a></li>
 		<li><a href="">
@@ -56,7 +55,7 @@
 						src="/blog/resource/img/m6.jpg" />
 				</div>
 				<div>
-					<h3>홈페이지에 오신걸 환영합니다.</h3>
+					<h3>비대면 오디션 서비스 제작 중</h3>
 				</div>
 		</a></li>
 		<li><a href="">
