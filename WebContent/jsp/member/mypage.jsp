@@ -7,7 +7,15 @@
 
 <div class="mypage-img con flex-jc-c">
 	<div class="mypage-img-wrap">
-		<img src="${loginedMember.myImg}" alt="">
+		<c:choose>
+			<c:when test="${loginedMember.myImg.equals(\"null\")}">
+				<img src="" alt="">
+				사진이 없습니다.
+			</c:when>
+			<c:otherwise>
+				<img src="${loginedMember.myImg}" alt="">
+			</c:otherwise>
+		</c:choose>
 		<div style="margin-top: 10px;">
 			<button type="button" value="이미지 변경">
 				<a href="${pageContext.request.contextPath}/s/member/myImgModify" onclick="window.open(this.href,'프로필 변경', 'width=600px, height=400px, scrollbars=no, resizeble=0, directories=0' ); return false;">프로필 이미지 변경하기</a>

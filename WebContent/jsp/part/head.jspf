@@ -105,7 +105,13 @@
 				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
 			</c:if>
 			<c:if test="${isLogined}">	
-				<li><img class="header_MyImg" src="${loginedMember.myImg}" alt=""></li>
+				<c:choose>
+					<c:when test="${loginedMember.myImg.equals(\"null\")}">
+					</c:when>
+					<c:otherwise>
+						<li><img class="header_MyImg" src="${loginedMember.myImg}" alt=""></li>
+					</c:otherwise>
+				</c:choose>			
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">[${loginedMember.nickName} 님]</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>
@@ -166,7 +172,13 @@
 				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
 			</c:if>
 			<c:if test="${isLogined}">
-				<li><img class="header_MyImg" src="${loginedMember.myImg}" alt=""></li>
+				<c:choose>
+					<c:when test="${loginedMember.myImg.equals(\"null\")}">
+					</c:when>
+					<c:otherwise>
+						<li><img class="header_MyImg" src="${loginedMember.myImg}" alt=""></li>
+					</c:otherwise>
+				</c:choose>	
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">[${loginedMember.nickName} 님]</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>

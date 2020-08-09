@@ -38,7 +38,15 @@
 <div class="mypage-img con flex-jc-c" style="margin-top: 30px; text-align: center;">
 	<form action="doMyImgModify">
 		<div class="mypage-img-wrap">
-			<img src="${loginedMember.myImg}" alt="">
+			<c:choose>
+				<c:when test="${loginedMember.myImg.equals(\"null\")}">
+					<img src="" alt="">
+					사진이 없습니다.
+				</c:when>
+				<c:otherwise>
+					<img src="${loginedMember.myImg}" alt="">
+				</c:otherwise>
+			</c:choose>
 			<br>아래에 변경하고자하는 이미지 주소를 입력해주세요.
 			<div class="form-row" style="margin: 10px;">
 				<div class="input">
