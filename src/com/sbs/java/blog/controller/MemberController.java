@@ -102,8 +102,6 @@ public class MemberController extends Controller {
 		
 		String memberImg = req.getParameter("memberImg");
 		
-		System.out.println(req.getParameter("memberImg"));
-		
 		memberService.getModifyMemberImg(loginedMember.getLoginId() ,memberImg);
 		
 		session.removeAttribute("loginedMemberId");

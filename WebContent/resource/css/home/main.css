@@ -387,6 +387,13 @@ label[for] {
 	white-space:nowrap;
 }
 
+.header_MyImg {
+	width: 20px;
+	height: 20px;
+	border: 2px solid #1b5ac1;
+	border-radius: 50%;
+}
+	
 /* 탑바 시작 */
 .top-bar {
 	border-bottom: 2px solid #1b5ac2;
