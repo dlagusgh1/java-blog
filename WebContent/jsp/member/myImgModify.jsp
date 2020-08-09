@@ -35,18 +35,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/home/main.css">
 <script src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
  
-<div class="mypage-img con flex-jc-c" style="margin-top: 30px;">
+<div class="mypage-img con flex-jc-c" style="margin-top: 30px; text-align: center;">
 	<form action="doMyImgModify">
 		<div class="mypage-img-wrap">
 			<c:if test="${loginedMember.myImg == null}">
-				<img src="" alt="" /> 프로필이 없습니다.
+				<img src="" alt="" /> 프로필이 없습니다.<br>아래에 변경하고자하는 이미지 주소를 입력해주세요.
 			</c:if>
 			<c:if test="${loginedMember.myImg != null}">
-				<img src="${loginedMember.myImg}" alt="profile">
+				<img src="${loginedMember.myImg}" alt="프로필 이미지"><br>아래에 변경하고자하는 이미지 주소를 입력해주세요.
 			</c:if>
-			<div class="form-row">
+			<div class="form-row" style="margin: 10px;">
 				<div class="input">
-					<input name="memberImg" type="file"/> 
+					<input name="memberImg" type="url"/> 
 				</div>
 			</div>
 			<div class="form-row">

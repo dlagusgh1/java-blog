@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.cj.jdbc.Blob;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.Member;
@@ -311,11 +312,11 @@ public class MemberDao extends Dao {
 	}
 
 	// 프로필 이미지 저장
-	public void getModifyMemberImg(String memberLoginId, byte[] changeMemberImg) {
+	public void getModifyMemberImg(String memberLoginId, String memberImg) {
 		
 		SecSql secSql = SecSql.from("UPDATE `member`");
 		
-		secSql.append("SET myImg = ?", changeMemberImg);
+		secSql.append("SET myImg = ?", memberImg);
 		secSql.append("WHERE loginId = ?", memberLoginId);
 		
 		DBUtil.update(dbConn, secSql);	

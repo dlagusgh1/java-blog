@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.jdbc.Blob;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.Member;
@@ -98,15 +99,12 @@ public class MemberController extends Controller {
 	private String actionDoMyImgModify() {
 		
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
-		String memberImg = (String) req.getAttribute("memberImg");
 		
-		try {
-			byte[] changeMemberImg = Util.imageToByteArray(memberImg);
-			
-			memberService.getModifyMemberImg(loginedMember.getLoginId() ,changeMemberImg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
+		String memberImg = req.getParameter("memberImg");
+		
+		System.out.println(req.getParameter("memberImg"));
+		
+		memberService.getModifyMemberImg(loginedMember.getLoginId() ,memberImg);
 		
 		session.removeAttribute("loginedMemberId");
 		
@@ -254,6 +252,8 @@ public class MemberController extends Controller {
 	
 	// 마이페이지 기능
 	private String actionMypage() {
+		
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
 		
 		int memberId = (int) session.getAttribute("loginedMemberId");
 		

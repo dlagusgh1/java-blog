@@ -12,10 +12,10 @@
 		</c:if>
 		<c:if test="${loginedMember.myImg != null}">
 			<img src="${loginedMember.myImg}" alt="profile">
-		</c:if>
-		<div >
+		</c:if>${loginedMember.myImg }
+		<div style="margin-top: 10px;">
 			<button type="button" value="이미지 변경">
-				<a href="${pageContext.request.contextPath}/s/member/myImgModify" onclick="window.open(this.href,'프로필 변경', 'width=600px, height=300px, scrollbars=no, resizeble=0, directories=0' ); return false;">프로필 이미지 변경하기</a>
+				<a href="${pageContext.request.contextPath}/s/member/myImgModify" onclick="window.open(this.href,'프로필 변경', 'width=600px, height=400px, scrollbars=no, resizeble=0, directories=0' ); return false;">프로필 이미지 변경하기</a>
 			</button>	
 		</div>
 	</div>

@@ -2,8 +2,6 @@ package com.sbs.java.blog.dto;
 
 import java.util.Map;
 
-import com.mysql.cj.jdbc.Blob;
-
 import lombok.Data;
 
 @Data
@@ -14,7 +12,7 @@ public class Member extends Dto {
 	private String nickName;
 	private String email;
 	private int level; 
-	private Blob myImg;
+	private String myImg;
 
 	public Member(Map<String, Object> row) {
 		super(row);
@@ -25,6 +23,6 @@ public class Member extends Dto {
 		this.nickName = (String) row.get("nickname");
 		this.email = (String) row.get("email");
 		this.level = (int) row.get("level");
-		this.myImg = (Blob) row.get("myImg");
+		this.myImg = String.valueOf(row.get("myImg"));
 	}
 }

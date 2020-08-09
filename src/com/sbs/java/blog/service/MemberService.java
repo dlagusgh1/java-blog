@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import com.mysql.cj.jdbc.Blob;
 import com.sbs.java.blog.config.Config;
 import com.sbs.java.blog.dao.MemberDao;
 import com.sbs.java.blog.dto.Article;
@@ -197,8 +198,8 @@ public class MemberService extends Service {
 	}
 
 	// 프로필 이미지 저장
-	public void getModifyMemberImg(String memberLoginId, byte[] changeMemberImg) {
-		memberDao.getModifyMemberImg(memberLoginId, changeMemberImg);
+	public void getModifyMemberImg(String memberLoginId, String memberImg) {
+		memberDao.getModifyMemberImg(memberLoginId, memberImg);
 	}
 	
 }
