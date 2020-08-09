@@ -1371,22 +1371,23 @@ input[id*="popup"]:checked + label + div {
 	border: 3px solid #1b5ac1;
 	width: 150px;
 	height: 150px;
+	margin-bottom: 10px;
 }
 
-.mypage-img .mypage-img-wrap .form-row {
-	display: flex;
-	align-items: center;
-	margin: 10px 0px;
-}
-
-.mypage-img .mypage-img-wrap .form-row > .input > .pro_ch {
+.mypage-img .mypage-img-wrap div > button {
 	cursor: pointer;
-	padding: 5px 30px;
-	font-size: 18px;
+	padding: 5px 15px;
+	font-size: 13px;
 	background-color: white;
 	color: #1b5ac1;
 	border: 1px solid #1b5ac1;
 	border-radius: 10px;
+}
+
+.mypage-img .mypage-img-wrap div:hover button {
+	background-color: #1b5ac1;
+	color: white;
+	transition: all 0.5s;
 }
 
 .mypage-box {

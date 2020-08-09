@@ -195,5 +195,10 @@ public class MemberService extends Service {
 
 		return member;
 	}
+
+	// 프로필 이미지 저장
+	public void getModifyMemberImg(String memberLoginId, byte[] changeMemberImg) {
+		memberDao.getModifyMemberImg(memberLoginId, changeMemberImg);
+	}
 	
 }

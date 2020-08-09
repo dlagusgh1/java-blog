@@ -74,6 +74,10 @@ public class MemberController extends Controller {
 			return actionMyList();	// 마이페이지 내 게시물 리스트
 		case "myReplyList":
 			return actionMyReplyList();	// 마이페이지 내 댓글 리스트
+		case "myImgModify":
+			return actionMyImgModify();	// 마이페이지 내 프로필 이미지 변경 폼
+		case "doMyImgModify":
+			return actionDoMyImgModify();	// 마이페이지 내 프로필 이미지 변경 기능
 		case "siteStatistics":
 			return actionSiteStatistics(); // 통계 기능
 		case "doDelete":
@@ -83,6 +87,33 @@ public class MemberController extends Controller {
 		return "";
 	}
 	
+	
+	// 마이페이지 이미지 수정 폼
+	private String actionMyImgModify() {
+		// TODO Auto-generated method stub
+		return "member/myImgModify.jsp";
+	}
+	
+	// 마이페이지 이미지 수정 기능
+	private String actionDoMyImgModify() {
+		
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
+		String memberImg = (String) req.getAttribute("memberImg");
+		
+		try {
+			byte[] changeMemberImg = Util.imageToByteArray(memberImg);
+			
+			memberService.getModifyMemberImg(loginedMember.getLoginId() ,changeMemberImg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		session.removeAttribute("loginedMemberId");
+		
+		return String.format("html:<script> alert('프로필 사진이 변경되었습니다.\\n적용을 위해 다시 로그인 해주세요.'); location.replace('login');</script>");
+	}
+
+
 	// 회원정보 - 비밀번호 변경 전 확인 폼
 	private String actionPasswordForPrivate() {
 		return "member/passwordForPrivate.jsp";

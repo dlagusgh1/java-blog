@@ -276,7 +276,7 @@ public class MemberDao extends Dao {
 	// 회원정보 수정(비밀번호) 기능
 	public void modify(int actorId, String loginPw) {
 		
-		SecSql secSql = SecSql.from("UPDATE member");
+		SecSql secSql = SecSql.from("UPDATE `member`");
 		
 		secSql.append("SET updateDate = NOW()");
 		secSql.append(", loginPw = ?", loginPw);
@@ -308,6 +308,17 @@ public class MemberDao extends Dao {
 		}
 
 		return new Member(row);
+	}
+
+	// 프로필 이미지 저장
+	public void getModifyMemberImg(String memberLoginId, byte[] changeMemberImg) {
+		
+		SecSql secSql = SecSql.from("UPDATE `member`");
+		
+		secSql.append("SET myImg = ?", changeMemberImg);
+		secSql.append("WHERE loginId = ?", memberLoginId);
+		
+		DBUtil.update(dbConn, secSql);	
 	}
 
 }
