@@ -107,6 +107,46 @@
 	<div class="toast-editor toast-editor-viewer con flex-jc-c"></div>
 </div>
 
+<!-- 상세보기 내 작성자 프로필 -->
+<div>
+	<div>
+		<div class="detail-profile-box con flex">
+			<div class="detail-profile-img flex flex-ai-c">
+				<c:choose>
+					<c:when test="${loginedMember.myImg.equals(\"null\")}">
+						<img src="" alt="" style="width: 150xp; height:150px;">
+					</c:when>
+					<c:otherwise>
+						<img src="${loginedMember.myImg}" alt="" style="width: 150xp; height:150px;">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="p-txt">
+				<c:forEach items="${articleNickName}" var="articleName">
+					<c:if test="${article.id == articleName.id}">
+						<h1>${articleName.getExtra().get("writer")}</h1>
+					</c:if>
+				</c:forEach>
+				<p>
+					<div>
+						안녕하세요^^
+					</div>
+					<c:if test="${article.regDate == article.updateDate}">	
+						<div>
+							${article.regDate}
+						</div>
+					</c:if>
+					<c:if test="${article.regDate != article.updateDate}">
+						<div>
+							${article.updateDate}
+						</div>
+					</c:if>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- 댓글 출력 -->
 <div class="comment-view-h con flex">
 	댓글
