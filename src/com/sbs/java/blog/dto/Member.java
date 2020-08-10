@@ -12,7 +12,8 @@ public class Member extends Dto {
 	private String nickName;
 	private String email;
 	private int level; 
-	private String myImg;
+	private String myImg;	// 개인 프로필 이미지
+	private String myIntro;	// 개인 소개
 
 	public Member(Map<String, Object> row) {
 		super(row);
@@ -24,5 +25,6 @@ public class Member extends Dto {
 		this.email = (String) row.get("email");
 		this.level = (int) row.get("level");
 		this.myImg = String.valueOf(row.get("myImg"));
+		this.myIntro = (String) row.get("myIntro");
 	}
 }

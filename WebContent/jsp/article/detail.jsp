@@ -131,9 +131,23 @@
 			</c:if>
 		</c:forEach>
 		<p>
-			<span>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse aliquam voluptas eligendi culpa suscipit magni a nihil iste voluptate porro sit nobis distinctio accusantium qui saepe temporibus voluptatum laboriosam officia!
-			</span>
+			<c:forEach items="${members}" var="member">
+				<c:if test="${article.memberId == member.id}">
+					<c:choose>
+						<c:when test="${member.myIntro.equals(\"\")}">
+							<span style="color: #888;">
+								소개글이 없습니다.<br>
+								소개글을 등록해보세요!
+							</span>
+						</c:when>
+						<c:otherwise>
+							<span>
+								${member.myIntro}
+							</span>
+						</c:otherwise>
+					</c:choose>			
+				</c:if>
+			</c:forEach>
 		</p>
 		<c:if test="${article.regDate == article.updateDate}">	
 			<div class="regDate">
@@ -145,7 +159,6 @@
 				${article.updateDate}
 			</div>
 		</c:if>
-
 	</div>
 </div>
 
