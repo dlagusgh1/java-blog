@@ -108,44 +108,47 @@
 </div>
 
 <!-- 상세보기 내 작성자 프로필 -->
-<div>
-	<div>
-		<div class="detail-profile-box con flex">
-			<div class="detail-profile-img flex flex-ai-c">
+
+<div class="detail-profile-box con flex">
+	<div class="detail-profile-img flex flex-ai-c">
+		<c:forEach items="${members}" var="member">
+			<c:if test="${article.memberId == member.id}">
 				<c:choose>
-					<c:when test="${loginedMember.myImg.equals(\"null\")}">
-						<img src="" alt="" style="width: 150xp; height:150px;">
+					<c:when test="${member.myImg.equals(\"null\")}">
+						<img src="" alt="">
 					</c:when>
 					<c:otherwise>
-						<img src="${loginedMember.myImg}" alt="" style="width: 150xp; height:150px;">
+						<img src="${member.myImg}" alt="">
 					</c:otherwise>
 				</c:choose>
+			</c:if>
+		</c:forEach>
+	</div>
+	<div class="p-txt">
+		<c:forEach items="${articleNickName}" var="articleName">
+			<c:if test="${article.id == articleName.id}">
+				<h1>${articleName.getExtra().get("writer")}</h1>
+			</c:if>
+		</c:forEach>
+		<p>
+			<span>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse aliquam voluptas eligendi culpa suscipit magni a nihil iste voluptate porro sit nobis distinctio accusantium qui saepe temporibus voluptatum laboriosam officia!
+			</span>
+		</p>
+		<c:if test="${article.regDate == article.updateDate}">	
+			<div class="regDate">
+				${article.regDate}
 			</div>
-			<div class="p-txt">
-				<c:forEach items="${articleNickName}" var="articleName">
-					<c:if test="${article.id == articleName.id}">
-						<h1>${articleName.getExtra().get("writer")}</h1>
-					</c:if>
-				</c:forEach>
-				<p>
-					<div>
-						안녕하세요^^
-					</div>
-					<c:if test="${article.regDate == article.updateDate}">	
-						<div>
-							${article.regDate}
-						</div>
-					</c:if>
-					<c:if test="${article.regDate != article.updateDate}">
-						<div>
-							${article.updateDate}
-						</div>
-					</c:if>
-				</p>
+		</c:if>
+		<c:if test="${article.regDate != article.updateDate}">
+			<div class="regDate">
+				${article.updateDate}
 			</div>
-		</div>
+		</c:if>
+
 	</div>
 </div>
+
 
 <!-- 댓글 출력 -->
 <div class="comment-view-h con flex">

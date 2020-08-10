@@ -457,6 +457,9 @@ public class ArticleController extends Controller {
 		List<Article> articleNickName = articleService.getmemberName();
 		req.setAttribute("articleNickName", articleNickName);
 		
+		List<Member> members = memberService.getMember();
+		req.setAttribute("members", members);
+		
 		// 댓글수 출력(특정 게시물)
 		int articleReplyCount = articleService.getForPrintListRepliesCount(id);
 		req.setAttribute("articleReplyCount", articleReplyCount);

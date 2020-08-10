@@ -163,6 +163,11 @@ public class MemberService extends Service {
 		return memberDao.getMember(loginId, loginPw);
 	}
 	
+	// 회원 정보 전체 가져오기
+	public List<Member> getMember() {
+		return memberDao.getMember();
+	}
+	
 	// 로그인 대상 아이디로 대상정보 가져오기
 	public Member getMemberByLoginId(String loginId) {
 		return memberDao.getMemberByLoginId(loginId);

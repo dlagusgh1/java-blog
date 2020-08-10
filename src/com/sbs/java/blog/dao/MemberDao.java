@@ -296,6 +296,21 @@ public class MemberDao extends Dao {
 		return new Member(DBUtil.selectRow(dbConn, secSql));
 	}
 	
+	public List<Member> getMember() {
+		
+		SecSql secSql = SecSql.from("SELECT *");
+		secSql.append("FROM `member`");
+		
+		List<Map<String, Object>> rows = DBUtil.selectRows(dbConn, secSql);
+		List<Member> members = new ArrayList<>();
+
+		for (Map<String, Object> row : rows) {
+			members.add(new Member(row));
+		}
+
+		return members;
+	}
+	
 	// 로그인 대상 아이디로 대상정보 가져오기
 	public Member getMemberByLoginId(String loginId) {
 		SecSql sql = SecSql.from("SELECT *");
@@ -321,5 +336,6 @@ public class MemberDao extends Dao {
 		
 		DBUtil.update(dbConn, secSql);	
 	}
+
 
 }
