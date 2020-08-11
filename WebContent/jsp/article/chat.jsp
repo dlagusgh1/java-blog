@@ -63,13 +63,21 @@
 </div>
 
 <div class="chat-box con">
-	<c:if test="${isLogined}">
-		<form class="chat-comment con flex-jc-c" method="POST" action="doChat" onsubmit="submitWriteForm(this); return false;">
-			<input type="hidden" name="memberId" value="${loginedMemberId}"/>
-			<input class="comment" type="text" name="body" placeholder="클린 채팅 부탁드립니다." />
-			<button type="submit" onsubmit="scrollToBottom();">전송</button>
-		</form>
-	</c:if>
+	<c:choose>
+		<c:when test="${isLogined}">
+			<form class="chat-comment con flex-jc-c" method="POST" action="doChat" onsubmit="submitWriteForm(this); return false;">
+				<input type="hidden" name="memberId" value="${loginedMemberId}"/>
+				<input class="comment" type="text" name="body" placeholder="클린 채팅 부탁드립니다." />
+				<button type="submit" onsubmit="scrollToBottom();">전송</button>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<div class="chat-comment-none"">
+				<p>로그인 한 회원만 채팅이 가능합니다. <a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a> 후 이용해 주세요.</p>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	
 </div>
 
 <script>

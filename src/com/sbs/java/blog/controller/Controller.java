@@ -149,7 +149,7 @@ public abstract class Controller {
 			case "doDeleteReply":
 			case "modifyReply":
 			case "doModifyReply":
-			case "chat":
+//			case "chat":
 			case "doChat":
 			case "messagesWrite":
 			case "doMessagesWrite":
