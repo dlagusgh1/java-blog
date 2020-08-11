@@ -2,18 +2,22 @@
 	pageEncoding="UTF-8"%>
 	
 <%@ include file="/jsp/part/head.jspf"%>
+<!-- 페이지 로딩 효과(부드럽게) -->
 <script>
-<!-- 페이지 로딩 -->
-<!-- 
-	$(window).on('load', function() {
-		$(".loader").delay("2000").fadeOut();
+	jQuery(function($) {
+		$("body").css("display", "none");
+		$("body").fadeIn(2000);
+		$("a.transition").click(function(event){
+			event.preventDefault();
+			linkLocation = this.href;
+			$("body").fadeOut(1000, redirectPage);
+			});
+			function redirectPage() {
+			window.location = linkLocation;
+		}
 	});
--->
 </script>
-<!-- 페이지 로딩 -->
-<!-- 
-<div class="loader"></div>
- -->
+
 
 <!-- 메인 이미지 -->
 <div id="main">

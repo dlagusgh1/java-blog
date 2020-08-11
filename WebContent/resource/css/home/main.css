@@ -341,25 +341,34 @@ label[for] {
 	margin-right: auto;
 }
 
-/* 페이지 로딩 효과 */
-.loader {
-	border: 16px solid #f3f3f3;
-	border-top: 16px solid #3498db;
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
-	animation: spin 2s linear infinite;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 10;
+/* 페이지 로딩 효과(부드럽게) */
+body{
+    animation: fadein 2000ms ease-out;
+    -moz-animation: fadein 2000ms ease-out; /* Firefox */
+    -webkit-animation: fadein 2000ms ease-out; /* Safari and  Chrome */
+    -o-animation: fadein 2000ms ease-out; /* Opera */
 }
 
-@keyframes spin {
-	0% {transform:translate(-50%, -50%) rotate(0deg); }
-	100% {transform:translate(-50%, -50%) rotate(360deg); }
+@keyframes fadein {
+    from {opacity:0;}
+    to {opacity:1;}
 }
+
+@-moz-keyframes fadein { /* Firefox */
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@-o-keyframes fadein { /* Opera */
+    from {opacity:0;}
+    to {opacity: 1;}
+}
+
 
 /* 탑바 상단 로그인 등 */
 .header-top-box {
