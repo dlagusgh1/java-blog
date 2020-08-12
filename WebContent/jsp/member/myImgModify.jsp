@@ -34,9 +34,31 @@
 <!-- cs, js 불러오기 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/home/main.css">
 <script src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
+
+<script>
+	<!-- 프로필 수정 전 값 체크 -->
+	var submitModifyImgFormDone = false;
+	function submitModifyImgForm(form) {
+		if ( submitModifyImgFormDone ) {
+			alert('처리중입니다.');
+			return;
+		}
+		
+		form.memberImg.value = form.memberImg.value.trim();
+		if ( form.memberImg.value.length == 0 ) {
+			alert('사진을 추가해주세요.');
+			form.memberImg.focus();
+			return false;
+		}
+		
+		
+		form.submit();
+		submitModifyImgFormDone = true;
+	}
+</script>
  
 <div class="mypage-img con flex-jc-c" style="margin-top: 30px; text-align: center;">
-	<form action="doMyImgModify">
+	<form action="doMyImgModify" onsubmit="submitModifyImgForm(this); return false;">
 		<div class="mypage-img-wrap">
 			<c:choose>
 				<c:when test="${loginedMember.myImg.equals(\"null\")}">

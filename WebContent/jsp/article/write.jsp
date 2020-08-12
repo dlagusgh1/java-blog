@@ -42,8 +42,7 @@
 
 <!-- 게시물 작성기능 -->
 <div class="write-form-box con">
-	<form action="doWrite" method="POST" class="write-form form1"
-		onsubmit="submitWriteForm(this); return false;">
+	<form action="doWrite" method="POST" class="write-form form1" onsubmit="submitWriteForm(this); return false;">
 		<input name="memberLevel" type="hidden" value="${loginedMember.level}" />
 		<input name="memberId" type="hidden" value="${loginedMemberId}" />
 		<div class="form-row">

@@ -18,7 +18,6 @@
 	});
 </script>
 
-
 <!-- 메인 이미지 -->
 <div id="main">
 	<div id="contents">

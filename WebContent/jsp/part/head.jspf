@@ -104,7 +104,7 @@
 				<li><a href="${pageContext.request.contextPath}/s/member/join">회원가입</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
 			</c:if>
-			<c:if test="${isLogined}">	
+			<c:if test="${isLogined}">		
 				<c:choose>
 					<c:when test="${loginedMember.myImg.equals(\"null\")}">
 					</c:when>
@@ -181,10 +181,10 @@
 				</c:choose>	
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">[${loginedMember.nickName} 님]</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/article/chat">채팅</a></li>
+				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>		
 				<li><a href="${pageContext.request.contextPath}/s/article/receiveMessages" onclick="window.open(this.href,'쪽지', 'width=600px, height=600px, scrollbars=no, resizeble=0, directories=0' ); return false;"> 쪽지</a></li>
 			</c:if>
+			<li><a href="${pageContext.request.contextPath}/s/article/chat">채팅</a></li>
 			<li><a href="${pageContext.request.contextPath}/s/member/siteStatistics">통계</a></li>
 		</ul>
 	</div>
