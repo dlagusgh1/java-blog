@@ -49,8 +49,7 @@
 			alert('사진을 추가해주세요.');
 			form.memberImg.focus();
 			return false;
-		}
-		
+		}		
 		
 		form.submit();
 		submitModifyImgFormDone = true;
