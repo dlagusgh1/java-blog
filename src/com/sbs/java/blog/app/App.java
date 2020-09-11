@@ -21,17 +21,25 @@ import com.sbs.java.blog.util.Util;
 public class App {
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
+	private boolean isDevelServer = true;
 
 	public App(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
+		
+		String profilesActive = System.getProperty("spring.profiles.active");
+		
+		if (profilesActive != null && profilesActive.equals("production")) {
+			isDevelServer = false;
+		}
+		
 	}
 
 	// DB 커넥터 가져오기
 	private void loadDbDriver() throws IOException {
 		// DB 커넥터 로딩 시작
 		String driverName = "com.mysql.cj.jdbc.Driver";
-
+		
 		try {
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
@@ -41,10 +49,16 @@ public class App {
 		}
 		// DB 커넥터 로딩 성공
 	}
-
+ 
 	// DB url
 	private String getDbUri() {
-		return "jdbc:mysql://site35.iu.gy:3306/site35?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
+		// isDevelServer가 true인 경우 개발서버	
+		if ( isDevelServer ) {
+			return "jdbc:mysql://localhost:3306/st_n35_blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
+		}
+		
+		// 서버입장에서도 본인껀 localhost
+		return "jdbc:mysql://localhost:3306/st_n35_blog?serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeBehavior=convertToNull";
 	}
 
 	// DB 드라이버 접속
@@ -144,11 +158,17 @@ public class App {
 
 	// DB 아이디
 	private String getDbId() {
-		return "site35";
+		if ( isDevelServer ) {
+			return "root";		
+		}
+		return "lhhLocal";
 	}
 
 	// DB 비밀번호
 	private String getDbPassword() {
+		if ( isDevelServer ) {
+			return "dlagusgh";		
+		}
 		return "sbs123414";
 	}
 

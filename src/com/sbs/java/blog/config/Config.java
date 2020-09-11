@@ -6,6 +6,6 @@ public class Config {
 	public static String gmailId = "dlagusgh1@gmail.com";
 	public static String gmailPw;
 	public static String getSiteName() {
-		return "dlagusgh1.my.iu.gy";
+		return "현호블로그";
 	}
 }
