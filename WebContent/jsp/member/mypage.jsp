@@ -69,6 +69,16 @@
 					</c:choose>
 			</div>
 		</div>
+		<c:if test="${emailAuthed == \"\"}">
+			<div class="form-row">
+				<div class="label">인증메일</div>
+				<div class="input">
+					<button type="button" value="인증메일발송">
+						<a href="${pageContext.request.contextPath}/s/member/reAuthEmail">인증메일 재 발송</a>
+					</button>
+				</div>
+			</div>
+		</c:if>
 		<div class="form-row">
 			<div class="label">방문</div>
 			<div class="input">

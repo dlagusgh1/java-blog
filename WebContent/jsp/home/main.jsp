@@ -2,22 +2,15 @@
 	pageEncoding="UTF-8"%>
 	
 <%@ include file="/jsp/part/head.jspf"%>
-<!-- 페이지 로딩 효과(부드럽게) -->
-<script>
-	jQuery(function($) {
-		$("body").css("display", "none");
-		$("body").fadeIn(2000);
-		$("a.transition").click(function(event){
-			event.preventDefault();
-			linkLocation = this.href;
-			$("body").fadeOut(1000, redirectPage);
-			});
-			function redirectPage() {
-			window.location = linkLocation;
-		}
-	});
-</script>
 
+<style>
+	@media ( max-width : 800px) {
+		body {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+</style>
 <!-- 메인 이미지 -->
 <div id="main">
 	<div id="contents">

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import com.mysql.cj.jdbc.Blob;
 import com.sbs.java.blog.config.Config;
 import com.sbs.java.blog.dao.MemberDao;
 import com.sbs.java.blog.dto.Article;
@@ -44,7 +43,7 @@ public class MemberService extends Service {
 
 		// 메일 발송(가입축하 & 메일 인증)
 		String title = String.format("가입을 환영합니다!", Config.getSiteName());
-		String body = String.format("가입을 축하드립니다.<br>이메일 인증 부탁드립니다.<br> <a href=\"https://dlagusgh1.my.iu.gy/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
+		String body = String.format("가입을 축하드립니다.<br>이메일 인증 부탁드립니다.<br> <a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
 		mailService.send(to, title, body);				
 	}
 
@@ -205,6 +204,14 @@ public class MemberService extends Service {
 	// 프로필 이미지 저장
 	public void getModifyMemberImg(String memberLoginId, String memberImg) {
 		memberDao.getModifyMemberImg(memberLoginId, memberImg);
+	}
+
+	// 인증메일 재 발송 기능
+	public void reSendEmailAuthCode(int memberId, String email) {
+		
+		String emailAuthCode = attrService.getValue("member__" + memberId + "__extra__emailAuthCode");
+		
+		mailService.send(email, "이메일 인증", "이메일 인증 부탁드립니다.<br><a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
 	}
 	
 }

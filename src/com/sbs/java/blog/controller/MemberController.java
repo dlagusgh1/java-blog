@@ -1,15 +1,11 @@
 package com.sbs.java.blog.controller;
 
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.cj.jdbc.Blob;
 import com.sbs.java.blog.dto.Article;
 import com.sbs.java.blog.dto.ArticleReply;
 import com.sbs.java.blog.dto.Member;
@@ -41,6 +37,8 @@ public class MemberController extends Controller {
 			return actionJoin(); // 회원가입 폼
 		case "doJoin":
 			return actionDoJoin(); // 회원가입 기능
+		case "reAuthEmail":
+			return reAuthEmail();
 		case "authEmail":
 			return actionAuthEmail(); // 이메일 인증 기능
 		case "getNickNameDup":
@@ -440,61 +438,44 @@ public class MemberController extends Controller {
 		if ( session.getAttribute("loginedMemberId") != null ) {
 			return "html:<script> alert('다른 회원이 로그인 중 입니다.'); history.back(); </script>";
 		}
+			
+		Member member = memberService.doLogin(loginId, loginPw);
 		
-		Member getMember = memberService.getMember(loginId, loginPw);
-		String emailAuthed = attrService.getValue("member__" + getMember.getId() + "__extra__emailAuthed");
+		session.setAttribute("loginedMemberId", member.getId());
 		
-		if ( emailAuthed.equals("") ) {
-			
-			String emailAuthCode = attrService.getValue("member__" + getMember.getId() + "__extra__emailAuthCode");
-			
-			mailService.send(getMember.getEmail(), "이메일 인증", "이메일 인증 부탁드립니다.<br><a href=\"https://dlagusgh1.my.iu.gy/blog/s/member/authEmail?email="+ getMember.getEmail() +"&authCode=" + emailAuthCode + "&memberId=" + getMember.getId() + "\" target=\"_blank\"><br>이메일 인증하기</a>");
-			
-			req.setAttribute("jsAlertMsg", "이메일 인증이 필요합니다.\\n보내드린 인증메일 확인 후 이메일 인증 부탁드립니다.");
-			req.setAttribute("redirectUri", "../home/main");
+		String useTempPassword =  attrService.getValue("member__" + member.getId() + "__extra__useTempPassword");
+		
+		if ( useTempPassword.equals("1") ) {
+			req.setAttribute("jsAlertMsg", "현재 임시패스워드를 사용중 입니다. \\n비밀번호 변경 부탁드립니다.");
+			req.setAttribute("redirectUri", "../member/passwordConfirm");
 
 			return "common/data.jsp";
+		}	
 		
-		} else {
+		String lastTime = attrService.getValue("member__" + member.getId() + "__extra__lastPasswordChangeDate");
 			
-			Member member = memberService.doLogin(loginId, loginPw);
-			
-			session.setAttribute("loginedMemberId", member.getId());
-			
-			String useTempPassword =  attrService.getValue("member__" + member.getId() + "__extra__useTempPassword");
-			
-			if ( useTempPassword.equals("1") ) {
-				req.setAttribute("jsAlertMsg", "현재 임시패스워드를 사용중 입니다. \\n비밀번호 변경 부탁드립니다.");
-				req.setAttribute("redirectUri", "../member/passwordConfirm");
+		req.setAttribute("jsAlertMsg", loginId + "님 로그인되었습니다. \\n환영합니다.");
+		req.setAttribute("redirectUri", "../home/main");
+		
+		return "common/data.jsp";
 
-				return "common/data.jsp";
-			}
-			
-			// 현재 날짜 가져오기
-			long systemTime = System.currentTimeMillis();			
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);			 
-			String currentTime = formatter.format(systemTime);	
-			
-			String lastTime = attrService.getValue("member__" + member.getId() + "__extra__lastPasswordChangeDate");
-			
-			String[] timeBits = currentTime.split("-");
-			int year = Integer.parseInt(timeBits[0]);
-			int month = Integer.parseInt(timeBits[1]);
-			int day = Integer.parseInt(timeBits[2]);
-					
-			req.setAttribute("jsAlertMsg", loginId + "님 로그인되었습니다. \\n환영합니다.");
-			req.setAttribute("redirectUri", "../home/main");
-			
-			return "common/data.jsp";
-		}
+	}
+	
+	// 이메일 인증 재 발송 기능
+	private String reAuthEmail() {
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
 		
+		memberService.reSendEmailAuthCode(loginedMember.getId(), loginedMember.getEmail());
+		
+		req.setAttribute("jsAlertMsg", "인증 메일이 재 발송 되었습니다.\\n확인 후 이메일 인증 부탁드립니다.");
+
+		return String.format("html:<script>location.replace('mypage'); </script>");
 	}
 
 	// 이메일 인증 기능
 	private String actionAuthEmail() {
 
 		String email = (String) req.getParameter("email");
-		String authCode = (String) req.getParameter("authCode");
 		int memberId = Integer.parseInt(req.getParameter("memberId"));
 		
 		String emailAuthed = attrService.getValue("member__" + memberId + "__extra__emailAuthed");
@@ -573,7 +554,7 @@ public class MemberController extends Controller {
 		
 		memberService.join(memberId, loginId, name, nickName, loginPw, email);
 		
-		req.setAttribute("jsAlertMsg", "가입을 축하 합니다.\\n이메일로 보내드린 링크로 접속하여 이메일 인증 후 이용 부탁드립니다.");
+		req.setAttribute("jsAlertMsg", "가입을 환영 합니다.\\n보내드린 메일 확인 후 이용 부탁드립니다.");
 		req.setAttribute("redirectUri", "../member/login");
 
 		return "common/data.jsp";

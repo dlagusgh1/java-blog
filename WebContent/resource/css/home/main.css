@@ -341,34 +341,12 @@ label[for] {
 	margin-right: auto;
 }
 
-/* 페이지 로딩 효과(부드럽게) */
-body{
-    animation: fadein 2000ms ease-out;
-    -moz-animation: fadein 2000ms ease-out; /* Firefox */
-    -webkit-animation: fadein 2000ms ease-out; /* Safari and  Chrome */
-    -o-animation: fadein 2000ms ease-out; /* Opera */
+@media ( max-width : 800px) {
+	body {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
 }
-
-@keyframes fadein {
-    from {opacity:0;}
-    to {opacity:1;}
-}
-
-@-moz-keyframes fadein { /* Firefox */
-    from {opacity:0;}
-    to {opacity:1;}
-}
-
-@-webkit-keyframes fadein { /* Safari and Chrome */
-    from {opacity:0;}
-    to {opacity:1;}
-}
-
-@-o-keyframes fadein { /* Opera */
-    from {opacity:0;}
-    to {opacity: 1;}
-}
-
 
 /* 탑바 상단 로그인 등 */
 .header-top-box {
@@ -421,19 +399,6 @@ body{
 	font-size: 1.4rem;
 	padding: 15px 30px;
 	text-decoration: none;
-}
-
-/* 탑바 로고 움직임 */
-@keyframes watch {
-	0% {transform: translate(0);}
-	20% {transform: translate(-5px, 5px);}
-	40% {transform: translate(-5px, -5px);}
-	60% {transform: translate(5px, 5px);}
-	80% {transform: translate(5px, -5px);}
-	100% {transform: translate(0);}
-}
-.top-bar .logo>img:hover {
-	animation: watch 1.5s linear infinite both;
 }
 
 /* 탑바 1차메뉴 상단 줄 */

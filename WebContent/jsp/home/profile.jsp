@@ -33,7 +33,7 @@
 					<img src="/blog/resource/img/pro1.png" />
 				</div>
 				<div>
-					<h3>현재 홈페이지 구현</h3>
+					<h3>비전공 개발자 개인 블로그</h3>
 				</div>
 		</a></li>
 		<li><a href="">
@@ -44,7 +44,7 @@
 						src="/blog/resource/img/pro2.png" />
 				</div>
 				<div>
-					<h3>스프링 부트, AJAX를 이용한 사이트 구현</h3>
+					<h3>스프링 부트를 이용한 우리동네</h3>
 				</div>
 		</a></li>
 		<li><a href="">
@@ -52,13 +52,13 @@
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
 					<img
-						src="/blog/resource/img/m6.jpg" />
+						src="/blog/resource/img/pro3.png" />
 				</div>
 				<div>
-					<h3>비대면 오디션 서비스 제작 중</h3>
+					<h3>비대면 오디션 서비스</h3>
 				</div>
 		</a></li>
-		<li><a href="">
+		<li><a href="https://to2.kr/bft" target="_blank">
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
@@ -66,10 +66,10 @@
 						src="/blog/resource/img/m5.jpg" />
 				</div>
 				<div>
-					<h3>홈페이지에 오신걸 환영합니다.</h3>
+					<h3>티스토리 블로그</h3>
 				</div>
 		</a></li>
-		<li><a href="">
+		<li><a href="https://github.com/dlagusgh1/java-blog" target="_blank">
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
@@ -77,10 +77,10 @@
 						src="/blog/resource/img/moon.jpg" />
 				</div>
 				<div>
-					<h3>홈페이지에 오신걸 환영합니다.</h3>
+					<h3>깃허브</h3>
 				</div>
 		</a></li>
-		<li><a href="">
+		<li><a href="http://to2.kr/bhw" target="_blank">
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
@@ -88,7 +88,7 @@
 						src="/blog/resource/img/m8.jpg" />
 				</div>
 				<div>
-					<h3>홈페이지에 오신걸 환영합니다.</h3>
+					<h3>유튜브</h3>
 				</div>
 		</a></li>
 	</ul>
