@@ -5,7 +5,8 @@
 
 <!-- 어바웃미(프로필 팝업 포함) -->
 <div class="gallerylist">
-	<input type="checkbox" id="popup" /> <label for="popup">프로필 보기</label>
+	<input type="checkbox" id="popup" /> 
+	<label for="popup">프로필 보기</label>
 	<div>
 		<div>
 			<label for="popup"></label>
@@ -36,12 +37,11 @@
 					<h3>비전공 개발자 개인 블로그</h3>
 				</div>
 		</a></li>
-		<li><a href="">
+		<li><a href="https://wori.n35.weone.kr">
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img
-						src="/blog/resource/img/pro2.png" />
+					<img src="/blog/resource/img/pro2.png" />
 				</div>
 				<div>
 					<h3>스프링 부트를 이용한 우리동네</h3>
@@ -51,8 +51,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img
-						src="/blog/resource/img/pro3.png" />
+					<img src="/blog/resource/img/pro3.png" />
 				</div>
 				<div>
 					<h3>비대면 오디션 서비스</h3>
@@ -62,8 +61,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img
-						src="/blog/resource/img/m5.jpg" />
+					<img src="/blog/resource/img/m5.jpg" />
 				</div>
 				<div>
 					<h3>티스토리 블로그</h3>
@@ -73,8 +71,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img
-						src="/blog/resource/img/moon.jpg" />
+					<img src="/blog/resource/img/moon.jpg" />
 				</div>
 				<div>
 					<h3>깃허브</h3>
@@ -84,8 +81,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img
-						src="/blog/resource/img/m8.jpg" />
+					<img src="/blog/resource/img/m8.jpg" />
 				</div>
 				<div>
 					<h3>유튜브</h3>

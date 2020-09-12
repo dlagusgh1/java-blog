@@ -38,7 +38,7 @@ public class MemberController extends Controller {
 		case "doJoin":
 			return actionDoJoin(); // 회원가입 기능
 		case "reAuthEmail":
-			return reAuthEmail();
+			return reAuthEmail();	// 인증 메일 재 발송 기능
 		case "authEmail":
 			return actionAuthEmail(); // 이메일 인증 기능
 		case "getNickNameDup":
@@ -131,6 +131,26 @@ public class MemberController extends Controller {
 
 		return String.format("html:<script> alert('비밀번호를 다시 입력해주세요.'); history.back(); </script>");
 	}
+	
+	// 마이페이지 들어가기 전 비밀번호 확인 폼
+	private String actionpasswordConfirm() {		
+		
+		return "member/passwordConfirm.jsp";
+	}
+	
+	// 마이페이지 들어가기 전 비밀번호 확인 기능
+	private String actionDoPasswordConfirm() {
+		
+		String loginId = req.getParameter("loginId");
+		String loginPw = req.getParameter("loginPwReal");	
+		
+		if ( memberService.loginedFact(loginId, loginPw) != 1) {
+			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
+		} 		
+		
+		return String.format("html:<script>location.replace('mypage'); </script>");
+	}
+		
 	
 	// 회원정보 - 비밀번호 변경 폼
 	private String actionModifyPrivate() {
@@ -227,25 +247,6 @@ public class MemberController extends Controller {
 		}	
 	}
 
-	// 마이페이지 들어가기 전 비밀번호 확인 폼
-	private String actionpasswordConfirm() {		
-		
-		return "member/passwordConfirm.jsp";
-	}
-	
-	// 마이페이지 들어가기 전 비밀번호 확인 기능
-	private String actionDoPasswordConfirm() {
-		
-		String loginId = req.getParameter("loginId");
-		String loginPw = req.getParameter("loginPwReal");	
-		
-		if ( memberService.loginedFact(loginId, loginPw) != 1) {
-			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
-		} 		
-		
-		return String.format("html:<script>location.replace('mypage'); </script>");
-	}
-	
 	// 마이페이지 기능
 	private String actionMypage() {
 		

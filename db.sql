@@ -19,8 +19,6 @@ INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/일반';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/알고리즘';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/프론트엔드';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/백엔드';
-INSERT INTO cateItem SET regDate = NOW(), `name` = '디자인/피그마';
-INSERT INTO cateItem SET regDate = NOW(), `name` = '일상/일반';
 
 # 게시물 테이블 생성
 DROP TABLE IF EXISTS article;
@@ -28,6 +26,7 @@ CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
+    `delDate` DATETIME,
     cateItemId INT(10) UNSIGNED NOT NULL,
     displayStatus TINYINT(1) UNSIGNED NOT NULL,
     `title` CHAR(200) NOT NULL,
@@ -35,10 +34,10 @@ CREATE TABLE article (
 );
 
 # 1번글 생성
-INSERT INTO article SET
-regDate = NOW(),
+INSERT INTO article 
+SET regDate = NOW(),
 updateDate = NOW(),
-cateItemId = 6,
+cateItemId = 1,
 displayStatus = 1,
 title = '블로그를 시작합니다.',
 `body` = '';
@@ -54,18 +53,21 @@ CREATE TABLE `member` (
     `name` CHAR(100) NOT NULL, 
     `nickname` CHAR(100) NOT NULL UNIQUE,
     `email` CHAR(100) NOT NULL,
-    `level` INT(1) UNSIGNED DEFAULT 0 NOT NULL
+    `level` INT(1) UNSIGNED DEFAULT 0 NOT NULL,
+    delStatus TINYINT(1) UNSIGNED NOT NULL,
+    `delDate` DATETIME,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL
 );
 
 # 마스터 회원 생성
-INSERT INTO `member` SET
-regDate = NOW(),
+INSERT INTO `member` 
+SET regDate = NOW(),
 updateDate = NOW(),
 `loginId` = 'admin',
 `loginPw` = SHA2('admin', 256),
 `name` = 'admin',
 `nickname` = 'admin',
-`email` = 'admin@admin.com',
+`email` = 'dlagusgh1@gmail.com',
 `level` = 10;
 
 # 게시물에 memberId 칼럼 추가
@@ -164,3 +166,31 @@ ALTER TABLE `attr` ADD UNIQUE INDEX (`relTypeCode`, `relId`, `typeCode`, `type2C
 
 ## 특정 조건을 만족하는 회원 또는 게시물(기타 데이터)를 빠르게 찾기 위해서
 ALTER TABLE `attr` ADD INDEX (`relTypeCode`, `typeCode`, `type2Code`); 
+
+# 쪽지 테이블 추가
+DROP TABLE IF EXISTS message;
+CREATE TABLE message (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `memberId` INT(10) NOT NULL,
+    `nickName` CHAR(100) NOT NULL,
+    `title` TEXT NOT NULL,
+    `body` TEXT NOT NULL,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    `delDate` DATETIME,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL
+);
+
+# 채팅 테이블 추가
+DROP TABLE IF EXISTS chatMessage;
+CREATE TABLE chatMessage (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `memberId` INT(10) NOT NULL,
+    `body` TEXT NOT NULL,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    `delDate` DATETIME,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL
+);

@@ -6,16 +6,16 @@ public class ChatMessage extends Dto {
 	private String body;
 	private int memberId;
 	
-	@Override
-	public String toString() {
-		return "ChatMessage [body=" + body + ", memberId=" + memberId + ", getId()=" + getId() + ", getRegDate()="
-				+ getRegDate() + ", getExtra()=" + getExtra() + "]";
-	}
-	
 	public ChatMessage(Map<String, Object> row) {
 		super(row);
 		this.body = (String) row.get("body");
 		this.memberId = (int) row.get("memberId");
+	}
+	
+	@Override
+	public String toString() {
+		return "ChatMessage [body=" + body + ", memberId=" + memberId + ", getId()=" + getId() + ", getRegDate()="
+				+ getRegDate() + ", getExtra()=" + getExtra() + "]";
 	}
 	
 	public String getBody() {

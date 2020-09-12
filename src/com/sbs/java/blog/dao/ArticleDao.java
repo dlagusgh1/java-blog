@@ -340,8 +340,10 @@ public class ArticleDao extends Dao {
 		
 		SecSql secSql = new SecSql();
 
-		secSql.append("INSERT INTO chat");
+		secSql.append("INSERT INTO chatMessage");
 		secSql.append("SET regDate = NOW()");
+		secSql.append(", updateDate = NOW()");
+		secSql.append(", delDate = NOW()");
 		secSql.append(", `body` = ? ", body);
 		secSql.append(", memberId = ? ", memberId);
 		secSql.append(", displayStatus = 1 ");
@@ -355,7 +357,7 @@ public class ArticleDao extends Dao {
 		SecSql secSql = new SecSql();
 
 		secSql.append("SELECT C.*, M.nickname AS extra__writer ");
-		secSql.append("FROM chat AS C ");
+		secSql.append("FROM chatMessage AS C ");
 		secSql.append("INNER JOIN `member` AS M ");
 		secSql.append("ON C.memberId = M.id ");
 		secSql.append("ORDER BY C.id ASC");
