@@ -14,6 +14,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>쪽지함</title>
 
+<div class="visible-on-sm-down">
+	<%@ include file="/jsp/part/head.jspf"%>
+</div>
 <!-- 구글 폰트 불러오기 -->
 <!-- rotobo(400/900), notosanskr(400/900) -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
@@ -45,6 +48,6 @@
 		<div><a href="${pageContext.request.contextPath}/s/article/messagesWrite">쪽지 쓰기</a></div>
 	</div>
 </div>
-
+	
 </head>
 <body style="padding-top: 0px;">

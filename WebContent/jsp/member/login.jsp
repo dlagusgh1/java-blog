@@ -66,6 +66,9 @@
 		<div class="form-row flex-jc-c">
 			<a href="${pageContext.request.contextPath}/s/member/findAccount">아이디 / 비밀번호 찾기</a>
 		</div>
+		<div class="form-row flex-jc-c">
+			<a href="${pageContext.request.contextPath}/s/member/join">아직 회원이 아니신가요? 회원가입</a>
+		</div>
 	</form>
 </div>
 

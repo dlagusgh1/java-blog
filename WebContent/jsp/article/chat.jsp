@@ -73,11 +73,10 @@
 		</c:when>
 		<c:otherwise>
 			<div class="chat-comment-none"">
-				<p>로그인 한 회원만 채팅이 가능합니다. <a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a> 후 이용해 주세요.</p>
+				<p>로그인 한 회원만 채팅이 가능합니다.</p>
 			</div>
 		</c:otherwise>
 	</c:choose>
-	
 </div>
 
 <script>

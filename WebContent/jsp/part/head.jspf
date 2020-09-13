@@ -126,7 +126,7 @@
 <!-- PC -->
 <div class="top-bar visible-on-md-up">
 	<div class="con flex flex-jc-sb height-100p">
-		<a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c"><img src="/blog/resource/img/logo3.png" alt="logo"></a>
+		<a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c"><img src="/blog/resource/img/logo6.png" alt="logo"></a>
 		<nav class="menu-box-1 flex flex-1-0-0">
 			<ul class="flex flex-1-0-0">
 				<li class="flex-1-0-0 flex"><a
@@ -163,40 +163,27 @@
 </div>
 
 <!-- 모바일 -->
-<div class="mobile-header-top-box con visible-on-sm-down flex-jc-c">
-	<div class="mobile-header-top">
-		<ul class="flex">
-			<c:if test="${isLogined == false}">
-				<li><a href="${pageContext.request.contextPath}/s/member/login">비회원</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/member/join">회원가입</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
-			</c:if>
-			<c:if test="${isLogined}">
-				<c:choose>
-					<c:when test="${loginedMember.myImg.equals(\"null\")}">
-					</c:when>
-					<c:otherwise>
-						<li><img class="header_MyImg" src="${loginedMember.myImg}" alt=""></li>
-					</c:otherwise>
-				</c:choose>	
-				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">[${loginedMember.nickName} 님]</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>		
-				<li><a href="${pageContext.request.contextPath}/s/article/receiveMessages" onclick="window.open(this.href,'쪽지', 'width=600px, height=600px, scrollbars=no, resizeble=0, directories=0' ); return false;"> 쪽지</a></li>
-			</c:if>
-			<li><a href="${pageContext.request.contextPath}/s/article/chat">채팅</a></li>
-			<li><a href="${pageContext.request.contextPath}/s/member/siteStatistics">통계</a></li>
-		</ul>
-	</div>
-</div>
 <div class="mobile-top-bar visible-on-sm-down flex-ai-c">
 	<a href="#" class="btn-toggle-mobile-side-bar">
 		<div></div>
 		<div></div>
 		<div></div>
-	</a> <a href="${pageContext.request.contextPath}/s/home/main"
-		class="logo flex flex-ai-c absolute-center absolute-middle"> <img
-		src="/blog/resource/img/logo3.png" alt="logo">
+	</a> 
+	<c:choose>
+		<c:when test="${isLogined == false}">
+		<a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}" class="member">
+			<i class="far fa-user-circle"></i>
+		</a>
+		</c:when>
+		<c:otherwise>
+		<a href="${pageContext.request.contextPath}/s/member/doLogout" class="member">
+			<i class="fas fa-sign-out-alt"></i>
+		</a>
+		</c:otherwise>
+	</c:choose>
+	<a href="${pageContext.request.contextPath}/s/home/main"
+		class="logo flex flex-ai-c absolute-center absolute-middle"> 
+		<img src="/blog/resource/img/logo6.png" alt="logo">
 	</a>
 </div>
 
@@ -219,7 +206,10 @@
 							class="block">${cateItem.name}</a>
 						</li>
 					</c:forEach>
-				</ul></li>
+				</ul>
+			</li>
+			<li><a href="${pageContext.request.contextPath}/s/article/chat" class="block">Chat</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/article/receiveMessages" class="block">Messages</a></li>
 			<li><a href="${pageContext.request.contextPath}/s/home/aboutMe"
 				class="block">About Me</a></li>
 			<li><input type="checkbox" id="menuBtn2" style="display: none">

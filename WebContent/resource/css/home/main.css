@@ -390,8 +390,7 @@ label[for] {
 
 .top-bar .logo>img {
 	width: 200px;
-	height: 100px;
-	animation-play-state: paused;
+	height: 90px;
 }
 
 .top-bar .menu-box-1>ul>li>a {
@@ -481,12 +480,17 @@ label[for] {
 	left: 0;
 	width: 100%;
 	height: 50px;
-	padding-left: 10px;
-	padding-right: 10px;
+	z-index: 1;
+
+}
+
+.mobile-top-bar .member {
+	margin-left: 20px;
+	font-size: 1.5rem;
 }
 
 .mobile-top-bar .logo {
-	font-size: 1.5rem;
+	font-size: 1rem;
 }
 
 @media ( max-width :799px) {
@@ -496,8 +500,8 @@ label[for] {
 }
 
 .mobile-top-bar .logo>img {
-	width: 120px;
-	height: 70px;
+	width: 80;
+	height: 40px;
 }
 
 .mobile-top-bar .btn-toggle-mobile-side-bar {
@@ -505,6 +509,10 @@ label[for] {
 	height: 20px;
 	background-color: white;
 	position: relative;
+}
+
+.btn-toggle-mobile-side-bar>div {
+	margin-left: 10px;
 }
 
 .mobile-top-bar .btn-toggle-mobile-side-bar>div {
@@ -640,11 +648,11 @@ label[for] {
 
 /* 홈 화면 */
 #main{
-	background:url("/blog/resource/img/cover.jpg") no-repeat;
-	background-size: cover;
-	background-position: center center;
+	position: relative;
+	background:url("/blog/resource/img/cover2.jpg") center center / cover no-repeat;
 	width:100vm;
 	height:100vh;
+	z-index: 0;
 }
 
 #contents{
@@ -653,41 +661,49 @@ label[for] {
 	transform: translateY(-50%);
 	width:100%;
 	color: white;
+	font-weight: bold;
 	text-align: center;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 #contents h1 {
-	font-size: 70px;
+	font-size: 5rem;
 	margin-bottom: 16px;
 }
 #contents p {
-	font-size: 23px;
+	font-size: 2rem;
 	margin-bottom: 16px;
 }
-#contents a {
+.main-contents {
 	display: inline-block;
-	border: 2px solid white;
-	border-radius: 20px;
-	padding: 10px 20px;
-	font-size: 17px;
-	font-weight: bold;
-	transition: all 0.5s;
+	width: 150px;
+	height: 100%;
+	vertical-align: middle;
+	padding: 10px 0;
+	border: 5px solid #1b5ac2;
+	border-radius: 100px;
+	font-weight: bold;	
+ 	color: white;	
+ 	font-size: 1.2rem;
+ 	text-shadow: none;
+ 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-#contents a:hover {
-	background-color: #1b5ac2;
+.main-contents:hover {
+	background: #1b5ac2;
 }
 
-@media(max-width:799px) {
+@media(max-width:801px) {
 	#contents h1 {
-		font-size: 50px;
+		font-size: 3rem;
 	}
 	#contents p {
-		font-size: 20px;
+		font-size: 1.5rem;
+		margin: 0;
+		margin-bottom: 20px;
 	}
-	#contents a {
-		font-size: 14px;
+	.main-contents {
+		width: 80%;
 	}
 }
 
@@ -1091,27 +1107,17 @@ input[id*="popup"]:checked + label + div {
 	display: block;
 }
 
-.cateItem-box td {
-	background: #f0f6f9;
-	text-align: center;
-	width: 100px;
-	height: 30px;
-	white-space:nowrap;
+.cateItem-box select {
+	padding: 5px;
 }
 
-.cateItem-box td>a {
-	padding: 10px;
-	color: black;
-}
-
-.cateItem-box td:hover>a {
-	color: #1b5ac2;
-	text-decoration-line: underline;
-}
-
-.cateItem-box>.search-box {
+.cateItem-box > .search-box {
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.cateItem-box > .search-box input {
+	padding: 3px;
 }
 
 /* article list - total 관련 */
@@ -1833,6 +1839,12 @@ input[id*="popup"]:checked + label + div {
 	font-size: 12px;
 }
 
+@media ( max-width : 799px ) {
+	.chat-view .chattingOthers, .chattingMe {
+		font-size: 0.8rem;
+	}
+}
+
 /* 채팅 입력 */
 .chat-box {
 	width: 100%;
@@ -1882,6 +1894,9 @@ input[id*="popup"]:checked + label + div {
 	.chat-view {
 		height: 350px;
 	}
+	.chat-comment-none p {
+		font-size: 
+	}
 }
 
 /* 페이지 타이틀 */
@@ -1911,11 +1926,21 @@ input[id*="popup"]:checked + label + div {
 	width: 100%;
 	padding: 10px;
 }
-.messenger-bottom-wrap > div > a {
-	width: 100%;
-	padding: 10px 30px;
-	font-size: 1.2rem;
+
+@media ( min-width : 801px ) {
+	.messenger-bottom-wrap > div > a {
+		width: 100%;
+		padding: 10px 30px;
+		font-size: 1.2rem;
+	}
 }
+
+@media ( max-width : 801px ) {
+	.messenger-bottom-wrap > div > a {
+		font-size: 1rem;
+	}
+}
+
 .messenger-bottom-wrap > div:hover {
 	color: white;
 	background: #1b5ac2;
@@ -1926,12 +1951,24 @@ input[id*="popup"]:checked + label + div {
 	margin: 10px;
 } 
 
-.messages-box > .messages-list {
-	border-collapse: collapse;
-	border-top: 3px solid #168;
-	width: 100%;
-	min-width: 500px;
-	text-align: center;
+@media ( max-width : 801px ) {
+	.messages-box > .messages-list {
+		border-collapse: collapse;
+		border-top: 3px solid #168;
+		width: 100%;
+		min-width: 300px;
+		text-align: center;
+	}
+}
+
+@media ( min-width : 801px ) {
+	.messages-box > .messages-list {
+		border-collapse: collapse;
+		border-top: 3px solid #168;
+		width: 100%;
+		min-width: 500px;
+		text-align: center;
+	}
 }
 
 .messages-box  tr {
