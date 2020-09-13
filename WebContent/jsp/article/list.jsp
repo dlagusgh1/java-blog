@@ -30,28 +30,40 @@
 	</div>
 </div>
 
-<div class="article-box con flex-ai-c">
-	<table class="article-list">
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회수</th>
-			<th>댓글수</th>
-			<th>구분</th>
-		</tr>
+<div class="table-box table-box-data con">
+	<table>
+		<colgroup>
+			<col width="50" />
+           	<col width="400" />
+           	<col width="100" />
+           	<col width="200"/>
+           	<col width="75" />
+           	<col width="75" />
+           	<col width="100" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
+				<th>댓글수</th>
+				<th>구분</th>
+			</tr>
+		</thead>
+		<tbody>
 			<c:forEach items="${articles}" var="article">
 				<tr>
 					<td>${article.id}</td>
 					<td class="title-link" ><a href="./detail?id=${article.id}">${article.title}</a></td>
 					<td>${article.extra.writer}</td>				
-				 	<c:if test="${article.regDate == article.updateDate}">	 		
-						<td>${article.regDate}</td>
-					</c:if>
-					<c:if test="${article.regDate != article.updateDate}">
-						<td>${article.updateDate} </td>
-					</c:if>
+					 	<c:if test="${article.regDate == article.updateDate}">	 		
+							<td>${article.regDate}</td>
+						</c:if>
+						<c:if test="${article.regDate != article.updateDate}">
+							<td>${article.updateDate} </td>
+						</c:if>
 					<td>${article.hit}</td>
 					<c:set var="replyCount" value="0"/>
 					<c:forEach items="${articleReply}" var="reply">
@@ -65,8 +77,18 @@
 							<td>${cateItem.name}</td>
 						</c:if>
 					</c:forEach>
+					<td class="visible-on-sm-down">
+	                     <a href="./detail?id=${article.id}" class="flex flex-row-wrap flex-ai-c">
+	                        <span class="badge badge-primary bold margin-right-10">${article.id}</span>
+                            <div class="title flex-1-0-0 text-overflow-el ">${article.title}</div>
+	                     </a>
+                         <div class="writer inline-block">${article.extra.writer}</div>
+                         &nbsp;|&nbsp;
+                         <div class="reg-date inline-block">${article.regDate}</div>
+	                 </td>
 				</tr>
 			</c:forEach>
+		</tbody>
 	</table>
 </div>
 
