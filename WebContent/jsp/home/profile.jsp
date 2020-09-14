@@ -31,7 +31,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img src="/blog/resource/img/pro1.png" />
+					<img src="/blog/resource/img/pro1.jpg" />
 				</div>
 				<div>
 					<h3>비전공 개발자 개인 블로그</h3>
