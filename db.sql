@@ -15,8 +15,8 @@ CREATE TABLE cateItem (
 );
 
 # 카테고리 추가
+INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/공지사항';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/일반';
-INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/알고리즘';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/프론트엔드';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/백엔드';
 
@@ -193,3 +193,4 @@ CREATE TABLE chatMessage (
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     `delDate` DATETIME,
     displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0
+);
