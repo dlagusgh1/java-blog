@@ -28,7 +28,7 @@ CREATE TABLE article (
     updateDate DATETIME NOT NULL,
     `delDate` DATETIME,
     cateItemId INT(10) UNSIGNED NOT NULL,
-    displayStatus TINYINT(1) UNSIGNED NOT NULL,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     `title` CHAR(200) NOT NULL,
     `body` TEXT NOT NULL
 );
@@ -53,10 +53,10 @@ CREATE TABLE `member` (
     `name` CHAR(100) NOT NULL, 
     `nickname` CHAR(100) NOT NULL UNIQUE,
     `email` CHAR(100) NOT NULL,
-    `level` INT(1) UNSIGNED DEFAULT 0 NOT NULL,
-    delStatus TINYINT(1) UNSIGNED NOT NULL,
+    `level` INT(1) UNSIGNED NOT NULL DEFAULT 0,
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 ,
     `delDate` DATETIME,
-    displayStatus TINYINT(1) UNSIGNED NOT NULL
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0
 );
 
 # 마스터 회원 생성
@@ -124,7 +124,7 @@ CREATE TABLE articleReply (
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     memberId INT(10) UNSIGNED NOT NULL,
-    displayStatus TINYINT(1) UNSIGNED NOT NULL,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     `body` TEXT NOT NULL
 );
 
@@ -179,7 +179,7 @@ CREATE TABLE message (
     `body` TEXT NOT NULL,
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     `delDate` DATETIME,
-    displayStatus TINYINT(1) UNSIGNED NOT NULL
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0
 );
 
 # 채팅 테이블 추가
@@ -192,5 +192,4 @@ CREATE TABLE chatMessage (
     `body` TEXT NOT NULL,
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
     `delDate` DATETIME,
-    displayStatus TINYINT(1) UNSIGNED NOT NULL
-);
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0
