@@ -30,7 +30,7 @@
 	}
 </script>
 
-<h1 class="member-modify-h">회원 정보 수정</h1>
+<h1 class="title">회원 정보 수정</h1>
 
 <form method="POST" class="table-box table-box-vertical con form1" action="doModifyPrivate" onsubmit="ModifyPrivateForm__submit(this); return false;">
 <input type="hidden" name="authCode" value="${param.authCode}" />

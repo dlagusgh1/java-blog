@@ -1008,10 +1008,17 @@ input[id*="popup"]:checked + label + div {
 }
 
 /* article 리스트 작업 */
-.article-h {
+.title {
+	text-align: center;
+	margin: 30px 0;
+	white-space:nowrap;
+}
+
+.page-title {
 	text-align: center;
 	margin-top: 30px;
 	margin-bottom: 20px;
+	white-space:nowrap;
 }
 
 .table-box {
@@ -1169,12 +1176,6 @@ input[id*="popup"]:checked + label + div {
   word-break: keep-all;
 }
 
-.title {
-	text-align: center;
-	margin: 30px 0;
-	white-space:nowrap;
-}
-
 
 /* article 상세보기 작업 */
 .article-detail-info {
@@ -1306,11 +1307,6 @@ input[id*="popup"]:checked + label + div {
 }
 
 /* 댓글작성 */
-.comment-write-h {
-	width: 100%;
-	font-weight: bold;
-	font-size: 1.3rem;
-}
 .write-reply-form> .form-row > .input > input:last-child {
 	margin-left: 10px;
 }
@@ -1396,442 +1392,6 @@ input[id*="popup"]:checked + label + div {
 	color: white;
 }
 
-
-/* 게시물 작성 */
-.article-doWrite-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.write-form-box {
-	margin-top: 30px;
-}
-
-
-/* 회원가입 */
-.join-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.join-form-box {
-	margin-top: 30px;
-	width: 100%;
-}
-
-.form5 {
-	display: block;
-}
-.form5 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form5 .form-row:not(:first-child) {
-	margin-top: 20px;
-}
-
-.form5 .form-row button:not(:first-child) {
-	margin-left: 20px;
-}
-
-.form5 .form-row button {
-	cursor: pointer;
-	padding: 10px 70px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin-top: 10px;
-}
-
-.form5 .form-row > div:hover > button {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.form5 .form-row>.label {
-	width: 100px;
-}
-
-.form5 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form5 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
-}
-
-
-/* 로그인 */
-
-
-.login-form-box {
-	margin-top: 30px;
-	width: 100%;
-}
-
-/* 마이페이지 */
-.mypage-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.mypage-cd button {
-	cursor: pointer;
-	padding: 5px 30px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin: 10px;
-}
-
-.mypage-cd .input>div:hover button {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-/* 통계 페이지 */
-.cs-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-/* 아이디 찾기 */
-.findId-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.findId-form-box {
-	margin-top: 30px;
-	width: 100%;
-}
-
-.form3 {
-	display: block;
-}
-.form3 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form3 .form-row:not(:first-child) {
-	margin-top: 10px;
-}
-
-.form3 .form-row button:not(:first-child) {
-	margin-left: 10px;
-}
-
-.form3 .form-row button {
-	cursor: pointer;
-	padding: 10px 50px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin-top: 10px;
-}
-
-.form3 .form-row button:hover {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.form9 .form-row button {
-	cursor: pointer;
-	
-}
-
-.form3 .form-row>.label {
-	width: 100px;
-}
-
-.form3 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form3 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
-}
-
-/* 비밀번호 확인 */
-.certification-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.certification-form-box {
-	margin-top: 30px;
-	width: 100%;
-}
-
-.form6 {
-	display: block;
-}
-.form6 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form6 .form-row:not(:first-child) {
-	margin-top: 20px;
-}
-
-.form6 .form-row button:not(:first-child) {
-	margin-left: 20px;
-}
-
-.form6 .form-row button {
-	cursor: pointer;
-	padding: 10px 70px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin-top: 10px;
-}
-
-.form6 .form-row:hover button {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.form6 .form-row>.label {
-	width: 100px;
-}
-
-.form6 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form6 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
-}
-
-
-/* 비밀번호 찾기 */
-.findPw-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.findPw-form-box {
-	margin-top: 30px;
-	width: 100%;
-}
-
-.form4 {
-	display: block;
-}
-.form4 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form4 .form-row:not(:first-child) {
-	margin-top: 10px;
-}
-
-.form4 .form-row button:not(:first-child) {
-	margin-left: 10px;
-}
-
-.form4 .form-row button {
-	cursor: pointer;
-	padding: 10px 50px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin-top: 10px;
-}
-
-.form4 .form-row button:hover {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.form4 .form-row>.label {
-	width: 100px;
-}
-
-.form4 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form4 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
-}
-
-/* 회원 탈퇴 */
-.member-delete-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.member-delete-form-box {
-	margin-top: 30px;
-	width: 100%;
-}
-
-.form9 {
-	display: block;
-}
-.form9 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form9 .form-row:not(:first-child) {
-	margin-top: 20px;
-}
-
-.form9 .form-row button:not(:first-child) {
-	margin-left: 20px;
-}
-
-.form9 .form-row button {
-	cursor: pointer;
-	padding: 10px 50px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin-top: 10px;
-}
-
-.form9 .form-row button:hover {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.form9 .form-row>.label {
-	width: 100px;
-}
-
-.form9 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form9 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
-}
-
-/* 회원 정보 수정 */
-.member-modify-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
-.member-modify-form-box {
-	margin-top: 30px;
-	width: 100%;
-}
-
-.form8 {
-	display: block;
-}
-.form8 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form8 .form-row:not(:first-child) {
-	margin-top: 20px;
-}
-
-.form8 .form-row button:not(:first-child) {
-	margin-left: 20px;
-}
-
-.form8 .form-row button {
-	cursor: pointer;
-	padding: 10px 50px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin-top: 10px;
-}
-
-.form8 .form-row button:hover {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.form8 .form-row>.label {
-	width: 100px;
-}
-
-.form8 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form8 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
-}
-
-/* 이메일 인증 */
-.auth-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
 /* 채팅 */
 /* 채팅 출력 */
 .chat-view {
@@ -1842,7 +1402,7 @@ input[id*="popup"]:checked + label + div {
 	font-size: 18px;
 	color: white;
 	overflow: scroll;
-	background:url("/blog/resource/img/chat.jpg") no-repeat;
+	background:url("/blog/resource/img/p3.jpg") no-repeat;
 	background-size: cover;
 }
 .chat-view > div {
@@ -1943,14 +1503,6 @@ input[id*="popup"]:checked + label + div {
 	}
 }
 
-/* 페이지 타이틀 */
-.page-title {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
-
 /* 쪽지 관련 관련*/
 /* 쪽지 head */
 .messenger-top-bar {
@@ -1991,10 +1543,6 @@ input[id*="popup"]:checked + label + div {
 }
 
 /* 보낸 쪽지함 */
-.messages-h {
-	margin: 10px;
-} 
-
 @media ( max-width : 801px ) {
 	.messages-box > .messages-list {
 		border-collapse: collapse;

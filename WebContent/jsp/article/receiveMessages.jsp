@@ -3,7 +3,8 @@
 	
 <%@ include file="/jsp/article/messenger.jsp"%>
 
-<h3 class="messages-h con flex-jc-c">받은 쪽지함</h3>
+<h3 class="title con flex-jc-c">받은 쪽지함</h3>
+
 
 <div class="con flex-jc-c">
 	<div class="messages-box">

@@ -9,7 +9,7 @@
 <!-- lodash 라이브러리 (debounce) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.19/lodash.min.js"></script>
 
-<h1 class="join-h">회원 가입</h1>
+<h1 class="title">회원 가입</h1>
 
 <form method="POST" class="table-box table-box-vertical con form1" action="doJoin" onsubmit="JoinForm__submit(this); return false;">
 	<input type="hidden" name="loginPwReal">

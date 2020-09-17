@@ -69,7 +69,7 @@
 	}
 </script>
 
-<h1 class="member-delete-h">회원 탈퇴</h1>
+<h1 class="title">회원 탈퇴</h1>
 
 <div class="member-delete-form-box con flex-jc-c">
 	<form action="doDelete" method="POST" class="member-delete-form form9"

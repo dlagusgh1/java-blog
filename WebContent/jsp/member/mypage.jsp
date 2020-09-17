@@ -135,7 +135,7 @@
 				<tr>
 					<th>회원 탈퇴</th>
 					<td>
-						<button class="btn btn-primary" type="button"><a href="${pageContext.request.contextPath}/s/member/passwordForPrivate">회원탈퇴</a></button>
+						<button class="btn btn-danger" type="button"><a href="${pageContext.request.contextPath}/s/member/passwordForPrivate">회원탈퇴</a></button>
 					</td>
 				</tr>
 			</tbody>

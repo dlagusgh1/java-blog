@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>hyeon</title>
+<title>MyBlog</title>
 
 <!-- 구글 폰트 불러오기 -->
 <!-- rotobo(400/900), notosanskr(400/900) -->
@@ -146,6 +146,8 @@
 				<li class="flex-1-0-0 flex"><a href="#"
 					class="top-btn flex flex-1-0-0 flex-ai-c flex-jc-c">SNS</a>
 					<ul>
+						<li><a class="block" target="_blank" href="https://wori.n35.weone.kr/">
+						<i class="far fa-lightbulb"></i>&nbsp;&nbsp;우리동네&nbsp;&nbsp;</a></li>
 						<li><a class="block" target="_blank"
 							href="https://github.com/dlagusgh1/java-blog"><i
 								class="fab fa-github"></i>&nbsp;&nbsp;GITHUB&nbsp;&nbsp;</a></li>
@@ -153,7 +155,8 @@
 							href="https://to2.kr/bft"><i class="fas fa-tenge"></i>&nbsp;&nbsp;TISTORY&nbsp;&nbsp;</a></li>
 						<li><a class="block" target="_blank" href="http://to2.kr/bhw"><i
 								class="fab fa-youtube-square"></i>&nbsp;&nbsp;YOUTUBE&nbsp;&nbsp;</a></li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
 		</nav>
 	</div>

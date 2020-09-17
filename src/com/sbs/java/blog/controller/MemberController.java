@@ -34,55 +34,55 @@ public class MemberController extends Controller {
 		case "doLogin":
 			return actionDoLogin();
 		case "join":
-			return actionJoin(); // 회원가입 폼
+			return actionJoin();
 		case "doJoin":
-			return actionDoJoin(); // 회원가입 기능
+			return actionDoJoin();
 		case "reAuthEmail":
 			return reAuthEmail();	// 인증 메일 재 발송 기능
 		case "authEmail":
 			return actionAuthEmail(); // 이메일 인증 기능
 		case "getNickNameDup":
-			return actionGetNickNameDup(); // 회원가입 닉네임 중복체크
+			return actionGetNickNameDup();
 		case "getEmailDup":
-			return actionGetEmailDup(); // 회원가입 이메일 중복체크
+			return actionGetEmailDup();
 		case "getLoginIdDup":
-			return actionGetLoginIdDup(); // 회원가입 로그인 아이디 중복체크
+			return actionGetLoginIdDup();
 		case "passwordForPrivate":
 			return actionPasswordForPrivate(); // 회원정보(비밀번호) - 비밀번호 변경 전 비밀번호 확인 폼
 		case "doPasswordForPrivate":
 			return actionDoPasswordForPrivate(); // 회원정보(비밀번호) - 비밀번호 변경 전 확인 기능
 		case "modifyPrivate":
-			return actionModifyPrivate();	// 회원정보(비밀번호) 변경 폼
+			return actionModifyPrivate();
 		case "doModifyPrivate":
-			return actionDoModifyPrivate(); // 회원정보(비밀번호) 변경 기능
+			return actionDoModifyPrivate();
 		case "passwordConfirm":
 			return actionpasswordConfirm(); // 회원정보 변경 진입 전 비밀번호 확인 폼
 		case "doPasswordConfirm":
 			return actionDoPasswordConfirm(); // 마이페이지 진입 전 비밀번호 확인 기능
 		case "findAccount":
-			return actionFindAccount();	// 아이디 찾기
+			return actionFindAccount();
 		case "doFindLoginId":
-			return actionDoFindLoginId();	// 아이디 찾기 기능
+			return actionDoFindLoginId();
 		case "findPw":
-			return actionFindPw(); // 비밀번호 찾기
+			return actionFindPw();
 		case "doFindPw":
-			return actionDoFindLoginPw(); // 비밀번호 찾기 기능
+			return actionDoFindLoginPw();
 		case "mypage":
-			return actionMypage();	// 마이페이지
+			return actionMypage();
 		case "myList":
-			return actionMyList();	// 마이페이지 내 게시물 리스트
+			return actionMyList();
 		case "myReplyList":
-			return actionMyReplyList();	// 마이페이지 내 댓글 리스트
+			return actionMyReplyList();
 		case "myImgModify":
-			return actionMyImgModify();	// 마이페이지 내 프로필 이미지 변경 폼
+			return actionMyImgModify();
 		case "doMyImgModify":
-			return actionDoMyImgModify();	// 마이페이지 내 프로필 변경 기능
+			return actionDoMyImgModify();
 		case "myIntroModify":
-			return actionMyIntroModify();	// 마이페이지 내 소개글 변경 폼
+			return actionMyIntroModify();
 		case "doMyIntroModify":
-			return actionDoMyIntroModify();	// 마이페이지 내 소개글 변경 기능
+			return actionDoMyIntroModify();
 		case "siteStatistics":
-			return actionSiteStatistics(); // 통계 기능
+			return actionSiteStatistics();
 		case "doDelete":
 			return actionDoDelete();	
 		}

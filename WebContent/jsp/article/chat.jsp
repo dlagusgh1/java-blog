@@ -26,7 +26,7 @@
 	
 </script>
 
-<h1 class="mypage-h">채팅</h1>
+<h1 class="title">채팅</h1>
 
 <div class="chat-view con" id="chatContent">
 	<div class="con">	

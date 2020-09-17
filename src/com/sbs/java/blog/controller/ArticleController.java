@@ -90,7 +90,6 @@ public class ArticleController extends Controller {
 		boolean isExistNickName = memberService.isJoinableNickname(nickName);
 		
 		if (isExistNickName) {
-			System.out.println(isExistNickName);
 			return String.format("html:<script> alert('존재하지 않는 닉네임 입니다.'); history.back();</script>");
 		}
 		
@@ -402,8 +401,6 @@ public class ArticleController extends Controller {
 		int cateItemId = Util.getInt(req, "cateItemId");
 		String title = Util.getString(req, "title");
 		String body = Util.getString(req, "body");
-		
-		System.out.println(memberLevel);
 		
 		if( cateItemId == 4 && memberLevel != 10 ) {
 			return String.format("html:<script> alert('공지사항 게시판에는 게시물 작성이 불가능 합니다.'); history.back(); </script>");

@@ -3,7 +3,7 @@
 	
 <%@ include file="/jsp/part/head.jspf"%>
 
-<h1 class="article-h">
+<h1 class="title">
 	${cateItemName} 게시물 리스트
 </h1>
 
@@ -97,7 +97,7 @@
 		총 게시물 수 : ${totalCount}
 		<div class="article-create">
 			 <c:if test="${isLogined}">
-				<a href="${pageContext.request.contextPath}/s/article/write" class="block">게시물 작성</a>
+			 	<button class="btn btn-primary" type="submit"><a href="${pageContext.request.contextPath}/s/article/write">게시물 작성</a></button>
 			</c:if>
 		</div>
 	</div>

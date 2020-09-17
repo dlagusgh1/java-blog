@@ -42,53 +42,61 @@
 	}
 </script>
 
-<h1 class="article-doWrite-h">게시물 수정</h1>
+<h1 class="title">게시물 수정</h1>
 
-<!-- 게시물 수정기능 -->
-<div class="write-form-box con">
-	<form action="doModify" method="POST" class="write-form form1"
-		onsubmit="submitModifyForm(this); return false;">
-		<div class="form-row">
-			<div class="label">게시물 번호</div>
-			<div class="input">
-				<input name="id" type="hidden" value="${article.id}" />
-				${article.id}
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">카테고리</div>
-			<div class="input">
-				<select name="cateItemId">
-					<c:forEach items="${cateItems}" var="cateItem">
-						<option ${article.cateItemId == cateItem.id ? 'selected' : ''} value="${cateItem.id}">${cateItem.name}</option>
-					</c:forEach>
-				</select>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">제목</div>
-			<div class="input">
-				<input value="${article.title}" name="title" type="text" placeholder="제목을 입력해주세요." />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">내용</div>
-			<div class="input">
-				<input name="body" type="hidden">
-				<script type="text/x-template">${article.bodyForXTemplate}</script>
-				<div class="toast-editor"></div>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label"></div>
-			<div class="input flex-jc-c" style="margin: 30px 0px;">
-				<button type="submit" value="완료" onclick="if ( confirm('수정하시겠습니까?') == false ) return false;" style="padding: 5px 15px; font-size: 20px;">완료</button>
-				<button type="button" value="취소" onClick="alert('수정이 취소되었습니다.')" style="padding: 5px 15px; font-size: 20px;">
-					<a href="/blog/s/article/list">취소</a>
-				</button>
-			</div>
-		</div>
-	</form>
-</div>
+<form method="POST" class="table-box table-box-vertical con form1" action="doModify" onsubmit="submitModifyForm(this); return false;">
+	<table>
+		<colgroup>
+			<col width="250">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>게시물 번호</th>
+				<td>
+					<div class="form-control-box">
+						<input name="id" type="hidden" value="${article.id}" />${article.id}
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>카테고리</th>
+				<td>
+					<div class="form-control-box">
+						<select name="cateItemId">
+							<c:forEach items="${cateItems}" var="cateItem">
+								<option ${article.cateItemId == cateItem.id ? 'selected' : ''} value="${cateItem.id}">${cateItem.name}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>
+					<div class="form-control-box">
+						<input value="${article.title}" name="title" type="text" placeholder="제목을 입력해주세요." />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<div class="form-control-box">
+						<input name="body" type="hidden">
+						<script type="text/x-template">${article.bodyForXTemplate}</script>
+						<div class="toast-editor"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>수정</th>
+				<td>
+					<button class="btn btn-primary" type="submit" onclick="if ( confirm('수정하시겠습니까?') == false ) return false;">완료</button>
+					<button class="btn btn-danger" type="button" onclick="history.back();">취소</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 
 <%@ include file="/jsp/part/foot.jspf"%>

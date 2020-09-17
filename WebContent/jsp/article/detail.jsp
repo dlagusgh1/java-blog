@@ -53,7 +53,7 @@
 		});
 	</script>
 
-<h1 class="article-h">${article.title}</h1>
+<h1 class="title">${article.title}</h1>
 <div class="article-detail-info con flex-ai-c">
 	<c:forEach items="${articleNickName}" var="articleName">
 		<c:if test="${article.id == articleName.id}">
@@ -85,7 +85,7 @@
 						<input type="hidden" name="id" value="${article.id}" /> 
 						<input type="hidden" name="title" value="${article.title}" /> 
 						<input type="hidden" name="body" value="${article.body}" />
-						<button type="submit" value="수정">수정</button>
+						<button class="btn btn-primary" type="submit">수정</button>
 					</form>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 			<div class="info-del">
 				<form name="delete-Article-box" method="POST" action="doDelete">
 					<input type="hidden" name="id" value="${article.id}" />
-					<button onclick="if ( confirm('삭제하시겠습니까?') == false ) return false;" type="submit" onClick="alert('게시물 삭제가 완료되었습니다.')">삭제</button>
+					<button class="btn btn-danger" onclick="if ( confirm('삭제하시겠습니까?') == false ) return false;" type="submit" onClick="alert('게시물 삭제가 완료되었습니다.')">삭제</button>
 				</form>	
 			</div>
 		</c:if>
@@ -190,12 +190,12 @@
 							<input type="hidden" name="articleId" value="${article.id}" />
 							<input type="hidden" name="id" value="${articleReplies.id}" />
 							<input type="hidden" name="body" value="${articleReplies.body}" />
-							<button type="submit" value="수정">수정</button>
+							<button class="btn btn-primary" type="submit">수정</button>
 						</form>
 						<form name="reply-delete" method="POST" action="doDeleteReply">
 							<input type="hidden" name="articleId" value="${article.id}" />
 							<input type="hidden" name="id" value="${articleReplies.id}" />
-							<button type="submit" onClick="alert('댓글 삭제가 완료되었습니다.')">삭제</button>
+							<button class="btn btn-danger" type="submit" onClick="alert('댓글 삭제가 완료되었습니다.')">삭제</button>
 						</form>
 					</div>
 				</c:if>
@@ -242,27 +242,32 @@
 
 <!-- 댓글 작성 -->
 <c:if test="${isLogined}">
-	<div class="write-reply-form-box con">
-		<form action="doWriteReply" method="POST" class="write-reply-form form1" onsubmit="WriteReplyForm__submit(this); return false;">
-			<input type="hidden" name="articleId" value="${article.id}">
-			<input type="hidden" name="body">
-			<div class="comment-write-h con flex">
-			댓글 입력
-			</div>
-			<div class="form-row">
-				<div class="input">
-					<script type="text/x-template"></script>
-					<div data-toast-editor-height="300" class="toast-editor"></div>
-				</div>
-			</div>
-			<div class="form-row" style="margin-bottom: 30px;">
-				<div class="input flex">
-					<input type="submit" value="작성" /> 
-					<input class="cancel" type="button" value="취소" />
-				</div>
-			</div>
-		</form>
-	</div>
+	<form method="POST" class="table-box table-box-vertical con form1" action="doWriteReply" onsubmit="WriteReplyForm__submit(this); return false;">
+		<input type="hidden" name="articleId" value="${article.id}">
+		<input type="hidden" name="body">
+		<table>
+			<colgroup>
+				<col width="250">
+			</colgroup>
+			<tbody>
+				<tr>
+					<th>댓글 내용 입력</th>
+					<td>
+						<div class="form-control-box">
+							<script type="text/x-template"></script>
+							<div data-toast-editor-height="300" class="toast-editor"></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>댓글 작성</th>
+					<td>
+						<button class="btn btn-primary" type="submit">작성</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
 </c:if>
 
 <%@ include file="/jsp/part/foot.jspf"%>
