@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>프로필 이미지 변경</title>
+<title>프로필 소개글 변경</title>
 
 <!-- 구글 폰트 불러오기 -->
 <!-- rotobo(400/900), notosanskr(400/900) -->
@@ -37,46 +37,44 @@
 
 <script>
 	<!-- 프로필 수정 전 값 체크 -->
-	var submitModifyImgFormDone = false;
-	function submitModifyImgForm(form) {
-		if ( submitModifyImgFormDone ) {
+	var submitModifyMyIntroFormDone = false;
+	function submitModifyMyIntroForm(form) {
+		if ( submitModifyMyIntroFormDone ) {
 			alert('처리중입니다.');
 			return;
 		}
 		
-		form.memberImg.value = form.memberImg.value.trim();
-		if ( form.memberImg.value.length == 0 ) {
-			alert('사진을 추가해주세요.');
-			form.memberImg.focus();
+		form.memberIntro.value = form.memberIntro.value.trim();
+		if ( form.memberIntro.value.length == 0 ) {
+			alert('소개글을 입력해주세요.');
+			form.memberIntro.focus();
 			return false;
 		}		
 		
 		form.submit();
-		submitModifyImgFormDone = true;
+		submitModifyMyIntroFormDone = true;
 	}
 </script>
  
-<div class="mypage-img con flex-jc-c" style="margin-top: 30px; text-align: center;">
-	<form action="doMyImgModify" onsubmit="submitModifyImgForm(this); return false;">
-		<div class="mypage-img-wrap">
-			<c:choose>
-				<c:when test="${loginedMember.myImg.equals(\"null\")}">
-					<div class="noneProfileImg"></div>
-					등록된 사진이 없습니다.
-				</c:when>
-				<c:otherwise>
-					<img class="profileImg" src="${loginedMember.myImg}" alt="">
-				</c:otherwise>
-			</c:choose>
-			<br>아래에 변경하고자하는 이미지 주소를 입력해주세요.
+<div class="mypage-myIntro con flex-jc-c" style="margin-top: 30px; text-align: center;">
+	<form action="doMyIntroModify" onsubmit="submitModifyMyIntroForm(this); return false;">
+		<div class="mypage-myIntro-wrap">
+			<br>아래에 변경할 소개글의 내용을 입력해주세요.
 			<div class="form-row" style="margin: 10px;">
 				<div class="input">
-					<input name="memberImg" type="url"/> 
+					<c:choose>
+					<c:when test="${loginedMember.myIntro.equals(\"null\")}">
+						<textarea name="memberIntro" rows=5 cols=50 placeholder="프로필 소개글 입력"></textarea>
+					</c:when>
+					<c:otherwise>
+						<textarea name="memberIntro" rows=5 cols=50 placeholder="프로필 소개글 입력">${loginedMember.myIntro}</textarea>
+					</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="input">
-					<button class="btn btn-primary" type="submit" value="프로필 변경">프로필 변경</button>
+					<button class="btn btn-primary" type="submit" value="소개글 변경">소개글 변경</button>	
 					<button class="btn btn-danger" type="button" onclick="history.back();">취소</button>
 				</div>
 			</div>

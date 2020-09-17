@@ -56,7 +56,9 @@ CREATE TABLE `member` (
     `level` INT(1) UNSIGNED NOT NULL DEFAULT 0,
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 ,
     `delDate` DATETIME,
-    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0
+    displayStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+    myImg TEXT,
+    myIntro TEXT
 );
 
 # 마스터 회원 생성

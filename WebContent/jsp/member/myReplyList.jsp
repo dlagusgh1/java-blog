@@ -3,29 +3,47 @@
 	
 <%@ include file="/jsp/part/head.jspf"%>
 
-<h1 class="article-h">
-	${loginedMemberNickName}님 댓글 리스트
+<h1 class="title">
+	${loginedMember.nickName}님 댓글 리스트
 </h1>
 
-<div class="article-box con flex-ai-c">
-	<table class="article-list">
-		<tr>
-			<th style="width: 100px;">게시물 번호</th>
-			<th style="width: 500px;">댓글</th>
-			<th>작성일</th>
-		</tr>
+<div class="table-box table-box-data con">
+	<table>
+		<colgroup>
+			<col width="100" />
+           	<col width="500" />
+           	<col width="200" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>댓글내용</th>
+				<th>게시물 번호</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		<tbody>
 			<c:forEach items="${replies}" var="reply">
 				<tr>
-					<td>${reply.articleId}</td>
+					<td>${reply.id}</td>
 					<td class="title-link" ><a href="${pageContext.request.contextPath}/s/article/detail?id=${reply.articleId}">${reply.body}</a></td>
+					<td>${reply.articleId}</td>
 					<c:if test="${reply.regDate == reply.updateDate}">
 						<td>${reply.regDate}</td>
 					</c:if>
 					<c:if test="${reply.regDate != reply.updateDate}">
 						<td>${reply.updateDate}</td>
 					</c:if>
-				</tr>
+					<td class="visible-on-sm-down">
+	            		<a href="${pageContext.request.contextPath}/s/article/detail?id=${reply.articleId}" class="flex flex-row-wrap flex-ai-c">
+		               		<span class="badge badge-primary bold margin-right-10">${reply.id}</span>
+		                	<div class="title text-overflow-el ">${reply.body}</div>
+		            	</a>
+		               		<div class="reg-date inline-block">${reply.regDate}</div>
+	            	</td>
+            	</tr>
 			</c:forEach>
+		</tbody>
 	</table>
 </div>
 

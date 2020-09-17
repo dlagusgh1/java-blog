@@ -393,7 +393,7 @@ label[for] {
   outline: 0;
   border: 0;
   cursor: pointer;
-  background-color: #4BAF4B;
+  background-color: #1b5ac2;
   color: #FFFFFF;
   text-shadow: 1px 1px 20px #000000;
   text-decoration: none;
@@ -407,7 +407,7 @@ label[for] {
 }
 
 .btn-success {
-  background-color: #28a745;
+  background-color: ##1b5ac2;
 }
 
 .btn-info {
@@ -488,13 +488,6 @@ label[for] {
 	padding: 0 5px;
 	font-size: 0.8rem;
 	white-space:nowrap;
-}
-
-.header_MyImg {
-	width: 20px;
-	height: 20px;
-	border: 2px solid #1b5ac1;
-	border-radius: 50%;
 }
 	
 /* 탑바 시작 */
@@ -765,7 +758,7 @@ label[for] {
 /* 홈 화면 */
 #main{
 	position: relative;
-	background:url("/blog/resource/img/cover2.jpg") center center / cover no-repeat;
+	background:url("/blog/resource/img/cover.jpg") center center / cover no-repeat;
 	width:100vm;
 	height:100vh;
 	z-index: 0;
@@ -1022,7 +1015,7 @@ input[id*="popup"]:checked + label + div {
 }
 
 .table-box {
-  border-top: 3px solid #168;
+  border-top: 3px solid #1b5ac2;
   box-sizing: border-box;
 }
 
@@ -1047,6 +1040,18 @@ input[id*="popup"]:checked + label + div {
 
 .table-box tr {
   border-bottom: 1px solid #dfdfdf;
+}
+
+.table-box .myImg-box {
+	width: 150px;
+	height: 150px;
+}
+
+.table-box .myImg-box .noneProfileImg, .profileImg {
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 @media ( max-width :800px ) {
@@ -1119,6 +1124,58 @@ input[id*="popup"]:checked + label + div {
   }
 }
 
+/* 폼 관련 */
+.form1 .form-control-box>input, .form1 .form-control-box>textarea {
+  width: 100%;
+  padding: 0;
+  display: block;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.form1 .form-control-box>textarea {
+  min-height: 300px;
+  resize: none;
+}
+
+.form1 .form-control-box>select {
+  width: 100%;
+  padding: 0;
+  display: block;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.form1 .form-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form1 .form-row>.form-control-label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.form1 .form-row>.form-control-box {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.form1 th, .form-control-label {
+  /* `로그인 아이디` 문구가 줄 바꿈 될 때 공백기준으로 줄바꿈 되도록 */
+  word-break: keep-all;
+}
+
+.title {
+	text-align: center;
+	margin: 30px 0;
+	white-space:nowrap;
+}
+
+
 /* article 상세보기 작업 */
 .article-detail-info {
 	color: #52575c;
@@ -1165,8 +1222,15 @@ input[id*="popup"]:checked + label + div {
 	padding: 15px;
 }
 
-.detail-profile-box .detail-profile-img img {
+.detail-profile-box .detail-profile-img .noneProfileImg {
 	border: 3px solid #1b5ac1;
+	border-radius: 50%;
+	width:150px;
+	height:150px;
+	margin-right: 30px;
+}
+
+.detail-profile-box .detail-profile-img .profileImg {
 	border-radius: 50%;
 	width:150px;
 	height:150px;
@@ -1192,11 +1256,7 @@ input[id*="popup"]:checked + label + div {
 }
 
 /* 댓글보기 */
-.comment-view-h {
-	width: 100%;
-	font-weight: bold;
-	font-size: 1.3rem;
-}
+
 .comment-view-box {
 	border-collapse: collapse;
 	border-top: 2px solid #168;
@@ -1349,46 +1409,6 @@ input[id*="popup"]:checked + label + div {
 	margin-top: 30px;
 }
 
-.form1 {
-	display: block;
-	width: 100%;
-}
-.form1 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form1 .form-row:not(:first-child) {
-	margin-top: 10px;
-}
-
-.form1 .form-row button:not(:first-child) {
-	margin-left: 10px;
-}
-
-.form1 .form-row>.label {
-	width: 100px;
-}
-
-.form1 .form-row>.input {
-	flex-grow: 1;
-}
-
-.form1 .form-row>.input>input {
-	display: block;
-	width: 100%;
-	box-sizing: border-box;
-	padding: 10px;
-}
-
-.form1 .form-row>.input>select {
-	padding: 10px;
-}
-
-@media ( max-width : 700px ) {
-	.form1 .form-row {
-		display: block;
-	}
-}
 
 /* 회원가입 */
 .join-h {
@@ -1453,66 +1473,12 @@ input[id*="popup"]:checked + label + div {
 
 
 /* 로그인 */
-.login-h {
-	text-align: center;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	white-space:nowrap;
-}
+
 
 .login-form-box {
 	margin-top: 30px;
 	width: 100%;
 }
-
-.form2 {
-	display: block;
-}
-.form2 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form2 .form-row:not(:first-child) {
-	margin-top: 20px;
-}
-
-.form2 .form-row button:not(:first-child) {
-	margin-left: 20px;
-}
-
-.form2 .form-row button {
-	cursor: pointer;
-	padding: 10px 70px;
-	font-size: 18px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-	margin-top: 10px;
-}
-
-.form2 .form-row:hover button {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.form2 .form-row>.label {
-	width: 100px;
-}
-
-.form2 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form2 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
-}
-
 
 /* 마이페이지 */
 .mypage-h {
@@ -1520,84 +1486,6 @@ input[id*="popup"]:checked + label + div {
 	margin-top: 30px;
 	margin-bottom: 20px;
 	white-space:nowrap;
-}
-
-.mypage-img {
-	width: 100%;
-}
-
-.mypage-img .mypage-img-wrap {
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-}
-
-.mypage-img .mypage-img-wrap > img {
-	border-radius: 50%;
-	border: 3px solid #1b5ac1;
-	width: 150px;
-	height: 150px;
-	margin-bottom: 10px;
-}
-
-.mypage-img .mypage-img-wrap div > button {
-	cursor: pointer;
-	padding: 5px 15px;
-	font-size: 13px;
-	background-color: white;
-	color: #1b5ac1;
-	border: 1px solid #1b5ac1;
-	border-radius: 10px;
-}
-
-.mypage-img .mypage-img-wrap div:hover button {
-	background-color: #1b5ac1;
-	color: white;
-	transition: all 0.5s;
-}
-
-.mypage-box {
-	text-align: center;
-	padding: 15px 0px;
-}
-
-.mypage-box>form {
-	display: inline-block;
-}
-
-.mypage-box > form > div {
-	text-align: left;
-}
-
-.form7 {
-	display: block;
-}
-.form7 .form-row {
-	align-items: center;
-	display: flex;
-}
-.form7 .form-row:not(:first-child) {
-	margin-top: 20px;
-}
-
-.form7 .form-row button:not(:first-child) {
-	margin-left: 20px;
-}
-
-.form7 .form-row>.label {
-	width: 100px;
-}
-
-.form7 .form-row>.input {
-	flex-grow: 1;
-	flex-wrap: nowrap;
-}
-
-.form7 .form-row>.input>input {
-	display: block;
-	width: 200px;
-	box-sizing: border-box;
-	padding: 8px;
 }
 
 .mypage-cd button {

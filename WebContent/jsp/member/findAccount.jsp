@@ -37,33 +37,40 @@
 	}
 </script>
 
-<h1 class="findId-h">회원 아이디 찾기</h1>
+<h1 class="title">회원 아이디 찾기</h1>
 
-<div class="findId-form-box con flex-jc-c">
-	<form action="doFindLoginId" method="POST" class="findId-form form3" onsubmit="FindLoginIdForm__submit(this); return false;">
-		<div class="form-row">
-			<div class="label">이름</div>
-			<div class="input">
-				<input type="text" name="name" maxlength="20" placeholder="이름 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">이메일</div>
-			<div class="input">
-				<input type="email" name="email" maxlength="20"
-					placeholder="email 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input flex-jc-c">
-				<button type="submit" value="찾기">찾기</button>
-				<button type="button" value="취소" onClick="alert('아이디 찾기가 취소되었습니다.')">
-					<a href="/blog/s/home/main">취소</a>
-				</button>
-			</div>
-		</div>
-	</form>
-</div>
+<form method="POST" class="table-box table-box-vertical con form1" action="doFindLoginId" onsubmit="FindLoginIdForm__submit(this); return false;">
+	<table>
+		<colgroup>
+			<col width="250">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>이름</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" name="name" maxlength="20" placeholder="이름 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td>
+					<div class="form-control-box">
+						<input type="email" name="email" maxlength="20" placeholder="email 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>아이디 찾기</th>
+				<td>
+					<button class="btn btn-primary" type="submit">찾기</button>
+					<button class="btn btn-danger" type="button" onclick="history.back();">취소</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 
 <script>
 	var FindLoginPwForm__submitDone = false;
@@ -81,6 +88,14 @@
 			return;
 		}
 
+		form.name.value = form.name.value.trim();
+
+		if (form.name.value.length == 0) {
+			alert('이름을 입력해주세요.');
+			form.name.focus();
+			return;
+		}
+
 		form.email.value = form.email.value.trim();
 
 		if (form.email.value.length == 0) {
@@ -93,42 +108,47 @@
 	}
 </script>
 
-<h1 class="findPw-h">회원 비밀번호 찾기</h1>
+<h1 class="title">회원 비밀번호 찾기</h1>
 
-<div class="findPw-form-box con flex-jc-c">
-	<form action="doFindPw" method="POST" class="findPw-form form4"
-		onsubmit="submitJoinForm(this); return false;">
-		<div class="form-row">
-			<div class="label">아이디</div>
-			<div class="input">
-				<input type="text" name="loginId" maxlength="20"
-					placeholder="회원 id 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">이름</div>
-			<div class="input">
-				<input type="text" name="name" maxlength="20" placeholder="이름 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">이메일</div>
-			<div class="input">
-				<input type="email" name="email" maxlength="20"
-					placeholder="email 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input flex-jc-c">
-				<input type="hidden" name="tempPw" value="${tempPw}"/>
-				<input type="hidden" name="loginRealPw" value="${tempPw}"/>
-				<button type="submit" value="찾기">찾기</button>
-				<button type="button" value="취소" onClick="alert('비밀번호 찾기가 취소되었습니다.')">
-					<a href="/blog/s/home/main">취소</a>
-				</button>
-			</div>
-		</div>
-	</form>
-</div>
+<form method="POST" class="table-box table-box-vertical con form1" action="doFindPw" onsubmit="FindLoginPwForm__submit(this); return false;">
+	<table>
+		<colgroup>
+			<col width="250">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>아이디</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" name="loginId" maxlength="20" placeholder="회원 id 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" name="name" maxlength="20" placeholder="이름 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td>
+					<div class="form-control-box">
+						<input type="email" name="email" maxlength="20" placeholder="email 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호 찾기</th>
+				<td>
+					<button class="btn btn-primary" type="submit">찾기</button>
+					<button class="btn btn-danger" type="button" onclick="history.back();">취소</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 
 <%@ include file="/jsp/part/foot.jspf"%>

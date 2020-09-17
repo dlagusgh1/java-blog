@@ -82,9 +82,9 @@
 	                        <span class="badge badge-primary bold margin-right-10">${article.id}</span>
                             <div class="title flex-1-0-0 text-overflow-el ">${article.title}</div>
 	                     </a>
-                         <div class="writer inline-block">${article.extra.writer}</div>
-                         &nbsp;|&nbsp;
-                         <div class="reg-date inline-block">${article.regDate}</div>
+	                         <div class="writer inline-block">${article.extra.writer}</div>
+	                         &nbsp;|&nbsp;
+	                         <div class="reg-date inline-block">${article.regDate}</div>
 	                 </td>
 				</tr>
 			</c:forEach>

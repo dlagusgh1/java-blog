@@ -3,115 +3,144 @@
 	
 <%@ include file="/jsp/part/head.jspf"%>
 
-<h1 class="mypage-h">마이 페이지</h1>
-
-<div class="mypage-img con flex-jc-c">
-	<div class="mypage-img-wrap">
-		<c:choose>
-			<c:when test="${loginedMember.myImg.equals(\"null\")}">
-				<img src="" alt="">
-				사진이 없습니다.
-			</c:when>
-			<c:otherwise>
-				<img src="${loginedMember.myImg}" alt="">
-			</c:otherwise>
-		</c:choose>
-		<div style="margin-top: 10px;">
-			<button type="button" value="이미지 변경">
-				<a href="${pageContext.request.contextPath}/s/member/myImgModify" onclick="openInNewTab(this.href,'프로필 변경', 'width=600px, height=400px, scrollbars=no, resizeble=0, directories=0' ); return false;">프로필 이미지 변경하기</a>
-			</button>	
-		</div>
-	</div>
-</div>
-
+<h1 class="title">마이 페이지</h1>
 
 <div class="mypage-box con flex-jc-c">
-	<form class="mypage-form form7">
-		<div class="form-row">
-			<div class="label">회원 아이디</div>
-			<div class="input">
-				<input name="id" type="hidden" value="${loginedMember.loginId}" />:
-				${loginedMember.loginId}
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">회원 이름</div>
-			<div class="input">
-				<input name="name" type="hidden" value="${loginedMember.name}" />:
-				${loginedMember.name}
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">회원 닉네임</div>
-			<div class="input">
-				<input name="nickName" type="hidden" value="${loginedMember.nickName}" />:
-				${loginedMember.nickName}
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">이메일</div>
-			<div class="input">
-				<input name="email" type="hidden" value="${loginedMember.email}" />:
-				${loginedMember.email}
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">이메일 인증</div>
-			<div class="input">
-				<input name="email" type="hidden" value="${loginedMember.email}" />:
-					<c:choose>
-						<c:when test="${emailAuthed.equals(loginedMember.email)}">
-							인증완료
-						</c:when>
-						<c:otherwise>
-							비 인증
-						</c:otherwise>
-					</c:choose>
-			</div>
-		</div>
-		<c:if test="${emailAuthed == \"\"}">
-			<div class="form-row">
-				<div class="label">인증메일</div>
-				<div class="input">
-					<button type="button" value="인증메일발송">
-						<a href="${pageContext.request.contextPath}/s/member/reAuthEmail">인증메일 재 발송</a>
-					</button>
-				</div>
-			</div>
-		</c:if>
-		<div class="form-row">
-			<div class="label">방문</div>
-			<div class="input">
-				: 1 회
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">내가 쓴 글</div>
-			<div class="input">
-				: <a href="${pageContext.request.contextPath}/s/member/myList">${articleCount} 개</a>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">내가 쓴 댓글</div>
-			<div class="input">
-				: <a href="${pageContext.request.contextPath}/s/member/myReplyList">${replyCount} 개</a>
-			</div>
-		</div>
+	<form method="POST" class="table-box con" action="myPage">
+		<input type="hidden" name="redirectUri" value="/blog/s/home/main">
+		<table>
+			<colgroup>
+				<col width="250">
+			</colgroup>
+			<tbody>
+				<tr>
+					<th>회원 이미지</th>
+					<td>
+						<div class="form-control-box myImg-box">
+							<c:choose>
+								<c:when test="${loginedMember.myImg.equals(\"null\")}">
+								</c:when>
+								<c:otherwise>
+									<img class="profileImg" src="${loginedMember.myImg}" alt="">
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>회원 소개글</th>
+					<td>
+						<c:choose>
+							<c:when test="${loginedMember.myIntro.equals(\"null\")}">
+								<span style="color: #888;">소개글이 없습니다. 지금 소개글을 등록해보세요!</span>
+							</c:when>
+							<c:otherwise>
+								<span>${loginedMember.myIntro}</span>
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+				<tr>
+					<th>프로필 / 소개글 변경</th>
+					<td>
+						<button class="btn btn-primary" type="button"><a href="${pageContext.request.contextPath}/s/member/myImgModify" onclick="openInNewTab(this.href,'프로필 변경', 'width=600px, height=400px, scrollbars=no, resizeble=0, directories=0' ); return false;">프로필 변경</a></button>
+						<button class="btn btn-primary" type="button"><a href="${pageContext.request.contextPath}/s/member/myIntroModify" onclick="openInNewTab(this.href,'프로필 소개글 변경', 'width=600px, height=400px, scrollbars=no, resizeble=0, directories=0' ); return false;">소개글 변경</a></button>
+					</td>
+				</tr>
+				<tr>
+					<th>회원 아이디</th>
+					<td>
+						<div class="form-control-box">
+							<input type="hidden" name="loginId"	maxlength="30" />${loginedMember.loginId}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td>
+						<div class="form-control-box">
+							<input type="hidden" name="name" maxlength="20" />${loginedMember.name}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>회원 닉네임</th>
+					<td>
+						<div class="form-control-box">
+							<input type="hidden" name="nickName" maxlength="20" />${loginedMember.nickName}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>
+						<div class="form-control-box">
+							<input type="hidden" name="email"	maxlength="50" />${loginedMember.email}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일 인증여부</th>
+					<td>
+						<div class="form-control-box">
+							<c:choose>
+								<c:when test="${emailAuthed != \"\"}">
+									인증 완료
+								</c:when>
+								<c:otherwise>
+									비 인증
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</td>
+				</tr>
+				<c:if test="${emailAuthed == \"\"}">
+					<tr>
+						<th>인증 메일 발송</th>
+						<td>
+							<button class="btn"><a href="${pageContext.request.contextPath}/s/member/reAuthEmail" style="width:150px;">인증메일 재 발송</a></button>
+						</td>
+					</tr>
+				</c:if>
+				<tr>
+					<th>방문횟수</th>
+					<td>
+						<div class="form-control-box">
+							1회
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>내가쓴 글 수</th>
+					<td>
+						<div class="form-control-box">
+							<a href="${pageContext.request.contextPath}/s/member/myList">${articleCount} 개</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>내가쓴 댓글 수</th>
+					<td>
+						<div class="form-control-box">
+							<a href="${pageContext.request.contextPath}/s/member/myReplyList">${replyCount} 개</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>회원정보 변경</th>
+					<td>
+						<button class="btn btn-primary" type="button"><a href="${pageContext.request.contextPath}/s/member/passwordForPrivate">비밀번호 변경</a></button>
+					</td>
+				</tr>
+				<tr>
+					<th>회원 탈퇴</th>
+					<td>
+						<button class="btn btn-primary" type="button"><a href="${pageContext.request.contextPath}/s/member/passwordForPrivate">회원탈퇴</a></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</form>
-</div>
-<div class="mypage-cd">
-	<div class="input flex-jc-c">
-		<div >
-			<button type="button" value="회원정보수정">
-				<a href="${pageContext.request.contextPath}/s/member/passwordForPrivate">패스워드 수정</a>
-			</button>	
-		</div>
-		<div>
-			<button type="button" value="탈퇴" style="margin-left: 10px;">
-				<a href="${pageContext.request.contextPath}/s/member/passwordForPrivate">회원 탈퇴</a>
-			</button>	
-		</div>
-	</div>
 </div>
 
 <%@ include file="/jsp/part/foot.jspf"%>

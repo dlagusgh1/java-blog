@@ -337,5 +337,15 @@ public class MemberDao extends Dao {
 		DBUtil.update(dbConn, secSql);	
 	}
 
+	// 프로필 소개글 저장
+	public void getModifyMemberIntro(String memberLoginId, String memberIntro) {
+		SecSql secSql = SecSql.from("UPDATE `member`");
+		
+		secSql.append("SET myIntro = ?", memberIntro);
+		secSql.append("WHERE loginId = ?", memberLoginId);
+		
+		DBUtil.update(dbConn, secSql);	
+	}
+
 
 }

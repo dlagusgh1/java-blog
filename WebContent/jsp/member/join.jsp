@@ -11,55 +11,74 @@
 
 <h1 class="join-h">회원 가입</h1>
 
-<div class="join-form-box con flex-jc-c">
-	<form action="doJoin" method="POST" class="join-form form5" onsubmit="JoinForm__submit(this); return false;">
-		<input type="hidden" name="loginPwReal">
-		<div class="form-row">
-			<div class="label">아이디</div>
-			<div class="input">
-				<input onkeyup="JoinForm__checkLoginIdDup(this);" type="text" name="loginId" maxlength="20" placeholder="회원 id 입력">
-				<div class="message-msg"></div>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">비밀번호</div>
-			<div class="input">
-				<input type="password" name="loginPw" maxlength="20" placeholder="password 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">비밀번호 확인</div>
-			<div class="input">
-				<input type="password" name="loginPwConfirm" maxlength="20" placeholder="password 확인 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">이름</div>
-			<div class="input">
-				<input type="text" name="name" maxlength="20" placeholder="이름 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">닉네임</div>
-			<div class="input">
-				<input onkeyup="JoinForm__checkNickNameDup(this);" type="text" name="nickName" maxlength="20" placeholder="닉네임 입력">
-				<div class="message-msg"></div>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">이메일</div>
-			<div class="input">
-				<input onkeyup="JoinForm__checkEmailDup(this);" type="email" name="email" maxlength="20" placeholder="email 입력">
-				<div class="message-msg"></div>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input flex-jc-c">
-				<button type="submit" value="완료">가입하기</button>
-			</div>
-		</div>
-	</form>
-</div>
+<form method="POST" class="table-box table-box-vertical con form1" action="doJoin" onsubmit="JoinForm__submit(this); return false;">
+	<input type="hidden" name="loginPwReal">
+	<table>
+		<colgroup>
+			<col width="250">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>아이디</th>
+				<td>
+					<div class="form-control-box">
+						<input onkeyup="JoinForm__checkLoginIdDup(this);" type="text" name="loginId" maxlength="20" placeholder="회원 로그인 아이디 입력">
+						<div class="message-msg"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td>
+					<div class="form-control-box">
+						<input type="password" name="loginPw" maxlength="20" placeholder="비밀번호 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호 확인</th>
+				<td>
+					<div class="form-control-box">
+						<input type="password" name="loginPwConfirm" maxlength="20" placeholder="비밀번호 확인 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" name="name" maxlength="20" placeholder="이름 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>닉네임</th>
+				<td>
+					<div class="form-control-box">
+						<input onkeyup="JoinForm__checkNickNameDup(this);" type="text" name="nickName" maxlength="20" placeholder="닉네임 입력">
+						<div class="message-msg"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td>
+					<div class="form-control-box">
+						<input onkeyup="JoinForm__checkEmailDup(this);" type="email" name="email" maxlength="20" placeholder="email 입력">
+						<div class="message-msg"></div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>회원 가입</th>
+				<td>
+					<button class="btn btn-primary" type="submit">가입</button>
+					<button class="btn btn-danger" type="button" onclick="history.back();">취소</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 
 <!-- 회원가입 각 값 체크 -->
 <script>

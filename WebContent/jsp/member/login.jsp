@@ -37,39 +37,54 @@
 	}
 </script>
 
-<h1 class="login-h">로그인</h1>
+<h1 class="title">로그인</h1>
 
-<div class="login-form-box con flex-jc-c">
-	<form action="doLogin" method="POST" class="join-form form2"
-		onsubmit="submitLoginForm(this); return false;">
-		<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
-		<div class="form-row">
-			<div class="label">아이디</div>
-			<div class="input">
-				<input type="text" name="loginId" maxlength="20"
-					placeholder="회원 id 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">비밀번호</div>
-			<div class="input">
-				<input type="password" name="loginPw" maxlength="20"
-					placeholder="password 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input flex-jc-c">
-				<input type="hidden" name="loginPwReal">
-				<button type="submit" value="로그인">로그인</button>
-			</div>
-		</div>
-		<div class="form-row flex-jc-c">
-			<a href="${pageContext.request.contextPath}/s/member/findAccount">아이디 / 비밀번호 찾기</a>
-		</div>
-		<div class="form-row flex-jc-c">
-			<a href="${pageContext.request.contextPath}/s/member/join">아직 회원이 아니신가요? 회원가입</a>
-		</div>
-	</form>
-</div>
+<form method="POST" class="table-box table-box-vertical con form1" action="doLogin" onsubmit="submitLoginForm(this); return false;">
+	<input type="hidden" name="redirectUrl" value="${param.afterLoginRedirectUrl}" />
+	<table>
+		<colgroup>
+			<col width="250">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>아이디</th>
+				<td>
+					<div class="form-control-box">
+						<input type="text" placeholder="로그인 아이디 입력해주세요." name="loginId" maxlength="30" autofocus="autofocus"/>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td>
+					<div class="form-control-box">
+						<input type="password" placeholder="비밀번호를 입력해주세요." name="loginPw" maxlength="30" />
+						<input type="hidden" name="loginPwReal">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>로그인</th>
+				<td>
+					<div class="form-control-box">
+						<button class="btn btn-primary" type="submit" value="로그인">로그인</button>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>회원정보 찾기</th>
+				<td>
+					<button class="btn btn-primary" type="button"><a href="${pageContext.request.contextPath}/s/member/findAccount">아이디 / 비밀번호 찾기</a></button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="${pageContext.request.contextPath}/s/member/join">아직 회원이 아니신가요? 회원가입</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+
 
 <%@ include file="/jsp/part/foot.jspf"%>

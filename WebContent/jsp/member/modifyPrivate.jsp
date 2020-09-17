@@ -32,31 +32,39 @@
 
 <h1 class="member-modify-h">회원 정보 수정</h1>
 
-<div class="modify-private-form-box con flex-jc-c">
-	<form action="doModifyPrivate" method="POST" class="member-modify-form form8" onsubmit="ModifyPrivateForm__submit(this); return false;">
-		<input type="hidden" name="authCode" value="${param.authCode}" />
-		<input type="hidden" name="loginPwReal" />
-		<div class="form-row">
-			<div class="label">비밀번호</div>
-			<div class="input">
-				<input name="loginPw" type="password" maxlength="20" placeholder="새 로그인 비번 입력" />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="label">비밀번호 확인</div>
-			<div class="input">
-				<input name="loginPwConfirm" type="password" maxlength="20" placeholder="새 로그인 비번 확인 입력" />
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input flex-jc-c">
-				<button type="submit" value="수정">수정</button>
-				<button type="button" value="취소" onClick="alert('회원정보 수정이 취소되었습니다.')">
-					<a href="/blog/s/home/main">취소</a>
-				</button>
-			</div>
-		</div>
-	</form>
-</div>
+<form method="POST" class="table-box table-box-vertical con form1" action="doModifyPrivate" onsubmit="ModifyPrivateForm__submit(this); return false;">
+<input type="hidden" name="authCode" value="${param.authCode}" />
+	<table>
+		<colgroup>
+			<col width="250">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>새 비밀번호</th>
+				<td>
+					<div class="form-control-box">
+						<input name="loginPw" type="password" maxlength="20" placeholder="새 로그인 비밀번호 입력" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>새 비밀번호 확인</th>
+				<td>
+					<div class="form-control-box">
+						<input name="loginPwConfirm" type="password" maxlength="20" placeholder="새 로그인 비밀번호 확인 입력" />
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호 확인</th>
+				<td>
+					<input type="hidden" name="loginPwReal">
+					<button class="btn btn-primary" type="submit">확인</button>
+					<button class="btn btn-danger" type="button" onclick="history.back();">취소</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 
 <%@ include file="/jsp/part/foot.jspf"%>

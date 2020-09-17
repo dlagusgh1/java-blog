@@ -31,31 +31,41 @@
 </script>
 
 <!-- 비밀번호 수정 전 비밀번호 확인 -->
-<h1 class="certification-h">비밀번호 확인</h1>
+<h1 class="title">비밀번호 확인</h1>
 
-<div class="certification-form-box con flex-jc-c">
-	<form action="doPasswordForPrivate" method="POST" class="certification-form form6" onsubmit="submitLoginForm(this); return false;">
-		<div class="form-row">
-			<div class="label">아이디</div>
-			<div class="input">
-				<input type="hidden" name="loginId" maxlength="20"
-					value="${loginedMember.loginId}">${loginedMember.loginId}
-			</div>
-		</div>
-		<input type="hidden" name="loginPwReal">
-		<div class="form-row">
-			<div class="label">비밀번호</div>
-			<div class="input">
-				<input type="password" name="loginPw" maxlength="20"
-					placeholder="password 입력">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="input flex-jc-c">
-				<button type="submit" value="확인">확인</button>
-			</div>
-		</div>
-	</form>
-</div>
+<form method="POST" class="table-box table-box-vertical con form1" action="doPasswordForPrivate" onsubmit="submitLoginForm(this); return false;">
+<input type="hidden" name="redirectUri" value="/blog/s/${param.currentUri}">
+	<table>
+		<colgroup>
+			<col width="250">
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>아이디</th>
+				<td>
+					<div class="form-control-box">
+						<input type="hidden" name="loginId" maxlength="20" value="${loginedMember.loginId}">${loginedMember.loginId}
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td>
+					<div class="form-control-box">
+						<input type="password" name="loginPw" maxlength="20" placeholder="비밀번호 입력">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호 확인</th>
+				<td>
+					<input type="hidden" name="loginPwReal">
+					<button class="btn btn-primary" type="submit">확인</button>
+					<button class="btn btn-danger" type="button" onclick="history.back();">취소</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
 
 <%@ include file="/jsp/part/foot.jspf"%>

@@ -115,10 +115,10 @@
 			<c:if test="${article.memberId == member.id}">
 				<c:choose>
 					<c:when test="${member.myImg.equals(\"null\")}">
-						<img src="" alt="">
+						<div class="noneProfileImg"></div>
 					</c:when>
 					<c:otherwise>
-						<img src="${member.myImg}" alt="">
+						<img class="profileImg" src="${member.myImg}" alt="">
 					</c:otherwise>
 				</c:choose>
 			</c:if>
@@ -137,7 +137,6 @@
 						<c:when test="${member.myIntro.equals(\"\")}">
 							<span style="color: #888;">
 								소개글이 없습니다.<br>
-								소개글을 등록해보세요!
 							</span>
 						</c:when>
 						<c:otherwise>

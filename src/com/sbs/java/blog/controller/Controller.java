@@ -42,7 +42,7 @@ public abstract class Controller {
 
 
 	public abstract String getControllerName();
- void beforeAction() {
+	void beforeAction() {
 		// 액션 전 실행
 		// 이 메서드는 모든 컨트롤러의 모든 액션이 실행되기 전에 실행된다.
 		List<CateItem> cateItems = articleService.getForPrintCateItems();

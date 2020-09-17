@@ -29,11 +29,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <!-- 파비콘 -->
-<link rel="shortcut icon" href="/blog/resource/img/logo5.ico">
+<link rel="shortcut icon" href="/blog/resource/img/logo.ico">
 
 <!-- cs, js 불러오기 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/home/main.css">
 <script src="${pageContext.request.contextPath}/resource/js/home/main.js"></script>
+
+<script>
+	var param = ${paramJson};
+</script>
 
 <script>		
 	<!-- 모바일 사이드 바 관련(클릭 이벤트) -->
@@ -104,14 +108,7 @@
 				<li><a href="${pageContext.request.contextPath}/s/member/join">회원가입</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/login?afterLoginRedirectUrl=${urlEncodedAfterLoginRedirectUrl}">로그인</a></li>
 			</c:if>
-			<c:if test="${isLogined}">		
-				<c:choose>
-					<c:when test="${loginedMember.myImg.equals(\"null\")}">
-					</c:when>
-					<c:otherwise>
-						<li><img class="header_MyImg" src="${loginedMember.myImg}" alt=""></li>
-					</c:otherwise>
-				</c:choose>			
+			<c:if test="${isLogined}">				
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">[${loginedMember.nickName} 님]</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/doLogout">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm">마이페이지</a></li>
@@ -126,7 +123,7 @@
 <!-- PC -->
 <div class="top-bar visible-on-md-up">
 	<div class="con flex flex-jc-sb height-100p">
-		<a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c"><img src="/blog/resource/img/logo6.png" alt="logo"></a>
+		<a href="${pageContext.request.contextPath}/s/home/main" class="logo flex flex-ai-c"><img src="/blog/resource/img/logo.jpg" alt="logo"></a>
 		<nav class="menu-box-1 flex flex-1-0-0">
 			<ul class="flex flex-1-0-0">
 				<li class="flex-1-0-0 flex"><a
@@ -183,7 +180,7 @@
 	</c:choose>
 	<a href="${pageContext.request.contextPath}/s/home/main"
 		class="logo flex flex-ai-c absolute-center absolute-middle"> 
-		<img src="/blog/resource/img/logo6.png" alt="logo">
+		<img src="/blog/resource/img/logo.jpg" alt="logo">
 	</a>
 </div>
 
@@ -210,8 +207,8 @@
 			</li>
 			<li><a href="${pageContext.request.contextPath}/s/article/chat" class="block">Chat</a></li>
 			<li><a href="${pageContext.request.contextPath}/s/article/receiveMessages" class="block">Messages</a></li>
-			<li><a href="${pageContext.request.contextPath}/s/home/aboutMe"
-				class="block">About Me</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/member/passwordConfirm" class="block">MyPage</a></li>
+			<li><a href="${pageContext.request.contextPath}/s/home/aboutMe"	class="block">About Me</a></li>
 			<li><input type="checkbox" id="menuBtn2" style="display: none">
    				<label for="menuBtn2" class="labelBtn2 flex-jc-c" onclick="">SNS</label>
 				<ul class="submenu2">

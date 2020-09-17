@@ -12,7 +12,7 @@
 			<label for="popup"></label>
 			<div class="profile-box con flex ">
 				<div class="profile-img flex flex-ai-c">
-					<img src="/blog/resource/img/profile1.jpg" alt="profile">
+					<img src="/blog/resource/img/profile.png" alt="profile">
 				</div>
 				<div class="p-txt">
 					<h1>hyeonho</h1>
@@ -61,7 +61,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img src="/blog/resource/img/m5.jpg" />
+					<img src="/blog/resource/img/p1.jpg" />
 				</div>
 				<div>
 					<h3>티스토리 블로그</h3>
@@ -71,7 +71,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img src="/blog/resource/img/moon.jpg" />
+					<img src="/blog/resource/img/p2.jpg" />
 				</div>
 				<div>
 					<h3>깃허브</h3>
@@ -81,7 +81,7 @@
 				<div class="screen">
 					<div class="top">비전공 개발자</div>
 					<div class="bottom">hyeonho</div>
-					<img src="/blog/resource/img/m8.jpg" />
+					<img src="/blog/resource/img/p3.jpg" />
 				</div>
 				<div>
 					<h3>유튜브</h3>

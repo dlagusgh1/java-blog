@@ -3,18 +3,27 @@
 	
 <%@ include file="/jsp/part/head.jspf"%>
 
-<h1 class="article-h">
-	${loginedMemberNickName}님 게시물 리스트
+<h1 class="title">
+	${loginedMember.nickName}님 게시물 리스트
 </h1>
 
-<div class="article-box con flex-ai-c">
-	<table class="article-list">
-		<tr>
-			<th style="width: 100px;">번호</th>
-			<th style="width: 500px;">제목</th>
-			<th>작성일</th>
-			<th style="width: 100px;">조회수</th>
-		</tr>
+<div class="table-box table-box-data con">
+	<table>
+		<colgroup>
+			<col width="100" />
+           	<col width="500" />
+           	<col width="200" />
+           	<col width="100" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성일</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
 			<c:forEach items="${articles}" var="article">
 				<tr>
 					<td>${article.id}</td>
@@ -26,19 +35,24 @@
 							<td>${article.updateDate}</td>
 						</c:if>
 					<td>${article.hit}</td>
+					<td class="visible-on-sm-down">
+		            <a href="${pageContext.request.contextPath}/s/article/detail?id=${article.id}" class="flex flex-row-wrap flex-ai-c">
+	               		<span class="badge badge-primary bold margin-right-10">${article.id}</span>
+                            <div class="title flex-1-0-0 text-overflow-el ">${article.title}</div>
+	                     </a>
+	                         <div class="writer inline-block">${article.extra.writer}</div>
+	                         &nbsp;|&nbsp;
+                         	<div class="reg-date inline-block">${article.regDate}</div>
+	            	</td>
 				</tr>
 			</c:forEach>
+		</tbody>
 	</table>
 </div>
 
 <div class="total-box con flex-ai-c">
 	<div class="total">
 		총 게시물 수 : ${articleCount}
-		<div class="article-create">
-			<c:if test="${isLogined}">
-				<a href="${pageContext.request.contextPath}/s/article/write" class="block">게시물 작성</a>
-			</c:if>
-		</div>
 	</div>
 </div>
 

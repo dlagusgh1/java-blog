@@ -201,7 +201,7 @@ public class MemberService extends Service {
 		return member;
 	}
 
-	// 프로필 이미지 저장
+	// 프로필 이미지 변경
 	public void getModifyMemberImg(String memberLoginId, String memberImg) {
 		memberDao.getModifyMemberImg(memberLoginId, memberImg);
 	}
@@ -211,7 +211,12 @@ public class MemberService extends Service {
 		
 		String emailAuthCode = attrService.getValue("member__" + memberId + "__extra__emailAuthCode");
 		
-		mailService.send(email, "이메일 인증", "이메일 인증 부탁드립니다.<br><a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
+		mailService.send(email, "이메일 인증", "<div><img src=\"https://user-images.githubusercontent.com/60770834/93154456-99e24f80-f73e-11ea-91b4-d62f574c2da9.png\" style=\"height:150px; width:300px; background-color: #4BAF4B; margin-bottom: 20px; padding:10px; border-radius:20px; \"/></div><br>아래 링크를 클릭하여 이메일 인증 부탁드립니다.<br><a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
+	}
+
+	// 프로필 소개글 변경
+	public void getModifyMemberIntro(String memberLoginId, String memberIntro) {
+		memberDao.getModifyMemberIntro(memberLoginId, memberIntro);
 	}
 	
 }

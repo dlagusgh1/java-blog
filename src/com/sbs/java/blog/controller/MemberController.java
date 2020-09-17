@@ -56,8 +56,8 @@ public class MemberController extends Controller {
 		case "doModifyPrivate":
 			return actionDoModifyPrivate(); // 회원정보(비밀번호) 변경 기능
 		case "passwordConfirm":
-			return actionpasswordConfirm(); // 마이페이지 진입 전 비밀번호 확인 폼
-		case "DoPasswordConfirm":
+			return actionpasswordConfirm(); // 회원정보 변경 진입 전 비밀번호 확인 폼
+		case "doPasswordConfirm":
 			return actionDoPasswordConfirm(); // 마이페이지 진입 전 비밀번호 확인 기능
 		case "findAccount":
 			return actionFindAccount();	// 아이디 찾기
@@ -76,7 +76,11 @@ public class MemberController extends Controller {
 		case "myImgModify":
 			return actionMyImgModify();	// 마이페이지 내 프로필 이미지 변경 폼
 		case "doMyImgModify":
-			return actionDoMyImgModify();	// 마이페이지 내 프로필 이미지 변경 기능
+			return actionDoMyImgModify();	// 마이페이지 내 프로필 변경 기능
+		case "myIntroModify":
+			return actionMyIntroModify();	// 마이페이지 내 소개글 변경 폼
+		case "doMyIntroModify":
+			return actionDoMyIntroModify();	// 마이페이지 내 소개글 변경 기능
 		case "siteStatistics":
 			return actionSiteStatistics(); // 통계 기능
 		case "doDelete":
@@ -86,10 +90,27 @@ public class MemberController extends Controller {
 		return "";
 	}
 	
+	// 마이페이지 소개글 수정 폼
+	private String actionMyIntroModify() {
+		return "member/myIntroModify.jsp";
+	}
 	
+	// 마이페이지 소개글 수정 기능
+	private String actionDoMyIntroModify() {
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
+		
+		String memberIntro = req.getParameter("memberIntro");
+		
+		memberService.getModifyMemberIntro(loginedMember.getLoginId() ,memberIntro);
+		
+		req.setAttribute("jsAlertMsg", "프로필 소개글이 변경되었습니다.");
+		req.setAttribute("redirectUri", "passwordConfirm");
+
+		return "common/data.jsp";
+	}
+
 	// 마이페이지 이미지 수정 폼
 	private String actionMyImgModify() {
-		// TODO Auto-generated method stub
 		return "member/myImgModify.jsp";
 	}
 	
@@ -102,9 +123,10 @@ public class MemberController extends Controller {
 		
 		memberService.getModifyMemberImg(loginedMember.getLoginId() ,memberImg);
 		
-		session.removeAttribute("loginedMemberId");
-		
-		return String.format("html:<script> alert('프로필 사진이 변경되었습니다.\\n적용을 위해 다시 로그인 해주세요.'); location.replace('login');</script>");
+		req.setAttribute("jsAlertMsg", "프로필 사진이 변경되었습니다.");
+		req.setAttribute("redirectUri", "passwordConfirm");
+
+		return "common/data.jsp";
 	}
 
 
@@ -144,10 +166,15 @@ public class MemberController extends Controller {
 		String loginId = req.getParameter("loginId");
 		String loginPw = req.getParameter("loginPwReal");	
 		
+		String redirectUri = req.getParameter("redirectUri");
+		
 		if ( memberService.loginedFact(loginId, loginPw) != 1) {
 			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
 		} 		
 		
+//		req.setAttribute("redirectUri", redirectUri);
+//
+//		return "common/data.jsp";
 		return String.format("html:<script>location.replace('mypage'); </script>");
 	}
 		
@@ -282,11 +309,12 @@ public class MemberController extends Controller {
 	private String actionDoFindLoginPw() {
 		
 		String loginId = Util.getString(req, "loginId");
+		String name = Util.getString(req, "name");
 		String email = Util.getString(req, "email");
 
 		Member member = memberService.getMemberByLoginId(loginId);
 
-		if (member == null || member.getEmail().equals(email) == false) {
+		if (member == null || member.getEmail().equals(email) == false && member.getEmail().equals(name) == false) {
 			req.setAttribute("jsAlertMsg", "일치하는 회원이 없습니다.");
 			req.setAttribute("jsHistoryBack", true);
 			return "common/data.jsp";
@@ -325,7 +353,7 @@ public class MemberController extends Controller {
 		return "common/data.jsp";
 	}
 	
-	// 회원 탈퇴 ( 작업 중 - 아이디를 지우기 보다는 delStatus 1로 설정 탈퇴된 회원으로 표시		 )
+	// 회원 탈퇴 ( 작업 중 - 아이디를 지우기 보다는 delStatus 1로 설정 탈퇴된 회원으로 표시 )
 	private String actionDoDelete() {
 		
 		String loginId = req.getParameter("loginId");
@@ -468,9 +496,7 @@ public class MemberController extends Controller {
 		
 		memberService.reSendEmailAuthCode(loginedMember.getId(), loginedMember.getEmail());
 		
-		req.setAttribute("jsAlertMsg", "인증 메일이 재 발송 되었습니다.\\n확인 후 이메일 인증 부탁드립니다.");
-
-		return String.format("html:<script>location.replace('mypage'); </script>");
+		return String.format("html:<script>alert('인증 메일이 재 발송 되었습니다.\\n확인 후 이메일 인증 부탁드립니다.'); history.back(); </script>");
 	}
 
 	// 이메일 인증 기능
