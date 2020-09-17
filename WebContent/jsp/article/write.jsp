@@ -53,6 +53,7 @@
 				<td>
 					<div class="form-control-box">
 						<select name="cateItemId">
+							<option>게시판 선택</option>	
 							<c:forEach items="${cateItems}" var="cateItem">
 								<option id="article-cateItem" value="${cateItem.id}">${cateItem.name}</option>
 							</c:forEach>

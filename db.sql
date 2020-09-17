@@ -17,8 +17,7 @@ CREATE TABLE cateItem (
 # 카테고리 추가
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/공지사항';
 INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/일반';
-INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/프론트엔드';
-INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/백엔드';
+INSERT INTO cateItem SET regDate = NOW(), `name` = 'IT/자유';
 
 # 게시물 테이블 생성
 DROP TABLE IF EXISTS article;

@@ -43,7 +43,7 @@ public class MemberService extends Service {
 
 		// 메일 발송(가입축하 & 메일 인증)
 		String title = String.format("가입을 환영합니다!", Config.getSiteName());
-		String body = String.format("<div><img src=\"https://user-images.githubusercontent.com/60770834/93154456-99e24f80-f73e-11ea-91b4-d62f574c2da9.png\" style=\"height:150px; width:300px; background-color: #4BAF4B; margin-bottom: 20px; padding:10px; border-radius:20px; \"/></div><br>가입을 축하드립니다.<br>이메일 인증 부탁드립니다.<br> <a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
+		String body = String.format("<div><img src=\"https://user-images.githubusercontent.com/60770834/93438490-58050500-f908-11ea-8a76-e42ba5a869ed.jpg\" style=\"height:150px; width:300px; background-color: #4BAF4B; margin-bottom: 20px; padding:10px; border-radius:20px; \"/></div><br>가입을 축하드립니다.<br>이메일 인증 부탁드립니다.<br> <a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
 		mailService.send(to, title, body);				
 	}
 
@@ -184,7 +184,7 @@ public class MemberService extends Service {
 		attrService.setValue("member", member.getId(), "extra", "useTempPassword", "1");
 
 		String title = String.format("[%s] 임시패스워드 발송", Config.getSiteName());
-		String body = String.format("<div><img src=\"https://user-images.githubusercontent.com/60770834/93154456-99e24f80-f73e-11ea-91b4-d62f574c2da9.png\" style=\"height:150px; width:300px; background-color: #4BAF4B; margin-bottom: 20px; padding:10px; border-radius:20px; \"/></div><br><div>임시 패스워드 : %s</div>\n", tempPasswordOrigin);
+		String body = String.format("<div><img src=\"https://user-images.githubusercontent.com/60770834/93438490-58050500-f908-11ea-8a76-e42ba5a869ed.jpg\" style=\"height:150px; width:300px; background-color: #4BAF4B; margin-bottom: 20px; padding:10px; border-radius:20px; \"/></div><br><div>임시 패스워드 : %s</div>\n", tempPasswordOrigin);
 		mailService.send(to, title, body);
 	}
 	
@@ -211,7 +211,7 @@ public class MemberService extends Service {
 		
 		String emailAuthCode = attrService.getValue("member__" + memberId + "__extra__emailAuthCode");
 		
-		mailService.send(email, "이메일 인증", "<div><img src=\"https://user-images.githubusercontent.com/60770834/93154456-99e24f80-f73e-11ea-91b4-d62f574c2da9.png\" style=\"height:150px; width:300px; background-color: #4BAF4B; margin-bottom: 20px; padding:10px; border-radius:20px; \"/></div><br>아래 링크를 클릭하여 이메일 인증 부탁드립니다.<br><a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
+		mailService.send(email, "이메일 인증", "<div><img src=\"https://user-images.githubusercontent.com/60770834/93438490-58050500-f908-11ea-8a76-e42ba5a869ed.jpg\" style=\"height:150px; width:300px; background-color: #4BAF4B; margin-bottom: 20px; padding:10px; border-radius:20px; \"/></div><br>아래 링크를 클릭하여 이메일 인증 부탁드립니다.<br><a href=\"https://blog.n35.weone.kr/blog/s/member/authEmail?email="+ email +"&authCode=" + emailAuthCode + "&memberId=" + memberId + "\" target=\"_blank\"><br>이메일 인증하기</a>");
 	}
 
 	// 프로필 소개글 변경

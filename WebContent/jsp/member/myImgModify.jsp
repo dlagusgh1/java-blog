@@ -29,7 +29,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <!-- 파비콘 -->
-<link rel="shortcut icon" href="/blog/resource/img/logo5.ico">
+<link rel="shortcut icon" href="/blog/resource/img/logo.ico">
 
 <!-- cs, js 불러오기 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/home/main.css">
