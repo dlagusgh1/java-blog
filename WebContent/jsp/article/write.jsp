@@ -55,7 +55,16 @@
 						<select name="cateItemId">
 							<option>게시판 선택</option>	
 							<c:forEach items="${cateItems}" var="cateItem">
-								<option id="article-cateItem" value="${cateItem.id}">${cateItem.name}</option>
+								<c:choose>
+									<c:when test="${cateItem.name.equals('IT/공지사항')}">
+										<c:if test="${loginedMember.level == 10}">
+											<option id="article-cateItem" value="${cateItem.id}">${cateItem.name}</option>
+										</c:if>
+									</c:when>
+									<c:otherwise>
+										<option id="article-cateItem" value="${cateItem.id}">${cateItem.name}</option>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 					</div>

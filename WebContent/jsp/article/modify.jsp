@@ -64,7 +64,16 @@
 					<div class="form-control-box">
 						<select name="cateItemId">
 							<c:forEach items="${cateItems}" var="cateItem">
-								<option ${article.cateItemId == cateItem.id ? 'selected' : ''} value="${cateItem.id}">${cateItem.name}</option>
+								<c:choose>
+									<c:when test="${cateItem.name.equals('IT/공지사항')}">
+										<c:if test="${loginedMember.level == 10}">
+											<option ${article.cateItemId == cateItem.id ? 'selected' : ''} value="${cateItem.id}">${cateItem.name}</option>
+										</c:if>
+									</c:when>
+									<c:otherwise>
+										<option ${article.cateItemId == cateItem.id ? 'selected' : ''} value="${cateItem.id}">${cateItem.name}</option>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</select>
 					</div>
