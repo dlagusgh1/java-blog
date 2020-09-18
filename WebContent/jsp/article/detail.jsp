@@ -163,9 +163,6 @@
 
 
 <!-- 댓글 출력 -->
-<div class="comment-view-h con flex">
-	댓글
-</div>
 <div class="comment-view-box con flex">
 	<div class="comment-view">
 		<c:forEach items="${articleReplies}" var="articleReplies">
@@ -203,12 +200,10 @@
 		</c:forEach>
 	</div>
 </div>
-
-			
-
+		
 <!-- 댓글 페이징 -->
-<div class="replyPage-box">
-	<table class="page-navi flex flex-jc-c">
+<div class="Page-box">
+	<table class="page-navi flex-jc-c margin-bottom-20">
 		<tbody>
 			<tr>			
 				<c:if test="${totalPage == 0}">

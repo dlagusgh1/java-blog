@@ -3,97 +3,21 @@
 	
 <%@ include file="/jsp/part/head.jspf"%>
 
-<style>
-fieldset {
-  position: relative;
-  display: inline-block;
-  padding: 0 0 0 40px;
-  background: #fff;
-  border: none;
-  border-radius: 5px;
-  border: 1px solid #1b5ac2
-}
-
-input, button {
-  position: relative;
-  width: 150px;
-  height: 30px;
-  padding: 0;
-  display: inline-block;
-  float: left;
-}
-
-input {
-  color: #666;
-  z-index: 2;
-  border: 0 none;
-}
-input:focus {
-  outline: 0 none;
-}
-input:focus + button {
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-}
-input:focus + button .fa {
-  -webkit-transform: translate(0px, 0);
-      -ms-transform: translate(0px, 0);
-          transform: translate(0px, 0);
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-  color: #fff;
-}
-
-button {
-  z-index: 1;
-  width: 50px;
-  border: 0 none;
-  background: #ceb980;
-  cursor: pointer;
-  border-radius: 0 5px 5px 0;  
-  -webkit-transform: translate(-50px, 0);
-      -ms-transform: translate(-50px, 0);
-          transform: translate(-50px, 0);
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-}
-
-.fa-search {
-  font-size: 1.2rem;
-  color: #29abe2;
-  z-index: 3;
-  top: 25%;
-  -webkit-transform: translate(-140px, 0);
-      -ms-transform: translate(-140px, 0);
-          transform: translate(-140px, 0);
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
-  -webkit-transition: all 0.1s ease-in-out;
-          transition: all 0.1s ease-in-out;
-}
-</style>
-
 <h1 class="title">
 	${cateItemName} 게시물 리스트
 </h1>
 
-<!-- 상단 밑 카테고리 목록 & 검색 창 -->
-<div class="cateItem-box">
-	<div class="search-box flex flex-ai-c">
-		<div class="input-box">
-			<form action="${pageContext.request.contextPath}/s/article/list">
-			<fieldset>
-				<input type="hidden" name="page" value="1" /> 
-				<input type="hidden" name="cateItemId" value="${param.cateItemId}" /> 
-				<input type="hidden" name="searchKeywordType" value="title" /> 
-				<input type="search" name="searchKeyword" value="${param.searchKeyword}" />
-				<button type="submit"><i class="fa fa-search"></i></button>
-			</fieldset>
-			</form>
-		</div>
+<div class="search-wrap con margin-bottom-10">
+	<div class="input-box margin-top-10 flex-jc-end">
+		<form action="${pageContext.request.contextPath}/s/article/list">
+		<fieldset>
+			<input type="hidden" name="page" value="1" /> 
+			<input type="hidden" name="cateItemId" value="${param.cateItemId}" /> 
+			<input type="hidden" name="searchKeywordType" value="title" /> 
+			<input type="search" name="searchKeyword" value="${param.searchKeyword}" />
+			<button type="submit"><i class="fa fa-search"></i></button>
+		</fieldset>
+		</form>
 	</div>
 </div>
 
@@ -159,16 +83,14 @@ button {
 	</table>
 </div>
 
-<div class="total-box con flex-ai-c">
-	<div class="total">
-		총 게시물 수 : ${totalCount}
-		<div class="article-create">
-			 <c:if test="${isLogined}">
-			 	<button class="btn btn-primary" type="submit"><a href="${pageContext.request.contextPath}/s/article/write">게시물 작성</a></button>
-			</c:if>
-		</div>
+<div class="create-box">
+	<div class="create-button con flex-jc-s margin-top-10">
+		<c:if test="${isLogined}">
+	 		<button class="btn btn-primary" type="submit"><a href="${pageContext.request.contextPath}/s/article/write">게시물 작성</a></button>
+		</c:if>
 	</div>
 </div>
+
 
 <div class="page-box">
 	<table class="page-navi flex-jc-c">
