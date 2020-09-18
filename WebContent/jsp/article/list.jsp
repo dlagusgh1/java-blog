@@ -82,14 +82,6 @@ button {
 
 <!-- 상단 밑 카테고리 목록 & 검색 창 -->
 <div class="cateItem-box">
-	<div class="cateItem flex-jc-c">
-		<select name="cateItemName" id="cateItem" onchange="if(this.value) location.href=(this.value)">
-			<option>카테고리 선택</option>
-			<c:forEach items="${cateItems}" var="cateItem">
-				<option value="${pageContext.request.contextPath}/s/article/list?cateItemId=${cateItem.id}">${cateItem.name}</option>
-			</c:forEach>
-		</select>					
-	</div>
 	<div class="search-box flex flex-ai-c">
 		<div class="input-box">
 			<form action="${pageContext.request.contextPath}/s/article/list">
