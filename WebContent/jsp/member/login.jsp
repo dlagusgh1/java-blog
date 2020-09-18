@@ -66,9 +66,7 @@
 			<tr>
 				<th>로그인</th>
 				<td>
-					<div class="form-control-box">
-						<button class="btn btn-primary" type="submit" value="로그인">로그인</button>
-					</div>
+					<button class="btn btn-primary" type="submit" value="로그인">로그인</button>
 				</td>
 			</tr>
 			<tr>

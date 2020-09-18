@@ -1197,7 +1197,7 @@ input[id*="popup"]:checked + label + div {
   border: 1px solid #1b5ac2
 }
 
-.input-box input, button {
+.input-box input, .input-box button {
   position: relative;
   width: 150px;
   height: 30px;
