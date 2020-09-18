@@ -3,6 +3,79 @@
 	
 <%@ include file="/jsp/part/head.jspf"%>
 
+<style>
+fieldset {
+  position: relative;
+  display: inline-block;
+  padding: 0 0 0 40px;
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid #1b5ac2
+}
+
+input, button {
+  position: relative;
+  width: 150px;
+  height: 30px;
+  padding: 0;
+  display: inline-block;
+  float: left;
+}
+
+input {
+  color: #666;
+  z-index: 2;
+  border: 0 none;
+}
+input:focus {
+  outline: 0 none;
+}
+input:focus + button {
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+}
+input:focus + button .fa {
+  -webkit-transform: translate(0px, 0);
+      -ms-transform: translate(0px, 0);
+          transform: translate(0px, 0);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  color: #fff;
+}
+
+button {
+  z-index: 1;
+  width: 50px;
+  border: 0 none;
+  background: #ceb980;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;  
+  -webkit-transform: translate(-50px, 0);
+      -ms-transform: translate(-50px, 0);
+          transform: translate(-50px, 0);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+}
+
+.fa-search {
+  font-size: 1.2rem;
+  color: #29abe2;
+  z-index: 3;
+  top: 25%;
+  -webkit-transform: translate(-140px, 0);
+      -ms-transform: translate(-140px, 0);
+          transform: translate(-140px, 0);
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition: all 0.1s ease-in-out;
+          transition: all 0.1s ease-in-out;
+}
+</style>
+
 <h1 class="title">
 	${cateItemName} 게시물 리스트
 </h1>
@@ -20,11 +93,13 @@
 	<div class="search-box flex flex-ai-c">
 		<div class="input-box">
 			<form action="${pageContext.request.contextPath}/s/article/list">
-				<input type="hidden" name="page" value="1" /> <input type="hidden"
-					name="cateItemId" value="${param.cateItemId}" /> <input
-					type="hidden" name="searchKeywordType" value="title" /> <input
-					type="text" name="searchKeyword" value="${param.searchKeyword}" />
-				<button type="submit">검색</button>
+			<fieldset>
+				<input type="hidden" name="page" value="1" /> 
+				<input type="hidden" name="cateItemId" value="${param.cateItemId}" /> 
+				<input type="hidden" name="searchKeywordType" value="title" /> 
+				<input type="search" name="searchKeyword" value="${param.searchKeyword}" />
+				<button type="submit"><i class="fa fa-search"></i></button>
+			</fieldset>
 			</form>
 		</div>
 	</div>
