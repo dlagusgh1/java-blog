@@ -402,7 +402,7 @@ public class ArticleController extends Controller {
 		String title = Util.getString(req, "title");
 		String body = Util.getString(req, "body");
 		
-		if( cateItemId == 4 && memberLevel != 10 ) {
+		if ( cateItemId == 4 && memberLevel != 10 ) {
 			return String.format("html:<script> alert('공지사항 게시판에는 게시물 작성이 불가능 합니다.'); history.back(); </script>");
 		}
 		

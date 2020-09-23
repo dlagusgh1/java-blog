@@ -19,6 +19,14 @@
 			form.title.focus();
 			return false;
 		}
+
+		var cateItem = $("#selectCateItem option:selected").text().trim().replace(" ", "");
+
+		if ( cateItem == "게시판선택" ) {
+			alert('게시판을 선택해주세요.');
+			$("#selectCateItem option:selected").focus();
+			return false;
+		}
 		
 		var editor = $(form).find('.toast-editor').data('data-toast-editor');
 		
@@ -52,7 +60,7 @@
 				<th>카테고리</th>
 				<td>
 					<div class="form-control-box">
-						<select name="cateItemId">
+						<select id="selectCateItem" name="cateItemId">
 							<option>게시판 선택</option>	
 							<c:forEach items="${cateItems}" var="cateItem">
 								<c:choose>
