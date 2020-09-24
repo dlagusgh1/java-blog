@@ -48,17 +48,17 @@ public class MemberController extends Controller {
 		case "getLoginIdDup":
 			return actionGetLoginIdDup();
 		case "passwordForPrivate":
-			return actionPasswordForPrivate(); // 회원정보(비밀번호) - 비밀번호 변경 전 비밀번호 확인 폼
+			return actionPasswordForPrivate(); // 회원정보(비밀번호) - 비밀번호 확인 폼
 		case "doPasswordForPrivate":
-			return actionDoPasswordForPrivate(); // 회원정보(비밀번호) - 비밀번호 변경 전 확인 기능
+			return actionDoPasswordForPrivate(); // 회원정보(비밀번호) - 비밀번호 확인 기능
 		case "modifyPrivate":
 			return actionModifyPrivate();
 		case "doModifyPrivate":
 			return actionDoModifyPrivate();
 		case "passwordConfirm":
-			return actionpasswordConfirm(); // 회원정보 변경 진입 전 비밀번호 확인 폼
+			return actionpasswordConfirm(); // 마이페이지 - 비밀번호 확인 폼
 		case "doPasswordConfirm":
-			return actionDoPasswordConfirm(); // 마이페이지 진입 전 비밀번호 확인 기능
+			return actionDoPasswordConfirm(); // 마이페이지 - 비밀번호 확인 기능
 		case "findAccount":
 			return actionFindAccount();
 		case "doFindLoginId":
@@ -147,7 +147,7 @@ public class MemberController extends Controller {
 		if (loginedMember.getLoginPw().equals(loginPw)) {
 			
 			String authCode = memberService.genModifyPrivateAuthCode(loginedMemberId);
-			
+
 			return String.format("html:<script> location.replace('modifyPrivate?authCode=" + authCode + "'); </script>");
 		}
 
@@ -155,8 +155,7 @@ public class MemberController extends Controller {
 	}
 	
 	// 마이페이지 들어가기 전 비밀번호 확인 폼
-	private String actionpasswordConfirm() {		
-		
+	private String actionpasswordConfirm() {			
 		return "member/passwordConfirm.jsp";
 	}
 	
@@ -171,15 +170,12 @@ public class MemberController extends Controller {
 		if ( memberService.loginedFact(loginId, loginPw) != 1) {
 			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
 		} 		
-		
-//		req.setAttribute("redirectUri", redirectUri);
-//
-//		return "common/data.jsp";
+
 		return String.format("html:<script>location.replace('mypage'); </script>");
 	}
 		
 	
-	// 회원정보 - 비밀번호 변경 폼
+	// 회원정보 - 비밀번호 변경 전 비밀번호 확인 폼
 	private String actionModifyPrivate() {
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 
@@ -196,27 +192,27 @@ public class MemberController extends Controller {
 		
 	// 회원정보 - 비밀번호 변경 기능
 	private String actionDoModifyPrivate() {
-		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		int memberId = (int) req.getAttribute("loginedMemberId");
 		String authCode = req.getParameter("authCode");
 
-		if (memberService.isValidModifyPrivateAuthCode(loginedMemberId, authCode) == false) {
+		if (memberService.isValidModifyPrivateAuthCode(memberId, authCode) == false) {
 			req.setAttribute("jsAlertMsg", "비밀번호를 다시 체크해주세요.");
 			req.setAttribute("redirectUri", "../member/passwordForPrivate");
 			
 			return "common/data.jsp";
 		}
 		
-		String useTempPassword = attrService.getValue("member__" + loginedMemberId + "__extra__useTempPassword");
+		String useTempPassword = attrService.getValue("member__" + memberId + "__extra__useTempPassword");
 		
 		if ( useTempPassword.equals("1") ) {
-			attrService.remove("member__" + loginedMemberId + "__extra__useTempPassword");
+			attrService.remove("member__" + memberId + "__extra__useTempPassword");
 		}
-
+		
 		String loginPw = req.getParameter("loginPwReal");
 
-		memberService.modify(loginedMemberId, loginPw);
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
-		loginedMember.setLoginPw(loginPw); // 크게 의미는 없지만, 의미론적인 면에서 해야 하는
+		memberService.modify(memberId, loginPw);
+		
+		memberService.setLastPasswordChangeDate(memberId);
 
 		req.setAttribute("jsAlertMsg", "개인정보가 수정되었습니다.");
 		req.setAttribute("redirectUri", "../home/main");
@@ -321,6 +317,8 @@ public class MemberController extends Controller {
 		}
 
 		memberService.notifyTempLoginPw(member);
+		memberService.setLastPasswordChangeDate(member.getId());
+		
 		req.setAttribute("jsAlertMsg", "메일로 임시패스워드가 발송되었습니다.");
 		req.setAttribute("redirectUri", "../member/login");
 
@@ -452,37 +450,45 @@ public class MemberController extends Controller {
 	}
 
 	// 로그인 기능
-	private String actionDoLogin() {
-		
+	private String actionDoLogin() {	
 		String loginId = req.getParameter("loginId");
-		String loginPw = req.getParameter("loginPwReal");	
-			
-		int isExistMemberLoginIdPw = memberService.loginedFact(loginId, loginPw);
-		
+		String loginPw = req.getParameter("loginPwReal");				
+
+		int isExistMemberLoginIdPw = memberService.loginedFact(loginId, loginPw);		
 		// 먼저, 아이디, 비밀번호 일치하는게 있는지 검토
 		if ( isExistMemberLoginIdPw != 1 ) {
 			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
 		}
-
 		if ( session.getAttribute("loginedMemberId") != null ) {
 			return "html:<script> alert('다른 회원이 로그인 중 입니다.'); history.back(); </script>";
 		}
 			
 		Member member = memberService.doLogin(loginId, loginPw);
-		
 		session.setAttribute("loginedMemberId", member.getId());
 		
-		String useTempPassword =  attrService.getValue("member__" + member.getId() + "__extra__useTempPassword");
+		String useTempPassword =  attrService.getValue("member__" + member.getId() + "__extra__useTempPassword");	
 		
 		if ( useTempPassword.equals("1") ) {
 			req.setAttribute("jsAlertMsg", "현재 임시패스워드를 사용중 입니다. \\n비밀번호 변경 부탁드립니다.");
-			req.setAttribute("redirectUri", "../member/passwordConfirm");
-
+			req.setAttribute("redirectUri", "../member/passwordForPrivate");
 			return "common/data.jsp";
 		}	
 		
-		String lastTime = attrService.getValue("member__" + member.getId() + "__extra__lastPasswordChangeDate");
+		String current = Util.getNowDateStr();
+		
+		String last = memberService.getLastPasswordChangeDate(member.getId());
+		
+		long differenceDate = Util.getTime(current, last);
+		
+		if ( differenceDate > 30 ) {
+
+			req.setAttribute("jsAlertMsg", "장기간 동일한 비밀번호를 사용중 입니다.\\n비밀번호 변경 부탁드립니다.");	
+			req.setAttribute("redirectUri", "../member/passwordForPrivate");
 			
+			return "common/data.jsp";
+		}
+		
+		
 		req.setAttribute("jsAlertMsg", loginId + "님 로그인되었습니다. \\n환영합니다.");
 		req.setAttribute("redirectUri", "../home/main");
 		
@@ -580,6 +586,9 @@ public class MemberController extends Controller {
 		}
 		
 		memberService.join(memberId, loginId, name, nickName, loginPw, email);
+		
+		// 비밀번호 변경일자 등록(일정기간 지낡경우 알림 위함)
+		memberService.setLastPasswordChangeDate(memberId);
 		
 		req.setAttribute("jsAlertMsg", "가입을 환영 합니다.\\n보내드린 메일 확인 후 이용 부탁드립니다.");
 		req.setAttribute("redirectUri", "../member/login");

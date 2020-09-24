@@ -151,10 +151,29 @@ public class MemberService extends Service {
 		return authCodeOnDB.equals(authCode);
 	}
 
-	public void modify(int actorId, String loginPw) {
+	// 회원 정보 수정
+	public void modify(int actorId, String loginPw) {	
+		
 		memberDao.modify(actorId, loginPw);
 		
 		attrService.remove("member", actorId, "extra", "useTempPassword");
+		
+		setLastPasswordChangeDate(actorId);
+		
+	}
+	
+	// 비밀번호 변경 시 attr에 변경일자 등록(장기간 미 변경 시 알림 출력할 때 사용)
+	public void setLastPasswordChangeDate(int memberId) {
+		
+		String currentTime = Util.getNowDateStr();
+		
+		attrService.setValue("member__" + memberId + "__extra__lastPasswordChangeDate", currentTime);
+	}
+	
+	// attr에서 비밀번호 변경 일자 가져오기
+	public String getLastPasswordChangeDate(int memberId) {
+
+		return attrService.getValue("member__" + memberId + "__extra__lastPasswordChangeDate");
 	}
 
 	// 회원 정보 가져오기

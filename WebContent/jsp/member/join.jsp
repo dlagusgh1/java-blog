@@ -141,8 +141,8 @@
 		<!-- 입력된 비밀번호(loginPw)와 확인(loginPwConfirm) 일치하는지 체크 )-->
 		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
 		if (form.loginPwConfirm.value.length == 0) {
-			alert('비밀번호를 입력해주세요.');
-			form.loginPw.focus();
+			alert('비밀번호 확인을 입력해주세요.');
+			form.loginPwConfirm.focus();
 
 			return;
 		}

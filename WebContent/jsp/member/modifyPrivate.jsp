@@ -14,19 +14,59 @@
 </style>
 
 <script>
+	var ModifyPrivateFormSubmitted = false;
+	
 	function ModifyPrivateForm__submit(form) {
-		form.loginPw.value = form.loginPw.value.trim();
-
-		if (form.loginPw.value.length == 0) {
-			alert('로그인 비번을 입력해주세요.');
-			form.loginPw.focus();
+		if (ModifyPrivateFormSubmitted) {
+			alert('처리 중입니다.');
 			return;
 		}
 
+		form.loginPw.value = form.loginPw.value.trim();
+		if (form.loginPw.value.length == 0) {
+			alert('비밀번호를 입력해주세요.');
+			form.loginPw.focus();
+
+			return;
+		}
+
+		if (form.loginPw.value.length <= 3) {
+			alert('비밀번호를 4자 이상 입력해주세요.');
+			form.loginPw.focus();
+
+			return;
+		}
+
+		if (form.loginPw.value.indexOf(' ') != -1) {
+			alert('비밀번호를 영문소문자와 숫자의 조합으로 입력해주세요.')
+			form.loginPw.focus();
+
+			return;
+		}
+
+		<!-- 입력된 비밀번호(loginPw)와 확인(loginPwConfirm) 일치하는지 체크 )-->
+		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+		if (form.loginPwConfirm.value.length == 0) {
+			alert('비밀번호 확인을 입력해주세요.');
+			form.loginPwConfirm.focus();
+
+			return;
+		}
+		
+		if (form.loginPwConfirm.value != form.loginPw.value ) {
+			alert('로그인 비밀번호 확인이 일치하지 않습니다.');
+			form.loginPwConfirm.focus();
+
+			return;
+		}
+
+		<!-- 패스워드 함호화 -->
 		form.loginPwReal.value = sha256(form.loginPw.value);
 		form.loginPw.value = '';
+		form.loginPwConfirm.value = form.loginPw.value;
 
 		form.submit();
+		ModifyPrivateFormSubmitted = true;
 	}
 </script>
 
