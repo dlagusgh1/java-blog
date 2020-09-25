@@ -485,7 +485,7 @@ public class ArticleController extends Controller {
 
 		int articleId = Util.getInt(req, "articleId");
 		int id = Util.getInt(req, "id");
-		String body = req.getParameter("body");
+		String body = Util.getString(req, "body");
 		
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		

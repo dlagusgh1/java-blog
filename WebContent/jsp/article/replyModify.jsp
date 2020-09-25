@@ -5,48 +5,53 @@
 <%@ include file="/jsp/part/toastUiEditor.jspf"%>
 
 <script>
-	<!-- 댓글 수정 각 값(내용) 체크 -->
-	var writeFormSubmitted = false;
+	var submitModifyReplyFormDone = false;
 
-	function submitWriteForm(form) {
-		if (writeFormSubmitted) {
-			alert('처리 중입니다.');
+	function submitModifyReplyForm(form) {
+		if (submitModifyReplyFormDone) {
+			alert('처리중입니다.');
 			return;
 		}
 
 		var editor = $(form).find('.toast-editor').data('data-toast-editor');
-
+	
 		var body = editor.getMarkdown();
 		body = body.trim();
-		
-		if ( body.length == 0 ) {
-		  alert('내용을 입력해주세요.');
-		  body.focus();
-		  
-		  return;
+
+		if (body.length == 0) {
+			alert('내용을 입력해주세요.');
+			editor.focus();
+
+			return false;
 		}
-	  
+
 		form.body.value = body;
 
 		form.submit();
-		submitModifyFormDone = true;
+		submitModifyReplyFormDone = true;
 	}
 </script>
 
 <h1 class="title">댓글 수정</h1>
 
-<form method="POST" class="table-box table-box-vertical con form1" action="doModifyReply" onsubmit="submitWriteForm(this); return false;">
+<form method="POST" class="table-box table-box-vertical con form1" action="doModifyReply" onsubmit="submitModifyReplyForm(this); return false;">
 	<table>
 		<colgroup>
 			<col width="250">
 		</colgroup>
 		<tbody>
 			<tr>
+				<th>게시물 번호</th>
+				<td>
+					<div class="form-control-box">
+						<input name="articleId" type="hidden" value="${articleId}" /> ${articleId}
+					</div>
+				</td>
+			</tr>
+			<tr>
 				<th>댓글 번호</th>
 				<td>
 					<div class="form-control-box">
-						<input name="body" type="hidden" value="${cateItem.id}">
-						<input name="articleId" type="hidden" value="${articleId}" />
 						<input name="id" type="hidden" value="${id}" />	${id}
 					</div>
 				</td>
@@ -55,9 +60,9 @@
 				<th>내용</th>
 				<td>
 					<div class="form-control-box">
-						<input name="body" type="hidden">
-						<script type="text/x-template">${body}</script>
-						<div class="toast-editor"></div>
+						<input type="hidden" name="body">
+						<script type="text/x-template">${articleReply.bodyForXTemplate}</script>
+						<div class="toast-editor">${body}</div>
 					</div>
 				</td>
 			</tr>

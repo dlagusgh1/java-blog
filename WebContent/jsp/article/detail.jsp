@@ -165,33 +165,33 @@
 <!-- 댓글 출력 -->
 <div class="comment-view-box con flex">
 	<div class="comment-view">
-		<c:forEach items="${articleReplies}" var="articleReplies">
+		<c:forEach items="${articleReplies}" var="articleReply">
 			<div class="comment-top" style="font-weight: bold;">
-				작성자 : ${articleReplies.extra.writer}
+				작성자 : ${articleReply.extra.writer}
 			</div>
 			<div>
-				${articleReplies.body}
+				${articleReply.body}
 			</div>
 			<div class="comment-bottom" style="font-size: 15px; border-bottom: 2px solid #ddd;">
-				<c:if test="${articleReplies.regDate == articleReplies.updateDate}">
-					${articleReplies.regDate}
+				<c:if test="${articleReply.regDate == articleReply.updateDate}">
+					${articleReply.regDate}
 				</c:if> 
-				<c:if test="${articleReplies.regDate != articleReplies.updateDate}">
-					${articleReplies.updateDate}
+				<c:if test="${articleReply.regDate != articleReply.updateDate}">
+					${articleReply.updateDate}
 				</c:if>
 			</div>
 			<c:if test="${isLogined}">	
-				<c:if test="${articleReplies.memberId == loginedMemberId}">
+				<c:if test="${articleReply.memberId == loginedMemberId}">
 					<div class="comment-info con flex">
 						<form name="reply-modify" method="POST" action="modifyReply">
 							<input type="hidden" name="articleId" value="${article.id}" />
-							<input type="hidden" name="id" value="${articleReplies.id}" />
-							<input type="hidden" name="body" value="${articleReplies.body}" />
+							<input type="hidden" name="id" value="${articleReply.id}" />
+							<input type="hidden" name="body" value="${articleReply.body}" />
 							<button class="btn btn-primary" type="submit">수정</button>
 						</form>
 						<form name="reply-delete" method="POST" action="doDeleteReply">
 							<input type="hidden" name="articleId" value="${article.id}" />
-							<input type="hidden" name="id" value="${articleReplies.id}" />
+							<input type="hidden" name="id" value="${articleReply.id}" />
 							<button class="btn btn-danger" type="submit" onClick="alert('댓글 삭제가 완료되었습니다.')">삭제</button>
 						</form>
 					</div>
