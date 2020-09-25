@@ -90,46 +90,224 @@ public class MemberController extends Controller {
 		return "";
 	}
 	
-	// 마이페이지 소개글 수정 폼
-	private String actionMyIntroModify() {
-		return "member/myIntroModify.jsp";
+	// 회원가입 입력 폼
+	private String actionJoin() {
+
+		return "member/join.jsp";
 	}
-	
-	// 마이페이지 소개글 수정 기능
-	private String actionDoMyIntroModify() {
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
+
+	// 회원가입 기능
+	private String actionDoJoin() {
+
+		String loginId = req.getParameter("loginId");
+		String name = req.getParameter("name");
+		String nickName = req.getParameter("nickName");
+		String loginPw = req.getParameter("loginPwReal");
+		String email = req.getParameter("email");
 		
-		String memberIntro = req.getParameter("memberIntro");
+		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
+		boolean isJoinableNickname = memberService.isJoinableNickname(nickName);
+		boolean isJoinableEmail = memberService.isJoinableEmail(email);
 		
-		memberService.getModifyMemberIntro(loginedMember.getLoginId() ,memberIntro);
+		// 아이디 중복체크
+		if ( isJoinableLoginId == false ) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 아이디 입니다.'); history.back(); </script>", loginId);
+		}
 		
-		req.setAttribute("jsAlertMsg", "프로필 소개글이 변경되었습니다.");
-		req.setAttribute("redirectUri", "passwordConfirm");
+		// 닉네임 중복체크
+		if ( isJoinableNickname == false ) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 닉네임 입니다.'); history.back(); </script>", nickName);
+		}
+		
+		// 이메일 중복체크
+		if ( isJoinableEmail == false ) {
+			return String.format("html:<script> alert('%s(은)는 이미 사용중인 이메일 입니다.'); history.back(); </script>", email);
+		}
+		
+		int memberId;
+		memberId = memberService.getTotalMemberCount();
+		
+		if ( memberId == 0 ) {
+			memberId = 1;
+		}
+		
+		memberService.join(memberId, loginId, name, nickName, loginPw, email);
+		
+		// 비밀번호 변경일자 등록(일정기간 지낡경우 알림 위함)
+		memberService.setLastPasswordChangeDate(memberId);
+		
+		req.setAttribute("jsAlertMsg", "가입을 환영 합니다.\\n보내드린 메일 확인 후 이용 부탁드립니다.");
+		req.setAttribute("redirectUri", "../member/login");
 
 		return "common/data.jsp";
 	}
-
-	// 마이페이지 이미지 수정 폼
-	private String actionMyImgModify() {
-		return "member/myImgModify.jsp";
+	
+	// 회원가입 로그인 아이디 중복체크(AJAX이용)
+	private String actionGetLoginIdDup() {		
+		String loginId = req.getParameter("loginId");
+		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
+		if (isJoinableLoginId) {
+			if(loginId.length() <= 3) {
+				return "json:{\"msg\":\"아이디를 3자 이상 입력해주세요.\", \"resultCode\": \"F-1\", \"loginId\":\"" + loginId + "\"}";
+			} else {
+				return "json:{\"msg\":\"사용할 수 있는 아이디 입니다.\", \"resultCode\": \"S-1\", \"loginId\":\"" + loginId + "\"}";
+			}
+		} else {
+			return "json:{\"msg\":\"사용할 수 없는 아이디 입니다.\", \"resultCode\": \"F-1\", \"loginId\":\"" + loginId + "\"}";
+		}	
 	}
 	
-	// 마이페이지 이미지 수정 기능
-	private String actionDoMyImgModify() {
+	// 회원가입 닉네임 중복체크(AJAX이용)
+	private String actionGetNickNameDup() {		
+		String nickName = req.getParameter("nickName");
+		boolean isJoinableNickName = memberService.isJoinableNickname(nickName);
+		if (isJoinableNickName) {
+			if(nickName.length() <= 1) {
+				return "json:{\"msg\":\"닉네임을 2자 이상 입력해주세요.\", \"resultCode\": \"F-1\", \"nickName\":\"" + nickName + "\"}";
+			} else {
+				return "json:{\"msg\":\"사용할 수 있는 닉네임 입니다.\", \"resultCode\": \"S-1\", \"nickName\":\"" + nickName + "\"}";
+			}
+		} else {
+			return "json:{\"msg\":\"사용할 수 없는 닉네임 입니다.\", \"resultCode\": \"F-1\", \"nickName\":\"" + nickName + "\"}";
+		}
+	}
+	
+	// 회원가입 이메일 중복체크(AJAX이용)
+	private String actionGetEmailDup() {	
+		String email = req.getParameter("email");
+		boolean isJoinableEmail = memberService.isJoinableEmail(email);
+		if (isJoinableEmail) {
+			return "json:{\"msg\":\"사용할 수 있는 이메일 입니다.\", \"resultCode\": \"S-1\", \"email\":\"" + email + "\"}";
+		} else {
+			return "json:{\"msg\":\"사용할 수 없는 이메일 입니다.\", \"resultCode\": \"F-1\", \"email\":\"" + email + "\"}";
+		}	
+	}
+
+	// 로그인 입력 폼
+	private String actionLogin() {
+
+		return "member/login.jsp";
+	}
+
+	// 로그인 기능
+	private String actionDoLogin() {	
+		String loginId = req.getParameter("loginId");
+		String loginPw = req.getParameter("loginPwReal");				
+
+		int isExistMemberLoginIdPw = memberService.loginedFact(loginId, loginPw);		
+		// 먼저, 아이디, 비밀번호 일치하는게 있는지 검토
+		if ( isExistMemberLoginIdPw != 1 ) {
+			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
+		}
+		if ( session.getAttribute("loginedMemberId") != null ) {
+			return "html:<script> alert('다른 회원이 로그인 중 입니다.'); history.back(); </script>";
+		}
+			
+		Member member = memberService.doLogin(loginId, loginPw);
+		session.setAttribute("loginedMemberId", member.getId());
 		
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
+		String useTempPassword =  attrService.getValue("member__" + member.getId() + "__extra__useTempPassword");	
 		
-		String memberImg = req.getParameter("memberImg");
+		if ( useTempPassword.equals("1") ) {
+			req.setAttribute("jsAlertMsg", "현재 임시패스워드를 사용중 입니다. \\n비밀번호 변경 부탁드립니다.");
+			req.setAttribute("redirectUri", "../member/passwordForPrivate");
+			return "common/data.jsp";
+		}	
 		
-		memberService.getModifyMemberImg(loginedMember.getLoginId() ,memberImg);
+		String current = Util.getNowDateStr();
 		
-		req.setAttribute("jsAlertMsg", "프로필 사진이 변경되었습니다.");
-		req.setAttribute("redirectUri", "passwordConfirm");
+		String last = memberService.getLastPasswordChangeDate(member.getId());
+		
+		long differenceDate = Util.getTime(current, last);
+		
+		if ( differenceDate > 30 ) {
+
+			req.setAttribute("jsAlertMsg", "장기간 동일한 비밀번호를 사용중 입니다.\\n비밀번호 변경 부탁드립니다.");	
+			req.setAttribute("redirectUri", "../member/passwordForPrivate");
+			
+			return "common/data.jsp";
+		}
+		
+		
+		req.setAttribute("jsAlertMsg", loginId + "님 로그인되었습니다. \\n환영합니다.");
+		req.setAttribute("redirectUri", "../home/main");
+		
+		return "common/data.jsp";
+
+	}
+	
+	// 로그아웃
+	private String actionDoLogout() {
+			
+		session.removeAttribute("loginedMemberId");
+
+		req.setAttribute("jsAlertMsg", "로그아웃 되었습니다.");
+		req.setAttribute("redirectUri", "../home/main");
+		
+		return "common/data.jsp";
+	}
+	
+	// 회원 아이디 찾기 폼
+	private String actionFindAccount() {
+		return "member/findAccount.jsp";
+	}
+
+	// 회원 아이디 찾기 기능
+	private String actionDoFindLoginId() {
+		
+		String name = req.getParameter("name");
+		String email = req.getParameter("email");
+		
+		Member member = memberService.getMemberByNameAndEmail(name, email);
+		
+		if ( member == null ) {
+			req.setAttribute("jsAlertMsg", "일치하는 회원이 없습니다.");
+			req.setAttribute("jsHistoryBack", true);
+			return "common/data.jsp";
+		}
+		
+		req.setAttribute("jsAlertMsg", "일치하는 회원을 찾았습니다.\\n아이디 : " + member.getLoginId());
+		req.setAttribute("jsHistoryBack", true);
+		
+		return "common/data.jsp";
+	}
+	
+	
+	// 회원 비밀번호 찾기 폼
+	private String actionFindPw() {
+		
+		// 암호화 전 비밀번호
+		String tempPw = Util.numberGen();
+	
+		req.setAttribute("tempPw", tempPw);
+		
+		return "member/findAccount.jsp";
+	}
+	
+	// 회원 비밀번호 찾기 기능
+	private String actionDoFindLoginPw() {
+		
+		String loginId = Util.getString(req, "loginId");
+		String name = Util.getString(req, "name");
+		String email = Util.getString(req, "email");
+
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member == null || member.getEmail().equals(email) == false && member.getEmail().equals(name) == false) {
+			req.setAttribute("jsAlertMsg", "일치하는 회원이 없습니다.");
+			req.setAttribute("jsHistoryBack", true);
+			return "common/data.jsp";
+		}
+
+		memberService.notifyTempLoginPw(member);
+		memberService.setLastPasswordChangeDate(member.getId());
+		
+		req.setAttribute("jsAlertMsg", "메일로 임시패스워드가 발송되었습니다.");
+		req.setAttribute("redirectUri", "../member/login");
 
 		return "common/data.jsp";
 	}
-
-
+	
 	// 회원정보 - 비밀번호 변경 전 확인 폼
 	private String actionPasswordForPrivate() {
 		return "member/passwordForPrivate.jsp";
@@ -153,7 +331,7 @@ public class MemberController extends Controller {
 
 		return String.format("html:<script> alert('비밀번호를 다시 입력해주세요.'); history.back(); </script>");
 	}
-	
+
 	// 마이페이지 들어가기 전 비밀번호 확인 폼
 	private String actionpasswordConfirm() {			
 		return "member/passwordConfirm.jsp";
@@ -166,7 +344,7 @@ public class MemberController extends Controller {
 		String loginPw = req.getParameter("loginPwReal");	
 		
 		String redirectUri = req.getParameter("redirectUri");
-		
+		System.out.println("확인 " + redirectUri);
 		if ( memberService.loginedFact(loginId, loginPw) != 1) {
 			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
 		} 		
@@ -220,65 +398,11 @@ public class MemberController extends Controller {
 		return "common/data.jsp";
 	}
 	
-	// 회원가입 닉네임 중복체크(AJAX이용)
-	private String actionGetNickNameDup() {
-		
-		String nickName = req.getParameter("nickName");
-
-		boolean isJoinableNickName = memberService.isJoinableNickname(nickName);
-
-		if (isJoinableNickName) {
-			if(nickName.length() <= 1) {
-				return "json:{\"msg\":\"닉네임을 2자 이상 입력해주세요.\", \"resultCode\": \"F-1\", \"nickName\":\"" + nickName + "\"}";
-			} else {
-				return "json:{\"msg\":\"사용할 수 있는 닉네임 입니다.\", \"resultCode\": \"S-1\", \"nickName\":\"" + nickName + "\"}";
-			}
-		} else {
-			return "json:{\"msg\":\"사용할 수 없는 닉네임 입니다.\", \"resultCode\": \"F-1\", \"nickName\":\"" + nickName + "\"}";
-		}
-	}
-	
-	// 회원가입 이메일 중복체크(AJAX이용)
-	private String actionGetEmailDup() {
-		
-		String email = req.getParameter("email");
-
-		boolean isJoinableEmail = memberService.isJoinableEmail(email);
-
-		if (isJoinableEmail) {
-			return "json:{\"msg\":\"사용할 수 있는 이메일 입니다.\", \"resultCode\": \"S-1\", \"email\":\"" + email + "\"}";
-		} else {
-			return "json:{\"msg\":\"사용할 수 없는 이메일 입니다.\", \"resultCode\": \"F-1\", \"email\":\"" + email + "\"}";
-		}	
-	}
-	
-	// 회원가입 로그인 아이디 중복체크(AJAX이용)
-	private String actionGetLoginIdDup() {
-		
-		String loginId = req.getParameter("loginId");
-
-		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
-
-		if (isJoinableLoginId) {
-			if(loginId.length() <= 3) {
-				return "json:{\"msg\":\"아이디를 3자 이상 입력해주세요.\", \"resultCode\": \"F-1\", \"loginId\":\"" + loginId + "\"}";
-			} else {
-				return "json:{\"msg\":\"사용할 수 있는 아이디 입니다.\", \"resultCode\": \"S-1\", \"loginId\":\"" + loginId + "\"}";
-			}
-		} else {
-			return "json:{\"msg\":\"사용할 수 없는 아이디 입니다.\", \"resultCode\": \"F-1\", \"loginId\":\"" + loginId + "\"}";
-		}	
-	}
-
 	// 마이페이지 기능
 	private String actionMypage() {
-		
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
-		
-		int memberId = (int) session.getAttribute("loginedMemberId");
-		
-		int articleCount = memberService.getArticleCount(memberId);
-		
+			
+		int memberId = (int) session.getAttribute("loginedMemberId");	
+		int articleCount = memberService.getArticleCount(memberId);		
 		int replyCount = memberService.getReplyCount(memberId);
 		
 		String emailAuthed = attrService.getValue("member__" + memberId + "__extra__emailAuthed");
@@ -290,85 +414,42 @@ public class MemberController extends Controller {
 		return "member/mypage.jsp";
 	}
 	
-	// 회원 비밀번호 찾기 폼
-	private String actionFindPw() {
-		
-		// 암호화 전 비밀번호
-		String tempPw = Util.numberGen();
-	
-		req.setAttribute("tempPw", tempPw);
-		
-		return "member/findAccount.jsp";
+	// 마이페이지 소개글 수정 폼
+	private String actionMyIntroModify() {
+		return "member/myIntroModify.jsp";
 	}
 	
-	// 회원 비밀번호 찾기 기능
-	private String actionDoFindLoginPw() {
+	// 마이페이지 소개글 수정 기능
+	private String actionDoMyIntroModify() {
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
 		
-		String loginId = Util.getString(req, "loginId");
-		String name = Util.getString(req, "name");
-		String email = Util.getString(req, "email");
-
-		Member member = memberService.getMemberByLoginId(loginId);
-
-		if (member == null || member.getEmail().equals(email) == false && member.getEmail().equals(name) == false) {
-			req.setAttribute("jsAlertMsg", "일치하는 회원이 없습니다.");
-			req.setAttribute("jsHistoryBack", true);
-			return "common/data.jsp";
-		}
-
-		memberService.notifyTempLoginPw(member);
-		memberService.setLastPasswordChangeDate(member.getId());
+		String memberIntro = req.getParameter("memberIntro");
 		
-		req.setAttribute("jsAlertMsg", "메일로 임시패스워드가 발송되었습니다.");
-		req.setAttribute("redirectUri", "../member/login");
+		memberService.getModifyMemberIntro(loginedMember.getLoginId() ,memberIntro);
+		
+		req.setAttribute("jsAlertMsg", "프로필 소개글이 변경되었습니다.");
+		req.setAttribute("redirectUri", "passwordConfirm");
 
 		return "common/data.jsp";
 	}
 
-	// 회원 아이디 찾기 폼
-	private String actionFindAccount() {
-
-		return "member/findAccount.jsp";
-	}
-
-	// 회원 아이디 찾기 기능
-	private String actionDoFindLoginId() {
-		
-		String name = req.getParameter("name");
-		String email = req.getParameter("email");
-		
-		Member member = memberService.getMemberByNameAndEmail(name, email);
-		
-		if ( member == null ) {
-			req.setAttribute("jsAlertMsg", "일치하는 회원이 없습니다.");
-			req.setAttribute("jsHistoryBack", true);
-			return "common/data.jsp";
-		}
-		
-		req.setAttribute("jsAlertMsg", "일치하는 회원을 찾았습니다.\\n아이디 : " + member.getLoginId());
-		req.setAttribute("jsHistoryBack", true);
-		
-		return "common/data.jsp";
+	// 마이페이지 이미지 수정 폼
+	private String actionMyImgModify() {
+		return "member/myImgModify.jsp";
 	}
 	
-	// 회원 탈퇴 ( 작업 중 - 아이디를 지우기 보다는 delStatus 1로 설정 탈퇴된 회원으로 표시 )
-	private String actionDoDelete() {
+	// 마이페이지 이미지 수정 기능
+	private String actionDoMyImgModify() {
 		
-		String loginId = req.getParameter("loginId");
-		String loginPw = req.getParameter("loginPwReal");
-		String memberDeleteConfirm = req.getParameter("memberDeleteConfirm");
-				
-		if ( memberDeleteConfirm.equals("탈퇴합니다") == false ) {
-			return String.format("html:<script> alert('입력하신 문구가 일치하지 않습니다.ㅠㅠ'); history.back(); </script>");
-		} 		
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
 		
-		memberService.doMemberDelete(loginId, loginPw);
+		String memberImg = req.getParameter("memberImg");
 		
-		session.removeAttribute("loginedMemberId");
+		memberService.getModifyMemberImg(loginedMember.getLoginId() ,memberImg);
+		
+		req.setAttribute("jsAlertMsg", "프로필 사진이 변경되었습니다.");
+		req.setAttribute("redirectUri", "passwordConfirm");
 
-		req.setAttribute("jsAlertMsg", "탈퇴가 정상적으로 완료되었습니다.");
-		req.setAttribute("redirectUri", "../home/main");
-		
 		return "common/data.jsp";
 	}
 
@@ -431,70 +512,6 @@ public class MemberController extends Controller {
 		
 		return "member/myList.jsp";
 	}
-
-	// 로그아웃
-	private String actionDoLogout() {
-			
-		session.removeAttribute("loginedMemberId");
-
-		req.setAttribute("jsAlertMsg", "로그아웃 되었습니다.");
-		req.setAttribute("redirectUri", "../home/main");
-		
-		return "common/data.jsp";
-	}
-
-	// 로그인 입력 폼
-	private String actionLogin() {
-
-		return "member/login.jsp";
-	}
-
-	// 로그인 기능
-	private String actionDoLogin() {	
-		String loginId = req.getParameter("loginId");
-		String loginPw = req.getParameter("loginPwReal");				
-
-		int isExistMemberLoginIdPw = memberService.loginedFact(loginId, loginPw);		
-		// 먼저, 아이디, 비밀번호 일치하는게 있는지 검토
-		if ( isExistMemberLoginIdPw != 1 ) {
-			return String.format("html:<script> alert('ID/PW가 일치하지 않습니다.'); history.back(); </script>");
-		}
-		if ( session.getAttribute("loginedMemberId") != null ) {
-			return "html:<script> alert('다른 회원이 로그인 중 입니다.'); history.back(); </script>";
-		}
-			
-		Member member = memberService.doLogin(loginId, loginPw);
-		session.setAttribute("loginedMemberId", member.getId());
-		
-		String useTempPassword =  attrService.getValue("member__" + member.getId() + "__extra__useTempPassword");	
-		
-		if ( useTempPassword.equals("1") ) {
-			req.setAttribute("jsAlertMsg", "현재 임시패스워드를 사용중 입니다. \\n비밀번호 변경 부탁드립니다.");
-			req.setAttribute("redirectUri", "../member/passwordForPrivate");
-			return "common/data.jsp";
-		}	
-		
-		String current = Util.getNowDateStr();
-		
-		String last = memberService.getLastPasswordChangeDate(member.getId());
-		
-		long differenceDate = Util.getTime(current, last);
-		
-		if ( differenceDate > 30 ) {
-
-			req.setAttribute("jsAlertMsg", "장기간 동일한 비밀번호를 사용중 입니다.\\n비밀번호 변경 부탁드립니다.");	
-			req.setAttribute("redirectUri", "../member/passwordForPrivate");
-			
-			return "common/data.jsp";
-		}
-		
-		
-		req.setAttribute("jsAlertMsg", loginId + "님 로그인되었습니다. \\n환영합니다.");
-		req.setAttribute("redirectUri", "../home/main");
-		
-		return "common/data.jsp";
-
-	}
 	
 	// 이메일 인증 재 발송 기능
 	private String reAuthEmail() {
@@ -543,56 +560,25 @@ public class MemberController extends Controller {
 
 		return "common/data.jsp";
 	}
-
-	// 회원가입 입력 폼
-	private String actionJoin() {
-
-		return "member/join.jsp";
-	}
-
-	// 회원가입 기능
-	private String actionDoJoin() {
-
+	
+	// 회원 탈퇴 ( 작업 중 - 아이디를 지우기 보다는 delStatus 1로 설정 탈퇴된 회원으로 표시 )
+	private String actionDoDelete() {
+		
 		String loginId = req.getParameter("loginId");
-		String name = req.getParameter("name");
-		String nickName = req.getParameter("nickName");
 		String loginPw = req.getParameter("loginPwReal");
-		String email = req.getParameter("email");
+		String memberDeleteConfirm = req.getParameter("memberDeleteConfirm");
+				
+		if ( memberDeleteConfirm.equals("탈퇴합니다") == false ) {
+			return String.format("html:<script> alert('입력하신 문구가 일치하지 않습니다.ㅠㅠ'); history.back(); </script>");
+		} 		
 		
-		boolean isJoinableLoginId = memberService.isJoinableLoginId(loginId);
-		boolean isJoinableNickname = memberService.isJoinableNickname(nickName);
-		boolean isJoinableEmail = memberService.isJoinableEmail(email);
+		memberService.doMemberDelete(loginId, loginPw);
 		
-		// 아이디 중복체크
-		if ( isJoinableLoginId == false ) {
-			return String.format("html:<script> alert('%s(은)는 이미 사용중인 아이디 입니다.'); history.back(); </script>", loginId);
-		}
-		
-		// 닉네임 중복체크
-		if ( isJoinableNickname == false ) {
-			return String.format("html:<script> alert('%s(은)는 이미 사용중인 닉네임 입니다.'); history.back(); </script>", nickName);
-		}
-		
-		// 이메일 중복체크
-		if ( isJoinableEmail == false ) {
-			return String.format("html:<script> alert('%s(은)는 이미 사용중인 이메일 입니다.'); history.back(); </script>", email);
-		}
-		
-		int memberId;
-		memberId = memberService.getTotalMemberCount();
-		
-		if ( memberId == 0 ) {
-			memberId = 1;
-		}
-		
-		memberService.join(memberId, loginId, name, nickName, loginPw, email);
-		
-		// 비밀번호 변경일자 등록(일정기간 지낡경우 알림 위함)
-		memberService.setLastPasswordChangeDate(memberId);
-		
-		req.setAttribute("jsAlertMsg", "가입을 환영 합니다.\\n보내드린 메일 확인 후 이용 부탁드립니다.");
-		req.setAttribute("redirectUri", "../member/login");
+		session.removeAttribute("loginedMemberId");
 
+		req.setAttribute("jsAlertMsg", "탈퇴가 정상적으로 완료되었습니다.");
+		req.setAttribute("redirectUri", "../home/main");
+		
 		return "common/data.jsp";
 	}
 

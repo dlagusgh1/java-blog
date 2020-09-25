@@ -41,7 +41,7 @@
 <h1 class="title">비밀번호 확인</h1>
 
 <form method="POST" class="table-box table-box-vertical con form1" action="doPasswordConfirm" onsubmit="submitLoginForm(this); return false;">
-<input type="hidden" name="redirectUri" value="/blog/s/${param.currentUri}">
+<input type="hidden" name="redirectUri" value="/blog/s/${Util.currentUri}">
 	<table>
 		<colgroup>
 			<col width="250">

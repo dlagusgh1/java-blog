@@ -270,6 +270,7 @@ public class Util {
 		}
 	}
 	
+	// 비밀번호 변경 기간관련 안내
 	public static long getTime(String currentDateTime, String lastDateTime) {
 		
 		long calDateDays = 0;
@@ -289,14 +290,13 @@ public class Util {
         	calDateDays = calDate / ( 24*60*60*1000); 
 	 
 	        calDateDays = Math.abs(calDateDays);
-        
-        	System.out.println("비밀번호 변경 후 소요된 기간 : "+calDateDays);
+
         }
         catch(ParseException e)
         {
             // 예외 처리
         }
-        
+     
         return calDateDays;
 	}
 

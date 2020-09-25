@@ -34,8 +34,28 @@ public class ArticleService extends Service {
 		
 		return articles;
 	}
-
-	// 필터링
+	
+	// 게시물 수 확인(페이징 및 검색에 활용)
+	public int getForPrintListArticlesCount(int cateItemId, String searchKeywordType, String searchKeyword) {
+		return articleDao.getForPrintListArticlesCount(cateItemId, searchKeywordType, searchKeyword);
+	}
+	
+	// 댓글 가져오기(게시물 리스트에 댓글 수 출력 위해)
+	public List<ArticleReply> getForPrintListReplies() {
+		return articleDao.getForPrintListReplies();
+	}
+	
+	// 카테고리 리스트 가져오기
+	public List<CateItem> getForPrintCateItems() {
+		return articleDao.getForPrintCateItems();
+	}
+	
+	// cateItemId으로 각 카테고리 가져오기
+	public CateItem getCateItem(int cateItemId) {
+		return articleDao.getCateItem(cateItemId);
+	}
+	
+	// 게시물 필터링(삭제/수정 가능한지 여부 확인 등)
 	private void updateArticleExtraDataForForPrint(Article article, int actorId) {
 		
 		// 게시물 삭제관련
@@ -47,6 +67,64 @@ public class ArticleService extends Service {
 		boolean modifyAvailable = Util.isSuccess(getCheckRsModifyAvailable(article, actorId));
 		article.getExtra().put("modifyAvailable", modifyAvailable);
 	}
+	
+	// 게시물 작성
+	public int doWrite(int memberId, int cateItemId, String title, String body) {
+		return articleDao.doWrite(memberId, cateItemId, title, body);
+	}
+	
+	// 게시물 수정
+	public void doModify(int cateItemId, int id, String title, String body) {
+		articleDao.doModify(cateItemId, id, title, body);
+		
+	}
+	
+	// 게시물 삭제
+	public void doDelete(int id) {
+		articleDao.doDelete(id);;
+	}
+	
+	// 조회수 카운터
+	public void increaseHit(int id) {
+		articleDao.increaseHit(id);
+	}
+	
+	// 게시물 수정 가능여부 체크
+	private Map<String, Object> getCheckRsModifyAvailable(Article article, int actorId) {
+		return getCheckRsDeleteAvailable(article, actorId);
+	}
+	
+	// 게시물 수정 가능여부 체크
+	public Map<String, Object> getCheckRsModifyAvailable(int id, int actorId) {
+		return getCheckRsDeleteAvailable(id, actorId);
+	}
+	
+	// 게시물 삭제 가능여부 체크
+	public Map<String, Object> getCheckRsDeleteAvailable(int id, int actorId) {
+		Article article = articleDao.getForPrintArticle(id);
+		
+		return getCheckRsDeleteAvailable(article, actorId);
+	}
+	
+	private Map<String, Object> getCheckRsDeleteAvailable(Article article, int actorId) {
+		Map<String, Object> rs = new HashMap<>();		
+		if ( article == null ) {
+			// F-1 : 실패 1
+			rs.put("resultCode", "F-1");
+			rs.put("msg", "존재하지 않는 게시물 입니다.");		
+			return rs;
+		}		
+		if ( article.getMemberId() != actorId ) {
+			// F-2 : 실패 2
+			rs.put("resultCode", "F-2");
+			rs.put("msg", "권한이 없습니다.");			
+			return rs;
+		}		
+		rs.put("resultCode", "S-1");
+		rs.put("msg", "작업이 가능합니다.");		
+		return rs;
+	}
+	
 
 	// 특정 게시물 가져오기(상세보기)
 	public Article getForPrintArticle(int id, int actorId) {
@@ -56,43 +134,7 @@ public class ArticleService extends Service {
 		
 		return article;
 	}
-
-	// 게시물 수 확인
-	public int getForPrintListArticlesCount(int cateItemId, String searchKeywordType, String searchKeyword) {
-		return articleDao.getForPrintListArticlesCount(cateItemId, searchKeywordType, searchKeyword);
-	}
-
-	// 카테고리 리스트 가져오기
-	public List<CateItem> getForPrintCateItems() {
-		return articleDao.getForPrintCateItems();
-	}
-
-	// id에 해당하는 카테고리 가져오기
-	public CateItem getCateItem(int cateItemId) {
-		return articleDao.getCateItem(cateItemId);
-	}
-
-	// 게시물 작성
-	public int doWrite(int memberId, int cateItemId, String title, String body) {
-		return articleDao.doWrite(memberId, cateItemId, title, body);
-	}
-
-	// 게시물 삭제
-	public void doDelete(int id) {
-		articleDao.doDelete(id);;
-	}
 	
-	// 게시물 수정
-	public void doModify(int cateItemId, int id, String title, String body) {
-		articleDao.doModify(cateItemId, id, title, body);
-		
-	}
-
-	// 조회수
-	public void increaseHit(int id) {
-		articleDao.increaseHit(id);
-	}
-
 	// 댓글 작성
 	public int writeArticleReply(int articleId, int memberId, String body) {
 		return articleDao.writeArticleReply(articleId, memberId, body);		
@@ -108,89 +150,8 @@ public class ArticleService extends Service {
 		articleDao.doReplyModify(id, body, articleId);
 		
 	}
-
-	// member 리스트 가져오기
-	public List<Member> getForPrintListMembers() {
-		return articleDao.getForPrintListMembers();
-	}
-
-	// 게시물 작성자 닉네임 가져오기
-	public List<Article> getmemberName() {
-		return articleDao.getmemberName();
-	}
 	
-	// 댓글 가져오기, 댓글 페이징
-	public List<ArticleReply> getForPrintArticleReplies(int id, int page, int itemsInAPage, int actorId) {
-		List<ArticleReply> articleReplies = articleDao.getForPrintArticleReplies(id, page, itemsInAPage, actorId);
-
-		for (ArticleReply articleReply : articleReplies) {
-			updateArticleReplyExtraDataForPrint(articleReply, actorId);
-		}
-
-		return articleReplies;
-	}
-	
-	// 전체 댓글 수 알아오기
-	public int getForPrintListRepliesCount(int id) {
-		return articleDao.getForPrintListRepliesCount(id);
-	}
-
-	// 댓글 가져오기(전체/게시물 리스트에 댓글 수 출력 위함)
-	public List<ArticleReply> getForPrintListReplies() {
-		return articleDao.getForPrintListReplies();
-	}
-	
-	private Map<String, Object> getCheckRsModifyAvailable(Article article, int actorId) {
-		return getCheckRsDeleteAvailable(article, actorId);
-	}
-	
-	public Map<String, Object> getCheckRsModifyAvailable(int id, int actorId) {
-		return getCheckRsDeleteAvailable(id, actorId);
-	}
-	
-	private Map<String, Object> getCheckRsDeleteAvailable(Article article, int actorId) {
-		Map<String, Object> rs = new HashMap<>();
-		
-		if ( article == null ) {
-			// F-1 : 실패 1
-			rs.put("resultCode", "F-1");
-			rs.put("msg", "존재하지 않는 게시물 입니다.");
-			
-			return rs;
-		}
-		
-		if ( article.getMemberId() != actorId ) {
-			// F-2 : 실패 2
-			rs.put("resultCode", "F-2");
-			rs.put("msg", "권한이 없습니다.");
-			
-			return rs;
-		}
-		
-		rs.put("resultCode", "S-1");
-		rs.put("msg", "작업이 가능합니다.");
-		
-		return rs;
-	}
-
-	// 게시물 삭제 과련 체크하여 전달해주는 기능
-	public Map<String, Object> getCheckRsDeleteAvailable(int id, int actorId) {
-		Article article = articleDao.getForPrintArticle(id);
-		
-		return getCheckRsDeleteAvailable(article, actorId);
-	}
-
-	// 채팅 작성
-	public void doChat(String memberId, String body) {
-		articleDao.doChat(memberId, body);
-	}
-
-	// 채팅 가져오기(작성자 포함)
-	public List<ChatMessage> getChatNickName() {
-		return articleDao.getChatNickName();
-	}
-	
-	// 댓글
+	// 댓글 수정, 삭제여부 확인
 	private void updateArticleReplyExtraDataForPrint(ArticleReply articleReply, int actorId) {
 		boolean deleteAvailable = Util.isSuccess(getReplyCheckRsDeleteAvailable(articleReply, actorId));
 		articleReply.getExtra().put("deleteAvailable", deleteAvailable);
@@ -244,7 +205,43 @@ public class ArticleService extends Service {
 
 		return rs;
 	}
+	
+	// 댓글 가져오기, 댓글 페이징
+	public List<ArticleReply> getForPrintArticleReplies(int id, int page, int itemsInAPage, int actorId) {
+		List<ArticleReply> articleReplies = articleDao.getForPrintArticleReplies(id, page, itemsInAPage, actorId);
 
+		for (ArticleReply articleReply : articleReplies) {
+			updateArticleReplyExtraDataForPrint(articleReply, actorId);
+		}
+
+		return articleReplies;
+	}
+	
+	// 전체 댓글 수 알아오기
+	public int getForPrintListRepliesCount(int id) {
+		return articleDao.getForPrintListRepliesCount(id);
+	}
+
+	// member 리스트 가져오기
+	public List<Member> getForPrintListMembers() {
+		return articleDao.getForPrintListMembers();
+	}
+
+	// 게시물 작성자 닉네임 가져오기
+	public List<Article> getmemberName() {
+		return articleDao.getmemberName();
+	}
+	
+	// 채팅 작성
+	public void doChat(String memberId, String body) {
+		articleDao.doChat(memberId, body);
+	}
+
+	// 채팅 가져오기(작성자 포함)
+	public List<ChatMessage> getChatNickName() {
+		return articleDao.getChatNickName();
+	}
+	
 	// 쪽지 작성
 	public void writeMessage(String memberId, String nickName, String title, String body) {
 		articleDao.writeMessage(memberId, nickName, title, body);
