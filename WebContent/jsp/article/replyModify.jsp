@@ -45,20 +45,9 @@
 				<th>댓글 번호</th>
 				<td>
 					<div class="form-control-box">
+						<input name="body" type="hidden" value="${cateItem.id}">
 						<input name="articleId" type="hidden" value="${articleId}" />
 						<input name="id" type="hidden" value="${id}" />	${id}
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>카테고리</th>
-				<td>
-					<div class="form-control-box">
-						<select name="cateItemId">
-							<c:forEach items="${cateItems}" var="cateItem">
-								<option ${article.cateItemId == cateItem.id ? 'selected' : ''} value="${cateItem.id}">${cateItem.name}</option>
-							</c:forEach>
-						</select>
 					</div>
 				</td>
 			</tr>
