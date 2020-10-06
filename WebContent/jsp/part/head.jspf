@@ -17,6 +17,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MyBlog</title>
 
+<!-- 구글 사이트 등록관련 확인 -->
+<meta name="google-site-verification" content="CJfdOaXeLHD_fVhgq7o8wQiypj8XjoSl6kkElY51Oi4" />
+<!-- 네이버 사이트 등록관련 확인 -->
+<meta name="naver-site-verification" content="b50f354ee834e90b79672482ae8e67ff8965b54e" />
+
 <!-- 구글 폰트 불러오기 -->
 <!-- rotobo(400/900), notosanskr(400/900) -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
@@ -86,6 +91,12 @@
 
   gtag('config', 'UA-173020850-1');
 </script>
+
+<!-- 구글 애드센스 -->
+<script data-ad-client="ca-pub-1841206469944806" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+</head>
+<body>
 
 <!-- PC -->
 <div class="header-top-box con flex-jc-end visible-on-md-up">
@@ -215,8 +226,3 @@
 		</ul>
 	</nav>
 </div>
-
-
-</head>
-
-<body>
